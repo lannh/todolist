@@ -68,6 +68,8 @@ app.delete('/users/:id', async (req, res) => {
 });
 
 
-app.listen(port, () => {
-    console.log('Example listening at http://localhost:${port}');
-});
+app.listen(process.env.PORT || port, () => {
+    if (process.env.PORT) {
+      console.log(`REST API is listening on port: ${process.env.PORT}.`);
+    } else console.log(`REST API is listening on port: ${port}.`);
+  });

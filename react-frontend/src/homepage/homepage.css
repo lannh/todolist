@@ -27,8 +27,7 @@ body{
 .user_avatar{
     border-radius: 55%;
     height: 75px;
-    margin-left: 915px;
-    margin-top: 2px;
+
     width: 75px;
     -webkit-filter: drop-shadow(3px 3px 3px #222222);
     filter: drop-shadow(3px 3px 3px #222222); 
@@ -41,14 +40,22 @@ body{
     font-size: var(--font-size-l);
     font-weight: 700;
     letter-spacing: 0;
-    margin-left: 32px;
     min-height: 37px;
     min-width: 133px;
 }
 
+.userNMenu {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    align-items: center;
+    margin-left: auto;
+}
+
 .dropdown-menu {
+    
     background-color: transparent ;
-  }
+    justify-content: center;
+}
 
 img {
     height: 100%;

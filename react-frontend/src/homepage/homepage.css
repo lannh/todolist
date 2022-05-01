@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css?family=Asap:400,700");
+
+body{
+    background-color: #25435F;
+}
+
+.header_home{
+    align-items: center;
+    background-color: #243b53;
+    display: flex;
+    height: 193px;
+    padding: 11px 57px;
+    width: 100%;
+}
+
+.header_title{
+    color: #bcccdc;
+    font-family: var(--font-family-asap);
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-left: 8px;
+    min-height: 73px;
+    min-width: 253px;
+}
+
+.user_avatar{
+    border-radius: 55%;
+    height: 75px;
+    margin-left: 915px;
+    margin-top: 2px;
+    width: 75px;
+    -webkit-filter: drop-shadow(3px 3px 3px #222222);
+    filter: drop-shadow(3px 3px 3px #222222); 
+}
+
+
+.user_name{
+    color: #f0f4f8;
+    font-family: var(--font-family-asap);
+    font-size: var(--font-size-l);
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-left: 32px;
+    min-height: 37px;
+    min-width: 133px;
+}
+
+.dropdown-menu {
+    background-color: transparent ;
+  }
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+.btn-secondary {
+    background: url(menuButton.png);
+    background-size: 50px 50px;
+    height: 50px;
+    width: 50px;
+}

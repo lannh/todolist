@@ -80,14 +80,14 @@ img {
     width: 100%;
     object-fit: contain;
 }
-.btn-secondary {
+.dropdown .btn-secondary {
     background: url(menuButton.png);
     background-size: 50px 50px;
     height: 50px;
     width: 50px;
 }
 
-.row_primary_view{
+.row#primary_view{
     display: flex;
     height: 80vh;
 }
@@ -99,16 +99,17 @@ img {
     justify-content: center;
     align-items: center;
     background-color: #173C5F;
-    padding-bottom: 10%;
-    padding-top: 10%;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
-.primary_view
+.container#primary_view
 {
-    width: 80%;
-    height: 75vh;
+    width: 83%;
+    height: 73vh;
     color: #f0f4f8;
     background-color: #232B2B;
+    border-radius: 4%;
 
     display: grid;
 
@@ -119,9 +120,28 @@ img {
     align-items: center;
 }
 
-.calendar_title{
+.row#calendar_title{
     position: relative;
     text-align: center;
     align-self:flex-start;
+    justify-self: center;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
 
+
+.btn-secondary#add_task{
+    position: absolute;
+    position:absolute;bottom:30px;left:30px;
+    background-color: #C4C4C4;
+    background-size: 50px 50px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    color: #2D803F;
+    -webkit-filter: drop-shadow(3px 3px 3px #222222);
+    filter: drop-shadow(3px 3px 3px #222222); 
+    font-size: 5vh;
+    text-align:center;
+    padding: 0;
 }

@@ -48,12 +48,15 @@ function Homepage()
   return (
     <div className="container-fluid">
         <div className="row"> <HeaderHome user={user} /> </div>
-        <div className="row_primary_view">
+
+        <div className="row" id="primary_view">
             <div className="col-8"> 
                 <PrimaryView />
             </div>
+
             <div className="col-4"></div>
         </div>
+        <button type="button" class="btn btn-secondary btn-lg" id="add_task">+</button>
     </div>
   )
 }

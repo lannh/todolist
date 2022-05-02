@@ -15,31 +15,34 @@ import events from "./events";
 function PrimaryView()
 {
     return (
-        <div className="primary_view">
+        <div className="container" id="primary_view">
 
-            <h1 className="calendar_title">Calendar</h1>
+            <div className="row" id="calendar_title">
+                <h1>Calendar</h1>
+            </div>
 
-            <FullCalendar
-                
-                defaultView="dayGridMonth"
+            <div className="row" id="calendar">
+                <FullCalendar
+                    
+                    defaultView="dayGridMonth"
 
-                height="500px"
-                // themeSystem="Simplex"
-                // header={{
-                //   left: "prev,next",
-                //   center: "title",
-                //   right: "dayGridMonth,timeGridWeek,timeGridDay",
-                // }}
-                plugins={[dayGridPlugin]}
-                //events={events}
-                displayEventEnd="true"
-                eventColor={"#" + Math.floor(Math.random() * 16777215).toString(16)}
-                handleWindowResize="true"
-                aspectRatio="4"
-            />
+                    height="500px"
+                    // themeSystem="Simplex"
+                    // header={{
+                    //   left: "prev,next",
+                    //   center: "title",
+                    //   right: "dayGridMonth,timeGridWeek,timeGridDay",
+                    // }}
+                    plugins={[dayGridPlugin]}
+                    //events={events}
+                    displayEventEnd="true"
+                    eventColor={"#" + Math.floor(Math.random() * 16777215).toString(16)}
+                    handleWindowResize="true"
+                    aspectRatio="4"
+                />
+            </div>
 
         </div>
-
     );
 }
 

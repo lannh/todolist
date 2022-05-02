@@ -1,6 +1,7 @@
 import HeaderHome from "./header_home";
 import axios from "axios";
 import React, {useState, useEffect} from "react";
+import PrimaryView from "./PrimaryView";
 
 function Homepage() 
 {
@@ -45,11 +46,13 @@ function Homepage()
   });
 
   return (
-    <div class="container-fluid">
-        <div class="row"><HeaderHome user={user} /></div>
-        <div class="row">
-            <div class="col-8"></div>
-            <div class="col-4"></div>
+    <div className="container-fluid">
+        <div className="row"> <HeaderHome user={user} /> </div>
+        <div className="row_primary_view">
+            <div className="col-8"> 
+                <PrimaryView />
+            </div>
+            <div className="col-4"></div>
         </div>
     </div>
   )

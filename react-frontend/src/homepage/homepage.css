@@ -26,6 +26,7 @@ html,body{
     background-color: #243b53;
     display: flex;
     height: 20vh;
+    min-height: 20vh;
     padding: 11px 57px;
     width: 100%;
 }
@@ -33,20 +34,20 @@ html,body{
 .header_title{
     color: #bcccdc;
     font-family: var(--font-family-asap);
-    font-size: 70px;
+    font-size: 10vh;
     font-weight: 700;
     letter-spacing: 0;
     margin-left: 8px;
     min-height: 73px;
-    min-width: 300px;
-    align-items: center;
+    min-width: 70vh;
+    align-self: center;
 }
 
 .user_avatar{
+    position: relative;
     border-radius: 55%;
-    height: 75px;
-
-    width: 75px;
+    height: 10vh;
+    width: 10vh;
     -webkit-filter: drop-shadow(3px 3px 3px #222222);
     filter: drop-shadow(3px 3px 3px #222222); 
 }
@@ -55,24 +56,30 @@ html,body{
 .user_name{
     color: #f0f4f8;
     font-family: var(--font-family-asap);
-    font-size: var(--font-size-l);
+    font-size: 3vh;
     font-weight: 700;
     letter-spacing: 0;
     min-height: 37px;
     min-width: 133px;
 }
 
-.userNMenu {
+.user_info {
     display: grid;
-    grid-template-columns: 100px 100px 50px;
+    grid-template-columns: 100px 110px;
     align-items: center;
     margin-left: auto;
 }
 
+.dropdown{
+    align-self: center;
+    justify-self: flex-end;
+}
+
 .dropdown-menu {
     
-    background-color: transparent ;
+    background-color: #bcccdc ;
     justify-content: center;
+    justify-self: center;
 }
 
 img {
@@ -80,12 +87,20 @@ img {
     width: 100%;
     object-fit: contain;
 }
-.dropdown .btn-secondary {
-    background: url(menuButton.png);
-    background-size: 50px 50px;
-    height: 50px;
-    width: 50px;
+.btn-outline-success#menu_button {
+    background: url(menu_button.png);
+    background-size: 6vh 6vh;
+    background-repeat: no-repeat;
+    height: 9vh;
+    width: 9vh;
+    background-position: center;
+    border-color: #BBECA1;
 }
+
+.btn-outline-success#menu_button:hover{
+    background-color: #BBECA1;
+}
+
 
 .row#primary_view{
     display: flex;
@@ -133,15 +148,47 @@ img {
 .btn-secondary#add_task{
     position: absolute;
     position:absolute;bottom:30px;left:30px;
-    background-color: #C4C4C4;
+    background-color: #BBECA1;
     background-size: 50px 50px;
     height: 70px;
     width: 70px;
     border-radius: 50%;
-    color: #2D803F;
+    color: #000000;
     -webkit-filter: drop-shadow(3px 3px 3px #222222);
     filter: drop-shadow(3px 3px 3px #222222); 
-    font-size: 5vh;
+    font-size: 4vh;
     text-align:center;
     padding: 0;
+}
+
+.offcanvas-header{
+    background-color: #2f3c4f;
+}
+
+.offcanvas-title#offcanvas{
+    color: #73efff;
+    font-size: 5vh;
+    -webkit-filter: drop-shadow(3px 3px 3px #222222);
+    filter: drop-shadow(3px 3px 3px #222222); 
+}
+
+.offcanvas{
+    background-color: #38455b;
+}
+
+.nav-link{
+    color: #bcccdc;
+    font-size: 3vh;
+}
+
+.nav-link:hover{
+    color: #BBECA1;
+}
+
+.btn-close#close_sidebar{
+    background-color: #73efff;
+}
+
+.btn-close#close_sidebar:hover{
+    background-color: #BBECA1;
 }

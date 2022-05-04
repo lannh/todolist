@@ -6,6 +6,7 @@ import HeaderHome from './homepage/header_home';
 //import MyApp from './MyApp'
 //import './index.css'
 import './homepage/homepage.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Homepage from './homepage/homepage';
 
 

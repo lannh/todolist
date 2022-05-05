@@ -1,37 +1,41 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 import Sidebar from "./Sidebar";
 import Homepage from "./homepage";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import image from '../homepage/default_avatar.jpeg';
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-
-function HeaderHome(props)
+function HeaderHome(props) 
 {
+	return (
+		<div className="header_home">
+			<div><h1 className="header_title">Dialed In</h1></div>
 
-
-    return (
-        <div className="header_home">
-            <h1 className="header_title">Dialed In</h1>
-
-            <div className="user_info">
-                <img className="user_avatar" src="https://yt3.ggpht.com/ytc/AKedOLTjWeLVEfOwpOW2VApxNxs6FW1Z0WbvQly_TruQjA=s900-c-k-c0x00ffffff-no-rj" alt=""/>
-                
-
-                <div className="user_name">  Oneders </div>
-            </div>
-
-
-            <Router>
-                <Sidebar />
-                <Routes>
-
-                    <Route path="/" component={Homepage} />
-                </Routes>
-            </Router>
-
+			<div className="user_info">
+        <div className="avatar_col">
+				<img className="user_avatar" src={image} alt="user avatar"/>
         </div>
-    );
+
+				<div className="user_name"> Oneders </div>
+
+        <div className="menu_button_col">
+          <button className="btn btn-outline-success" 
+            data-bs-toggle="offcanvas" data-bs-target="#offcanvas" 
+            id="menu_button">
+          </button>
+        </div>
+			</div>
+
+
+			<Router>
+				<Sidebar />
+				<Routes>
+					<Route path="/" component={Homepage} />
+				</Routes>
+			</Router>
+		</div>
+	);
 }
 
 export default HeaderHome;

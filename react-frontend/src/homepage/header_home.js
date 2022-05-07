@@ -1,10 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import Sidebar from "./Sidebar";
-import Homepage from "./homepage";
 import image from '../homepage/default_avatar.jpeg';
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 
 function HeaderHome(props) 
 {
@@ -27,13 +25,6 @@ function HeaderHome(props)
         </div>
 			</div>
 
-
-			<Router>
-				<Sidebar />
-				<Routes>
-					<Route path="/" component={Homepage} />
-				</Routes>
-			</Router>
 		</div>
 	);
 }

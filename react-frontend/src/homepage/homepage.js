@@ -2,6 +2,9 @@ import HeaderHome from "./header_home";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import PrimaryView from "./PrimaryView";
+import ToDoListView from "./ToDoListView";
+import Sidebar from "./Sidebar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function Homepage() 
 {
@@ -57,16 +60,25 @@ function Homepage()
 			</div>
 
 			<div className="row" id="primary_view">
-				<div className="col-8">
+				<div className="col-8" id="calendar_view">
 					<PrimaryView />
 				</div>
 
-				<div className="col-4"></div>
+				<div className="col-4" id="todolist_view">
+					<ToDoListView />
+				</div>
 			</div>
 
 			<button type="button" className="btn btn-secondary btn-lg" 
 				id="add_task"> +
 			</button>
+
+			<Router>
+				<Sidebar />
+				<Routes>
+					<Route path="/" component={Homepage} />
+				</Routes>
+			</Router>
 		</div>
 	);
 }

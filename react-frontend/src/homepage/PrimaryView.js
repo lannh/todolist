@@ -12,15 +12,15 @@ import events from "./events";
 function PrimaryView() 
 {
 	return (
-		<div className="container" id="primary_view">
-			<div className="row" id="calendar_title">
+		<div className="d-flex align-content-sm-stretch flex-sm-column" id="primary_view">
+			<div className="p-2" id="calendar_title">
 				<span className="calendar_title">Calendar</span>
 			</div>
 
-			<div className="row" id="calendar">
+			<div className="p-2" id="calendar">
 				<FullCalendar
 					defaultView="dayGridMonth"
-					height="500px"
+					height="60vh"
 					// themeSystem="Simplex"
 					// header={{
 					//   left: "prev,next",

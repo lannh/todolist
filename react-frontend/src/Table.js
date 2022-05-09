@@ -1,6 +1,6 @@
 import React from "react";
 
-function TableHeader() 
+function TableHeader()  
 {
 	return (
 		<thead>
@@ -21,16 +21,22 @@ function TableBody(props)
 		return (
 			<tr key={index}>
 				<td>{row._id}</td>
-				<td>{row.name}</td>
+				<td>{row.name}</td>         
 				<td>{row.job}</td>
 				<td>
-					<button onClick={() => 
-						props.removeCharacter(index)}>Delete</button>
+					<button onClick={() => props.removeCharacter(index)}>
+						Delete
+					</button>
 				</td>
 			</tr>
 		);
-	});
-	return <tbody>{rows}</tbody>;
+	}
+	);
+	return (
+		<tbody>
+			{rows}
+		</tbody>
+	);
 }
 
 function Table(props) 
@@ -38,12 +44,10 @@ function Table(props)
 	return (
 		<table>
 			<TableHeader />
-			<TableBody
-				characterData={props.characterData}
-				removeCharacter={props.removeCharacter}
-			/>
+			<TableBody characterData={props.characterData} 
+				removeCharacter={props.removeCharacter} />  
 		</table>
-	);
+	);  
 }
 
 export default Table;

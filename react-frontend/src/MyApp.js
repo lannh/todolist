@@ -1,46 +1,48 @@
+/* eslint-disable no-console */
 import Table from "./Table";
 import Form from "./Form";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 
 function MyApp() 
 {
 	const [characters, setCharacters] = useState([]);
 
-	function removeOneCharacter(index) 
+	function removeOneCharacter(index)
 	{
-		const updated = characters.filter((character, i) => 
+		const updated = characters.filter((character,i) => 
 		{
-			return i !== index;
+			return i!== index;
 		});
 		/*setCharacters(updated);*/
 
-		const userToDel = characters.find((character, i) => i === index);
-
-		makeDelCall(userToDel._id).then((result) => 
+		const userToDel = characters.find((character, i) => i===index);
+    
+		makeDelCall(userToDel._id).then(result => 
 		{
-			if (result && result.status === 204) setCharacters(updated);
+			if(result && result.status === 204)
+				setCharacters(updated);
 		});
 	}
 
-	function updateList(person) 
+	function updateList(person)
 	{
 		//setCharacters([...characters,person]);
-		makePostCall(person).then((result) => 
+		makePostCall(person).then(result => 
 		{
-			if (result && result.status === 201)
+			if(result && result.status === 201)
 				setCharacters([...characters, result.data]);
 		});
 	}
 
-	async function fetchAll() 
+	async function fetchAll()
 	{
 		try 
 		{
 			const response = await axios.get("http://localhost:5001/users");
 			return response.data.users_list;
 		}
-		catch (error) 
+		catch(error) 
 		{
 			console.log(error);
 			return false;
@@ -49,13 +51,14 @@ function MyApp()
 
 	useEffect(() => 
 	{
-		fetchAll().then((result) => 
+		fetchAll().then(result => 
 		{
-			if (result) setCharacters(result);
+			if(result)
+				setCharacters(result);
 		});
 	}, []);
 
-	async function makePostCall(person) 
+	async function makePostCall(person)
 	{
 		try 
 		{
@@ -70,15 +73,15 @@ function MyApp()
 		}
 	}
 
-	async function makeDelCall(id) 
+	async function makeDelCall(id)
 	{
 		try 
 		{
 			const response = 
-				await axios.delete("http://localhost:5001/users/" + id);
+				await axios.delete("http://localhost:5001/users/"+id);
 			return response;
 		}
-		catch (error) 
+		catch(error) 
 		{
 			console.log(error);
 			return false;

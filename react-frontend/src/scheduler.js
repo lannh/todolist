@@ -79,6 +79,7 @@ function solve_schedule(unscheduled_activities, schedule_data)
 {
 	schedule_data.sort(schedule_sort);
 
+	//create schedule shell
 	var schedule = [];
 	for (let block_index = 0; block_index < schedule_data.length; block_index++)
 	{
@@ -92,11 +93,13 @@ function solve_schedule(unscheduled_activities, schedule_data)
 		schedule.push(data);
 	} 
 
+	//fit activities into schedule
 	for (let activity_index = 0; activity_index < unscheduled_activities.length; activity_index++)
 	{
 		var activity_data = unscheduled_activities[activity_index];
 
-		var best_index = 0;
+		//find best schedule block for activity
+		var best_index = -1;
 		for (let block_index = 0; block_index < schedule.length; block_index++)
 		{
 			var block_data = schedule[block_index];
@@ -109,9 +112,9 @@ function solve_schedule(unscheduled_activities, schedule_data)
 			} 
 		}
 
-		if (best_index == 0)
+		if (best_index == -1)
 		{
-			var best_block;
+			var best_block = -1;
 			var best_block_score = 0;
 			for (let block_index = 0; block_index < schedule.length; block_index++)
 			{
@@ -123,13 +126,13 @@ function solve_schedule(unscheduled_activities, schedule_data)
 					block_score = extend_time - schedule_block.block_data.end_time_flexibility;
 				}
 
-				if (block_score > best_block_score)
+				if (best_block == -1 || block_score > best_block_score)
 				{
 					best_block_score = block_score;
 					best_block = block_index;
 				}
 			}
-			if(best_block == 0)
+			if(best_block == -1)
 			{
 				console.log("something is wrong");
 			}

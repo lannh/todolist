@@ -62,6 +62,7 @@ function activity_sort(a, b)
 {
 	if (a.priority == b.priority)
 	{
+		//longer tasks = more important (for now?)
 		return a.length > b.length;
 	}
 	else
@@ -77,7 +78,12 @@ function schedule_sort(a, b)
 
 function solve_schedule(unscheduled_activities, schedule_data)
 {
+	//Make sure schedule blocks are in order so during display phase
+	//we dont have to worry about this, just display in the current order.
+	//Also sort activities based on priority/length so that tasts with the
+	//highest "important" score get placed first
 	schedule_data.sort(schedule_sort);
+	unscheduled_activities.sort(activity_sort);
 
 	//create schedule shell
 	var schedule = [];
@@ -111,9 +117,12 @@ function solve_schedule(unscheduled_activities, schedule_data)
 				}
 			} 
 		}
-
+		
 		if (best_index == -1)
 		{
+			//TODO: NOT DONE
+			//if we dont not have enough space find the best block to extend
+			//so we have just enough space.
 			var best_block = -1;
 			var best_block_score = 0;
 			for (let block_index = 0; block_index < schedule.length; block_index++)
@@ -121,19 +130,29 @@ function solve_schedule(unscheduled_activities, schedule_data)
 				var block_score = 0;
 				var schedule_block = schedule[block_index];
 				var extend_time = activity_data.length - schedule_block.remaining_time;
+				
+				//compute score of current block
+				//currently this takes into account how much the block would need to 
+				//extend forward in order to fit the current task we're looking at into 
+				//the block, ideally this should be based on flexibility as well, and go
+				//backwards too.
 				if (block_index == schedule.length - 1 || schedule[block_index + 1].block_data.start_time - schedule_block.block_data.end_time >= extend_time)
 				{
 					block_score = extend_time - schedule_block.block_data.end_time_flexibility;
 				}
-
+				
 				if (best_block == -1 || block_score > best_block_score)
 				{
 					best_block_score = block_score;
 					best_block = block_index;
 				}
 			}
+
 			if(best_block == -1)
 			{
+				//AFAIK this can only happen if there is not enough space to add the current task
+				//throughout the entire schedule, one fix for this would be to allow for segmentation 
+				//of tasks, but im not sure if this would actually be a good idea.
 				console.log("something is wrong");
 			}
 			else
@@ -145,7 +164,7 @@ function solve_schedule(unscheduled_activities, schedule_data)
 		schedule[best_index].remaining_time = schedule[best_index].remaining_time - activity_data.length;
 		schedule[best_index].activities.push(activity_data);
 	}
-
+ 
 	console.log(schedule);
 }
 

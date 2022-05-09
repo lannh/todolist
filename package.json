@@ -14,11 +14,6 @@
     "lint": "eslint --fix --ext .js,.jsx .",
     "fix-js": "eslint-auto-fix"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
   "dependencies": {
     "react": "^18.1.0"
   }

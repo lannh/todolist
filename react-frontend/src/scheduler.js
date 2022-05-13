@@ -89,18 +89,20 @@ function solve_schedule(unscheduled_activities, schedule_data)
 	var schedule = [];
 	for (let block_index = 0; block_index < schedule_data.length; block_index++)
 	{
-		var block_data = schedule_data[block_index];
+		var b_data = schedule_data[block_index];
 		var data = 
 		{
 			activities: [],
-			block_data: block_data,
-			remaining_time: block_data.end_time - block_data.start_time,
+			block_data: b_data,
+			remaining_time: b_data.end_time - b_data.start_time,
 		};
 		schedule.push(data);
 	} 
 
 	//fit activities into schedule
-	for (let activity_index = 0; activity_index < unscheduled_activities.length; activity_index++)
+	for (let activity_index = 0; 
+		activity_index < unscheduled_activities.length; 
+		activity_index++)
 	{
 		var activity_data = unscheduled_activities[activity_index];
 
@@ -111,7 +113,9 @@ function solve_schedule(unscheduled_activities, schedule_data)
 			var block_data = schedule[block_index];
 			if (block_data.remaining_time >= activity_data.length)
 			{
-				if (best_index == -1 || schedule[best_index].remaining_time < block_data.remaining_time) 
+				if (best_index == -1 || 
+					schedule[best_index].remaining_time 
+					< block_data.remaining_time) 
 				{
 					best_index = block_index;
 				}
@@ -125,20 +129,25 @@ function solve_schedule(unscheduled_activities, schedule_data)
 			//so we have just enough space.
 			var best_block = -1;
 			var best_block_score = 0;
-			for (let block_index = 0; block_index < schedule.length; block_index++)
+			for (let block_index = 0; 
+				block_index < schedule.length; 
+				block_index++)
 			{
 				var block_score = 0;
-				var schedule_block = schedule[block_index];
-				var extend_time = activity_data.length - schedule_block.remaining_time;
+				var s_block = schedule[block_index];
+				var extend_time = activity_data.length - s_block.remaining_time;
 				
 				//compute score of current block
-				//currently this takes into account how much the block would need to 
-				//extend forward in order to fit the current task we're looking at into 
-				//the block, ideally this should be based on flexibility as well, and go
-				//backwards too.
-				if (block_index == schedule.length - 1 || schedule[block_index + 1].block_data.start_time - schedule_block.block_data.end_time >= extend_time)
+				//currently this takes into account how much the block would 
+				//need to extend forward in order to fit the current task 
+				//we're looking at into the block, ideally this should be based
+				// on flexibility as well, and go backwards too.
+				if (block_index == schedule.length - 1 || 
+					schedule[block_index + 1].block_data.start_time 
+					- s_block.block_data.end_time >= extend_time)
 				{
-					block_score = extend_time - schedule_block.block_data.end_time_flexibility;
+					var flex = s_block.block_data.end_time_flexibility;
+					block_score = extend_time - flex``;
 				}
 				
 				if (best_block == -1 || block_score > best_block_score)
@@ -150,9 +159,10 @@ function solve_schedule(unscheduled_activities, schedule_data)
 
 			if(best_block == -1)
 			{
-				//AFAIK this can only happen if there is not enough space to add the current task
-				//throughout the entire schedule, one fix for this would be to allow for segmentation 
-				//of tasks, but im not sure if this would actually be a good idea.
+				//AFAIK this can only happen if there is not enough space to 
+				//add the current task throughout the entire schedule, one fix
+				//for this would be to allow for segmentation of tasks, but im 
+				//not sure if this would actually be a good idea.
 				console.log("something is wrong");
 			}
 			else
@@ -161,7 +171,8 @@ function solve_schedule(unscheduled_activities, schedule_data)
 			}
 		}
 
-		schedule[best_index].remaining_time = schedule[best_index].remaining_time - activity_data.length;
+		var t_r = schedule[best_index].remaining_time - activity_data.length;
+		schedule[best_index].remaining_time = t_r;
 		schedule[best_index].activities.push(activity_data);
 	}
  
@@ -171,3 +182,5 @@ function solve_schedule(unscheduled_activities, schedule_data)
 solve_schedule(activities, schedule_times);
 
 //node .\react-frontend\src\scheduler.js
+
+// export.solve_schedule = solve_schedule;

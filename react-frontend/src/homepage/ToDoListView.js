@@ -2,7 +2,7 @@
 
 import Form from "react-bootstrap/Form";
 import React from "react";
-
+import "../Scheduler.js";
 /*
  *Import { useState, useEffect } from "react";
  *const [tasks, setCompleteTasks] = React.useState([]);
@@ -17,7 +17,7 @@ import React from "react";
 
 function ToDoListView ()
 {
-
+	// solve_schedule(null, null);
 
 	/*
 	 *UseEffect(()=>

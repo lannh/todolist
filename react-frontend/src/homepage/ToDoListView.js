@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import Form from "react-bootstrap/Form";
 import React from "react";
 
@@ -63,11 +61,11 @@ function ToDoListView ()
 					<div className="card-body">
 						<div className="row row-2" id="task_info">
 							<div className="col-sm-auto" id="time_task">
-								<span>AM<br />12:00</span>
+								<span>PM<br />12:00</span>
 							</div>
 
 							<div className="col col-sm-fill" id="task_name">
-								<span> Task Name 1</span>
+								<span> Task Name </span>
 							</div>
 
 							<div className="col-sm-auto" id="priority_level">
@@ -98,7 +96,7 @@ function ToDoListView ()
 					<div className="card-body">
 						<div className="row row-2" id="task_info">
 							<div className="col-sm-auto" id="time_task">
-								<span>AM<br />14:00</span>
+								<span>PM<br />02:00</span>
 							</div>
 
 							<div className="col col-sm-fill" id="task_name">
@@ -132,7 +130,7 @@ function ToDoListView ()
 					<div className="card-body">
 						<div className="row row-2" id="task_info">
 							<div className="col-sm-auto" id="time_task">
-								<span>AM<br />17:00</span>
+								<span>PM<br />05:00</span>
 							</div>
 
 							<div className="col col-sm-fill" id="task_name">
@@ -166,7 +164,7 @@ function ToDoListView ()
 					<div className="card-body">
 						<div className="row row-2" id="task_info">
 							<div className="col-sm-auto" id="time_task">
-								<span>AM<br />20:00</span>
+								<span>PM<br />08:00</span>
 							</div>
 
 							<div className="col col-sm-fill" id="task_name">
@@ -189,7 +187,7 @@ function ToDoListView ()
 										{
 											console.log(e.target.checked);
 										}}
-									/>
+									/> 
 								</Form.Check>
 							</div>
 						</div>
@@ -201,7 +199,7 @@ function ToDoListView ()
 					<div className="card-body">
 						<div className="row row-2" id="task_info">
 							<div className="col-sm-auto" id="time_task">
-								<span>AM<br />21:00</span>
+								<span>PM<br />09:00</span>
 							</div>
 
 							<div className="col col-sm-fill" id="task_name">
@@ -236,7 +234,7 @@ function ToDoListView ()
 					<div className="card-body">
 						<div className="row row-2" id="task_info">
 							<div className="col-sm-auto" id="time_task">
-								<span>AM<br />21:30</span>
+								<span>PM<br />10:30</span>
 							</div>
 
 							<div className="col col-sm-fill" id="task_name">

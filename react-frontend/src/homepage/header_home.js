@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import image from "../homepage/default_avatar.jpeg";
 
 
-function HeaderHome (props)
+function HeaderHome ()
 {
 	return (
 		<div className="header_home">

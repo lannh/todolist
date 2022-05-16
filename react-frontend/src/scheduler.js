@@ -147,7 +147,7 @@ function solve_schedule(unscheduled_activities, schedule_data)
 					- s_block.block_data.end_time >= extend_time)
 				{
 					var flex = s_block.block_data.end_time_flexibility;
-					block_score = extend_time - flex``;
+					block_score = extend_time - flex;
 				}
 				
 				if (best_block == -1 || block_score > best_block_score)

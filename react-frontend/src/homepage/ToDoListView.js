@@ -1,6 +1,6 @@
 import Form from "react-bootstrap/Form";
 import React from "react";
-import "../Scheduler.js";
+import "../scheduler.js";
 /*
  *Import { useState, useEffect } from "react";
  *const [tasks, setCompleteTasks] = React.useState([]);

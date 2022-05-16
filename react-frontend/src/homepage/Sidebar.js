@@ -24,7 +24,7 @@ function Sidebar ()
 					<ul className="nav nav-pills flex-column 
 						mb-sm-auto mb-0 align-items-start" id="menu">
 						<li>
-							<Link to="/" class="nav-link text-truncate">
+							<Link to="/homepage" class="nav-link text-truncate">
 								<i className="fs-5 bi-speedometer2" />
 								<span className="ms-1 d-none d-sm-inline">
 									Dashboard

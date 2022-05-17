@@ -81,7 +81,7 @@ function Homepage ()
 
 				<Routes>
 					<Route
-						path="/"
+						path="/homepage"
 						component={Homepage}
 					/>
 				</Routes>

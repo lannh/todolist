@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Table from "./Table";
 import Form from "./Form";
 import axios from "axios";

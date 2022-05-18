@@ -40,3 +40,4 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: "todolist-oneders"
         heroku_email: "lnguy228@calpoly.edu"
+        appdir: "./expressjs-backend"

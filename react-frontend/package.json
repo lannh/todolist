@@ -32,7 +32,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "npx eslint .",
+    "test": "npx eslint --fix --ext .js,.jsx ./src",
     "eject": "react-scripts eject"
   },
   "browserslist": {

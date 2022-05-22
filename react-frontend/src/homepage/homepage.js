@@ -3,8 +3,8 @@ import HeaderHome from "./header_home";
 import React from "react";
 import PrimaryView from "./PrimaryView";
 import ToDoListView from "./ToDoListView";
-import Sidebar from "./Sidebar";
-import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+//import Sidebar from "./Sidebar";
+//import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 
 function Homepage ()
 {
@@ -76,16 +76,7 @@ function Homepage ()
 				+
 			</button>
 
-			<Router>
-				<Sidebar />
 
-				<Routes>
-					<Route
-						path="/homepage"
-						component={Homepage}
-					/>
-				</Routes>
-			</Router>
 		</div>
 	);
 

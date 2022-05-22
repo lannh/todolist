@@ -192,6 +192,7 @@ img {
 
 .offcanvas {
   background-color: #38455b;
+  --bs-gutter-x:0;
 }
 
 .nav-link {
@@ -254,9 +255,6 @@ img {
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
-
-  padding-left: 3%;
-  padding-right: 2%;
 }
 
 #normal_priority{
@@ -292,6 +290,7 @@ img {
 #task_checkDone{
   margin-top: auto;
   margin-bottom: auto;
+  margin-right: auto;
 }
 
 .form-check-input{

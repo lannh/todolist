@@ -6,7 +6,7 @@ function Sidebar ()
 
 	return (
 		<>
-			<div className="offcanvas offcanvas-end w-25" tabIndex="-1"
+			<div className="offcanvas offcanvas-end" tabIndex="-1"
 				id="offcanvas" data-bs-keyboard="false" 
 				data-bs-backdrop="true">
 				<div className="offcanvas-header">

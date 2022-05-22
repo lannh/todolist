@@ -1,9 +1,14 @@
-import Table from "./Table";
-import Form from "./Form";
+import TasksDisplay from "./tasksdisplay";
+//import Form from "./Form";
 import axios from "axios";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect}  from "react";
+//{useState, useEffect}
+import HeaderHome from "../homepage/header_home";
 
-function MyApp() 
+
+//const characters = [];
+
+function SearchPage() 
 {
 	const [characters, setCharacters] = useState([]);
 
@@ -24,7 +29,7 @@ function MyApp()
 		});
 	}
 
-	function updateList(person)
+	/*function updateList(person)
 	{
 		//setCharacters([...characters,person]);
 		makePostCall(person).then(result => 
@@ -32,7 +37,7 @@ function MyApp()
 			if(result && result.status === 201)
 				setCharacters([...characters, result.data]);
 		});
-	}
+	}*/
 
 	async function fetchAll()
 	{
@@ -57,7 +62,7 @@ function MyApp()
 		});
 	}, []);
 
-	async function makePostCall(person)
+	/*async function makePostCall(person)
 	{
 		try 
 		{
@@ -70,7 +75,7 @@ function MyApp()
 			console.log(error);
 			return false;
 		}
-	}
+	}*/
 
 	async function makeDelCall(id)
 	{
@@ -88,12 +93,26 @@ function MyApp()
 	}
 
 	return (
-		<div className="container">
-			<Table characterData={characters} 
-				removeCharacter={removeOneCharacter} />
-			<Form handleSubmit={updateList} />
+		<div className="container-fluid">
+			<div className="row">
+				<HeaderHome />
+			</div>
+
+			<div className="row" id="searchPage">
+
+				<div className="d-flex flex-column"
+					id="todolist_col">
+
+					<div className="p-2" id="todolist_title">Search</div>
+
+					<div className="p-2" id="todo_list">
+						<TasksDisplay characterData={characters} 
+							removeCharacter={removeOneCharacter} />
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
 
-export default MyApp;
+export default SearchPage;

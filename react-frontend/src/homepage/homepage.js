@@ -4,7 +4,7 @@ import React from "react";
 import PrimaryView from "./PrimaryView";
 import ToDoListView from "./ToDoListView";
 import Sidebar from "./Sidebar";
-import Login from "./Login";
+import LoginReg from "./LoginReg";
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 
 function Homepage ()
@@ -89,7 +89,7 @@ function Homepage ()
 			</Router>
 
 			<Router>
-				<Login />
+				<LoginReg />
 
 				<Routes>
 					<Route

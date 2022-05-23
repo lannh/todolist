@@ -22,6 +22,10 @@ body {
   min-height: 700px;
 }
 
+div.form-group span {
+  color: red;
+}
+
 .header_home {
   align-items: center;
   background-color: #243b53;

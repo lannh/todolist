@@ -32,7 +32,6 @@ function gbs(bd)
 
 	return s + " - " + e;
 }
-gbs({start_time : 0 , end_time : 0});
 
 function ToDoListView() 
 {

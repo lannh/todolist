@@ -3,15 +3,15 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-mongoose.set("debug", true);
+//mongoose.set("debug", true);
 
-mongoose
+/*mongoose
 	.connect("mongodb://127.0.0.1", {
     	useNewUrlParser: true,
     	useUnifiedTopology: true,
   	})
   	.catch((error) => console.log(error));
-
+*/
 
 /*mongoose
 	.connect(

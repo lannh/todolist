@@ -67,7 +67,8 @@ function LoginReg ()
 		if (reg_values.name &&
 			reg_values.email &&
 			reg_values.password &&
-			reg_values.confirm_password)
+			reg_values.confirm_password &&
+			(reg_values.password === reg_values.confirm_password))
 		{
 			set_reg_valid(true);
 		}
@@ -99,7 +100,6 @@ function LoginReg ()
 									Login Success!
 							</div> 
 							: null}
-
 						<div className="form-group">
 							<input
 								onChange={handle_login_email_change}
@@ -193,7 +193,14 @@ function LoginReg ()
 							/>
 							{reg_submitted && !reg_values.confirm_password ? 
 								<span>
-									Please enter the same password as above
+									Please confirm your password
+								</span> 
+								: null}
+							{reg_submitted && 
+								!(reg_values.confirm_password === 
+									reg_values.password) ? 
+								<span>
+									Must match password above
 								</span> 
 								: null}
 							<br></br>

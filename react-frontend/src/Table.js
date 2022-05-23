@@ -1,18 +1,19 @@
 import React from "react";
 
-function TableHeader()  
+/*function TableHeader()  
 {
 	return (
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Name</th>
-				<th>Job</th>
+				<th>Task Name </th>
+				<th>Date</th>
+				<th>Location</th>
 				<th>Remove</th>
 			</tr>
 		</thead>
 	);
-}
+}*/
 
 function TableBody(props) 
 {
@@ -20,14 +21,15 @@ function TableBody(props)
 	{
 		return (
 			<tr key={index}>
-				<td>{row._id}</td>
-				<td>{row.name}</td>         
-				<td>{row.job}</td>
-				<td>
+			
+				<td>TaskName: {row.taskName}</td>         
+				<td>Date: {row.date}</td>
+				<td>Loc: {row.location}</td>
+				{/* <td>
 					<button onClick={() => props.removeCharacter(index)}>
 						Delete
 					</button>
-				</td>
+				</td> */}
 			</tr>
 		);
 	}
@@ -43,7 +45,7 @@ function Table(props)
 {
 	return (
 		<table>
-			<TableHeader />
+			
 			<TableBody characterData={props.characterData} 
 				removeCharacter={props.removeCharacter} />  
 		</table>

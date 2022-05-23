@@ -1,6 +1,24 @@
 {
+<<<<<<< HEAD
+  "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/eslint-plugin": "^7.17.7",
+    "eslint": "^8.14.0",
+    "eslint-auto-fix": "^1.0.4",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "eslint --fix --ext .js,.jsx .",
+    "fix-js": "eslint-auto-fix"
+  },
+=======
   
   "scripts": {},
+>>>>>>> 0981c842b636eab36046bdc4397f441882cb33b6
   "dependencies": {
     "autoprefixer": "10.4.5",
     "react": "^18.1.0"

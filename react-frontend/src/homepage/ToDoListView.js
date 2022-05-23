@@ -13,6 +13,7 @@ import * as scheduler from "../scheduler.js";
  */
 /* Max task_name = 20 chars*/
 
+//convert start time to string
 function csts(t)
 {
 	// t = t / (24 * 60); for later
@@ -25,6 +26,7 @@ function csts(t)
 	return t + "AM";
 }
 
+//get block string
 function gbs(bd)
 {
 	var s = csts(bd.start_time);

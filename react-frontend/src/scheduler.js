@@ -1,3 +1,5 @@
+//TEST DATA
+
 var schedule_times = 
 [
 	{
@@ -58,6 +60,8 @@ var activities =
 	},
 ];
 
+//
+
 function activity_sort(a, b)
 {
 	if (a.priority == b.priority)
@@ -76,45 +80,51 @@ function schedule_sort(a, b)
 	return a.start_time < b.start_time;
 }
 
-function solve_schedule(unscheduled_activities, schedule_data)
+// const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
+function solve_schedule(task_array, schedule_blocks)
 {
 	//Make sure schedule blocks are in order so during display phase
 	//we dont have to worry about this, just display in the current order.
 	//Also sort activities based on priority/length so that tasts with the
 	//highest "important" score get placed first
-	schedule_data.sort(schedule_sort);
-	unscheduled_activities.sort(activity_sort);
+	schedule_blocks.sort(schedule_sort);
+	task_array.sort(activity_sort);
 
 	//create schedule shell
-	var schedule = [];
-	for (let block_index = 0; block_index < schedule_data.length; block_index++)
+	var final_schedule_data = [];
+	for (let block_index = 0; 
+		block_index < schedule_blocks.length; 
+		block_index++)
 	{
-		var b_data = schedule_data[block_index];
-		var data = 
+		var current_block = schedule_blocks[block_index];
+		var new_schedule_data = 
 		{
 			activities: [],
-			block_data: b_data,
-			remaining_time: b_data.end_time - b_data.start_time,
+			block_data: current_block,
+			remaining_time: current_block.end_time - current_block.start_time,
 		};
-		schedule.push(data);
+		final_schedule_data.push(new_schedule_data);
 	} 
 
 	//fit activities into schedule
-	for (let activity_index = 0; 
-		activity_index < unscheduled_activities.length; 
-		activity_index++)
+	for (let task_index = 0; 
+		task_index < task_array.length; 
+		task_index++)
 	{
-		var activity_data = unscheduled_activities[activity_index];
+		var task_data = task_array[task_index];
 
 		//find best schedule block for activity
 		var best_index = -1;
-		for (let block_index = 0; block_index < schedule.length; block_index++)
+		for (let block_index = 0; 
+			block_index < final_schedule_data.length; 
+			block_index++)
 		{
-			var block_data = schedule[block_index];
-			if (block_data.remaining_time >= activity_data.length)
+			var block_data = final_schedule_data[block_index];
+			if (block_data.remaining_time >= task_data.length)
 			{
 				if (best_index == -1 || 
-					schedule[best_index].remaining_time 
+					final_schedule_data[best_index].remaining_time 
 					< block_data.remaining_time) 
 				{
 					best_index = block_index;
@@ -130,41 +140,45 @@ function solve_schedule(unscheduled_activities, schedule_data)
 			var best_score = -1;
 			var best_block = -1;
 			var best_direction = -1;
-			var best_extend = -1; //debug
+			var best_extend = -1;
+			// var best_before_time = -1;
+			// var best_after_time = -1;
 
 			for (let block_index = 0; 
-				block_index < schedule.length; 
+				block_index < final_schedule_data.length; 
 				block_index++)
 			{
-				var s_block = schedule[block_index];
-				var extend_targ = activity_data.length - s_block.remaining_time;
-				
-				var cs = s_block.block_data.start_time;
-				var ce = s_block.block_data.end_time;
-				var ns = block_index < schedule.length - 1 
-					? schedule[block_index + 1].block_data.start_time 
+				var block = final_schedule_data[block_index];
+				var extend_targ = task_data.length - block.remaining_time;
+
+				var cs = block.block_data.start_time;
+				var ce = block.block_data.end_time;
+				var ns = block_index < final_schedule_data.length - 1 
+					? final_schedule_data[block_index + 1].block_data.start_time
 					: 24;
 
 				var le = block_index > 0 
-					? schedule[block_index - 1].block_data.end_time 
+					? final_schedule_data[block_index - 1].block_data.end_time 
 					: 0;
 				
+				var before_time = cs - le;
+				var after_time = ns - ce;
+
 				var a = -1, b = -1, c = -1;
-				if (ns - ce >= extend_targ)
+				if (after_time >= extend_targ)
 				{
-					a = s_block.block_data.end_time_flexibility;
+					a = block.block_data.end_time_flexibility;
 				}
 				
-				if (cs - le >= extend_targ)
+				if (before_time >= extend_targ)
 				{
-					b = s_block.block_data.start_time_flexibility;
+					b = block.block_data.start_time_flexibility;
 				}
 
-				// if ((ns - ce) + (cs - le) >= extend_targ)
+				// if (before_time + after_time >= extend_targ)
 				// {
-				// 	// console.log((ns - ce), (cs - le), extend_targ);
-				// 	c = Math.max(s_block.block_data.start_time_flexibility, 
-				// 		s_block.block_data.end_time_flexibility);
+				// 	c = Math.max(block.block_data.start_time_flexibility, 
+				// 		block.block_data.end_time_flexibility);
 				// }
 
 				if(a > b)
@@ -177,6 +191,8 @@ function solve_schedule(unscheduled_activities, schedule_data)
 							best_block = block_index;
 							best_direction = 0;
 							best_extend = extend_targ;
+							// best_after_time = after_time;
+							// best_before_time = before_time;
 						}
 					}
 					else
@@ -187,6 +203,8 @@ function solve_schedule(unscheduled_activities, schedule_data)
 							best_block = block_index;
 							best_direction = 2;
 							best_extend = extend_targ;
+							// best_after_time = after_time;
+							// best_before_time = before_time;
 						}
 					}
 				}
@@ -200,6 +218,8 @@ function solve_schedule(unscheduled_activities, schedule_data)
 							best_block = block_index;
 							best_direction = 1;
 							best_extend = extend_targ;
+							// best_after_time = after_time;
+							// best_before_time = before_time;
 						}
 					}
 					else
@@ -210,6 +230,8 @@ function solve_schedule(unscheduled_activities, schedule_data)
 							best_block = block_index;
 							best_direction = 2;
 							best_extend = extend_targ;
+							// best_after_time = after_time;
+							// best_before_time = before_time;
 						}
 					}
 				}
@@ -226,46 +248,68 @@ function solve_schedule(unscheduled_activities, schedule_data)
 			else
 			{
 				best_index = best_block;
+				var bblock = final_schedule_data[best_block];
 				switch(best_direction)
 				{
 				case 0:
 				{
-					schedule[best_block].block_data.end_time += best_extend;
-					schedule[best_block].remaining_time += best_extend;
+					bblock.block_data.end_time += best_extend;
+					bblock.remaining_time += best_extend;
 					break;	
 				}
 					
 				case 1:
 				{
-					schedule[best_block].block_data.start_tine -= best_extend;
-					schedule[best_block].remaining_time += best_extend;
+					bblock.block_data.start_tine -= best_extend;
+					bblock.remaining_time += best_extend;
 					break;	
 				}
 					
 				case 2:
 				{
 					//TODO:
-					//extend as far as possible in the 
-					//direction of highest flexibilty first
-					//extend in opposite direction with remaining
-					//time 
+					//think of a better way to do this section
+					/*
+					if(bblock.block_data.start_time_flexibility 
+						> bblock.block_data.end_time_flexibility)
+					{
+						var extend_amount = clamp(best_after_time, 
+							0, 
+							best_extend);
+
+						bblock.block_data.start_time -= extend_amount;
+						bblock.block_data.end_time += best_extend 
+													- extend_amount;
+					}
+					else
+					{
+						var extend_amount = clamp(best_before_time, 
+							0, 
+							best_extend);
+
+						bblock.block_data.start_time -= best_extend 
+														- extend_amount;
+						bblock.block_data.end_time += extend_amount;
+					}
+					*/
 					break;	
 				}
 				}
 			}
 		}
 		
-		var t_r = schedule[best_index].remaining_time - activity_data.length;
-		schedule[best_index].remaining_time = t_r;
-		schedule[best_index].activities.push(activity_data);
+		var final_block = final_schedule_data[best_index];
+		var t_r = final_block.remaining_time - task_data.length;
+		final_block.remaining_time = t_r;
+		final_block.activities.push(task_data);
 	}
 
 	for (let block_index = 0; 
-		block_index < schedule.length; 
+		block_index < final_schedule_data.length; 
 		block_index++)
 	{
-		var block = schedule[block_index];
-		console.log(block);
+		var debug_block = final_schedule_data[block_index];
+		console.log(debug_block);
 	}
 }
 

@@ -11,9 +11,11 @@ import "./index.css";
 
 import "./homepage/homepage.css";
 import "./searchpage/searchpage.css";
+import "./inputschedulepage/input_schedule.css";
 
 import SearchPage from "./searchpage/searchpage";
 import Homepage from "./homepage/homepage";
+import InputSchedule from "./inputschedulepage/inputSchedule";
 
 
 ReactDOM.render(
@@ -21,6 +23,7 @@ ReactDOM.render(
 		<Routes>
 			<Route path="/homepage" element={<Homepage/ >}/>
 			<Route path="/search" element={<SearchPage />}/>
+			<Route path="/inputschedulepage" element={<InputSchedule />}/>
 		</Routes>
 	</BrowserRouter>,
 	document.getElementById("root")

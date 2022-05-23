@@ -6,11 +6,11 @@ dotenv.config();
 mongoose.set("debug", true);
 
 mongoose
-  .connect("mongodb://127.0.0.1", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => console.log(error));
+	.connect("mongodb://127.0.0.1", {
+    	useNewUrlParser: true,
+    	useUnifiedTopology: true,
+  	})
+  	.catch((error) => console.log(error));
 
 
 /*mongoose
@@ -40,15 +40,15 @@ async function getUsers(taskName, date,location)
 	{
 		result = await userModel.find();
 	}
-	else if (taskName && !job && !location) 
+	else if (taskName && !date && !location) 
 	{
 		result = await findUserByName(taskName);
 	}
-	else if (job && !taskName && !location) 
+	else if (date && !taskName && !location) 
 	{
-		result = await findUserByJob(job);
+		result = await findUserByJob(date);
 	}
-	else if (location && !job && !taskName) 
+	else if (location && !date && !taskName) 
 	{
 		result = await findUserByLocation(location);
 	}
@@ -102,7 +102,8 @@ async function findUserByLocation(location)
 }
 async function findUserByNameNJobNLocation(taskName,date,location) 
 {
-	return await userModel.find({ taskName: taskName, date: date,location:location });
+	return await userModel.find({ taskName: taskName, 
+		date: date,location:location });
 }
 
 async function deleleUserByID(id) 

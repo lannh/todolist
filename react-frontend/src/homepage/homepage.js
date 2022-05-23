@@ -4,9 +4,7 @@ import axios from "axios";
 import Table from "../Table";
 import React , {useState} from "react";
 import PrimaryView from "./PrimaryView";
-//import ToDoListView from "./ToDoListView";
-import Sidebar from "./Sidebar";
-import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import ToDoListView from "./ToDoListView";
 
 
 function Homepage () 
@@ -174,6 +172,7 @@ function Homepage ()
 				<div className="col-4" id="todolist_view">
 					<Table characterData={characters} 
 						removeCharacter={removeOneCharacter} />
+					<ToDoListView />
 				</div>
 			</div>
 			<div className="form_button_col">
@@ -186,15 +185,6 @@ function Homepage ()
 				<Form handleSubmit={updateList} trigger = 
 					{formPopup} setTrigger ={setFormPopup} />
 			</div>
-			<Router>
-				<Sidebar />
-				<Routes>
-					<Route
-						path="/"
-						component={Homepage}
-					/>
-				</Routes>
-			</Router>
 
 		</div>
 	);

@@ -45,14 +45,13 @@ app.get("/", (req, res) =>
 //get user by name or name && job
 app.get("/users", async (req, res) => 
 {
-	const taskName = req.query.taskName;
-	const date = req.query.date;
-	const location = req.query.location;
+	const name = req.query.name;
+	const job = req.query.job;
 
 	try 
 	{
-		const result = await userServices.getUsers(taskName, date,location);
-		res.send({tasks_list: result});         
+		const result = await userServices.getUsers(name, job);
+		res.send({users_list: result});         
 	}
 	catch (error) 
 	{
@@ -71,7 +70,7 @@ app.get("/users/:id", async (req, res) =>
 		res.status(404).send("Resource not found.");
 	else
 	{
-		result = {tasks_list: result};
+		result = {users_list: result};
 		res.send(result);
 	}
 });

@@ -21,7 +21,15 @@ body {
   min-width: 1000px;
   min-height: 700px;
 }
-
+.form {
+  position: fixed;
+  top: 0;
+  left:0;
+  width:60%;
+  height:60%;
+  z-index: 3;
+  background-color: #73efff;
+}
 .header_home {
   align-items: center;
   background-color: #243b53;
@@ -65,7 +73,12 @@ body {
   font-weight: 700;
   filter: drop-shadow(3px 3px 3px #222222);
 }
-
+.col-4 {
+  color: #f0f4f8;
+  font-size: 2vh;
+  border-width:3px;
+  z-index: 3;
+}
 .user_info {
   display: grid;
   grid-template-columns: 15vh auto 1fr;
@@ -192,6 +205,10 @@ img {
 
 .offcanvas {
   background-color: #38455b;
+}
+
+.offfmenu {
+  background-color: #dbe8ff;
 }
 
 .nav-link {

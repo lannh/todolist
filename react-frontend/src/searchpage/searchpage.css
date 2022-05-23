@@ -20,7 +20,9 @@
 }
 
 #todo_item1{
-    min-width: 100%;
+    position: relative;
+    width: 100%;
+    min-width: 400px;
     max-width: 100%;
 
     background-color: #C4C4C4;

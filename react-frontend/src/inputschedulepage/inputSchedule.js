@@ -1,16 +1,15 @@
 import HeaderHome from "../homepage/header_home";
 //import axios from "axios";
 import React, {useState} from "react";
-import Sidebar from "../homepage/Sidebar";
 import WeeklyAvailability from "./WeeklyAvailability";
 
 function InputSchedule ()
 {
 	const [slots, setTimeSlots] = useState([[], [], [], [], [], [], []]);
-	function removeTimeSlot (dayIndex, index)
+	function removeTimeSlot (dayIndex, index) 
 	{
 		const updated = JSON.parse(JSON.stringify(slots));
-		updated[dayIndex] = updated[dayIndex].filter((slot, i) =>
+		updated[dayIndex] = updated[dayIndex].filter((slot, i) => 
 		{
 			return i !== index;
 		});
@@ -79,8 +78,9 @@ function InputSchedule ()
 
 			<div className="row" id="primary_view">
 				<div className="col-7" id="input_schedule_view">
-					<WeeklyAvailability slotData={slots}
-						removeSlot={removeTimeSlot} handleSubmit={updateList} />
+					<WeeklyAvailability slotData={slots} 
+						removeSlot={removeTimeSlot} handleSubmit={updateList} 
+					/>
 				</div>
 			</div>
 
@@ -88,9 +88,6 @@ function InputSchedule ()
 				className="btn btn-secondary btn-lg" id="add_task">
 				+
 			</button>
-			<div>
-				<Sidebar />
-			</div>
 		</div>
 	);
 

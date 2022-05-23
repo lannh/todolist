@@ -16,11 +16,17 @@ function HeaderHome ()
 					<img className="user_avatar" src={image} alt="user avatar"/>
 				</div>
 
-				<div className="user_name">{" "}Oneders{" "}</div>
+				<div className="login_user_name">
+					<button className="btn btn-outline-dark"
+						data-bs-toggle="offcanvas" 
+						data-bs-target="#offcanvas_login"
+						id="login_button">Log In</button>
+				</div>
 
 				<div className="menu_button_col">
 					<button className="btn btn-outline-success"
-						data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+						data-bs-toggle="offcanvas" 
+						data-bs-target="#offcanvas"
 						id="menu_button" />
 				</div>
 			</div>

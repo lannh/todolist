@@ -4,6 +4,7 @@ import React from "react";
 import PrimaryView from "./PrimaryView";
 import ToDoListView from "./ToDoListView";
 import Sidebar from "./Sidebar";
+import Login from "./Login";
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 
 function Homepage ()
@@ -78,6 +79,17 @@ function Homepage ()
 
 			<Router>
 				<Sidebar />
+
+				<Routes>
+					<Route
+						path="/homepage"
+						component={Homepage}
+					/>
+				</Routes>
+			</Router>
+
+			<Router>
+				<Login />
 
 				<Routes>
 					<Route

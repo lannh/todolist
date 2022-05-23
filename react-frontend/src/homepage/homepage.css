@@ -199,6 +199,11 @@ img {
   font-size: 3vh;
 }
 
+.form-label {
+  color: #bcccdc;
+  font-size: 3vh;  
+}
+
 .nav-link:hover {
   color: #bbeca1;
 }
@@ -209,6 +214,16 @@ img {
 
 .btn-close#close_sidebar:hover {
   background-color: #bbeca1;
+}
+
+#login_button {
+  border-color: #b5e0ff;
+  color: #b5e0ff;
+}
+
+#submit_login_button {
+  background-color: #bcccdc;
+  color: #38455b;
 }
 
 #todolist_view{

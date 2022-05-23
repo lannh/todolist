@@ -124,36 +124,94 @@ function solve_schedule(unscheduled_activities, schedule_data)
 		
 		if (best_index == -1)
 		{
-			//TODO: NOT DONE
 			//if we dont not have enough space find the best block to extend
 			//so we have just enough space.
+			
+			var best_score = -1;
 			var best_block = -1;
-			var best_block_score = 0;
+			var best_direction = -1;
+			var best_extend = -1; //debug
+
 			for (let block_index = 0; 
 				block_index < schedule.length; 
 				block_index++)
 			{
-				var block_score = 0;
 				var s_block = schedule[block_index];
-				var extend_time = activity_data.length - s_block.remaining_time;
+				var extend_targ = activity_data.length - s_block.remaining_time;
 				
-				//compute score of current block
-				//currently this takes into account how much the block would 
-				//need to extend forward in order to fit the current task 
-				//we're looking at into the block, ideally this should be based
-				// on flexibility as well, and go backwards too.
-				if (block_index == schedule.length - 1 || 
-					schedule[block_index + 1].block_data.start_time 
-					- s_block.block_data.end_time >= extend_time)
+				var cs = s_block.block_data.start_time;
+				var ce = s_block.block_data.end_time;
+				var ns = block_index < schedule.length - 1 
+					? schedule[block_index + 1].block_data.start_time 
+					: 24;
+
+				var le = block_index > 0 
+					? schedule[block_index - 1].block_data.end_time 
+					: 0;
+				
+				var a = -1, b = -1, c = -1;
+				if (ns - ce >= extend_targ)
 				{
-					var flex = s_block.block_data.end_time_flexibility;
-					block_score = extend_time - flex;
+					a = s_block.block_data.end_time_flexibility;
 				}
 				
-				if (best_block == -1 || block_score > best_block_score)
+				if (cs - le >= extend_targ)
 				{
-					best_block_score = block_score;
-					best_block = block_index;
+					b = s_block.block_data.start_time_flexibility;
+				}
+
+				// if ((ns - ce) + (cs - le) >= extend_targ)
+				// {
+				// 	// console.log((ns - ce), (cs - le), extend_targ);
+				// 	c = Math.max(s_block.block_data.start_time_flexibility, 
+				// 		s_block.block_data.end_time_flexibility);
+				// }
+
+				if(a > b)
+				{
+					if(a > c)
+					{
+						if (a > best_score)
+						{
+							best_score = a;
+							best_block = block_index;
+							best_direction = 0;
+							best_extend = extend_targ;
+						}
+					}
+					else
+					{
+						if (c > best_score)
+						{
+							best_score = c;
+							best_block = block_index;
+							best_direction = 2;
+							best_extend = extend_targ;
+						}
+					}
+				}
+				else
+				{
+					if(b > c)
+					{
+						if (b > best_score)
+						{
+							best_score = b;
+							best_block = block_index;
+							best_direction = 1;
+							best_extend = extend_targ;
+						}
+					}
+					else
+					{
+						if (c > best_score)
+						{
+							best_score = c;
+							best_block = block_index;
+							best_direction = 2;
+							best_extend = extend_targ;
+						}
+					}
 				}
 			}
 
@@ -168,15 +226,47 @@ function solve_schedule(unscheduled_activities, schedule_data)
 			else
 			{
 				best_index = best_block;
+				switch(best_direction)
+				{
+				case 0:
+				{
+					schedule[best_block].block_data.end_time += best_extend;
+					schedule[best_block].remaining_time += best_extend;
+					break;	
+				}
+					
+				case 1:
+				{
+					schedule[best_block].block_data.start_tine -= best_extend;
+					schedule[best_block].remaining_time += best_extend;
+					break;	
+				}
+					
+				case 2:
+				{
+					//TODO:
+					//extend as far as possible in the 
+					//direction of highest flexibilty first
+					//extend in opposite direction with remaining
+					//time 
+					break;	
+				}
+				}
 			}
 		}
-
+		
 		var t_r = schedule[best_index].remaining_time - activity_data.length;
 		schedule[best_index].remaining_time = t_r;
 		schedule[best_index].activities.push(activity_data);
 	}
- 
-	console.log(schedule);
+
+	for (let block_index = 0; 
+		block_index < schedule.length; 
+		block_index++)
+	{
+		var block = schedule[block_index];
+		console.log(block);
+	}
 }
 
 solve_schedule(activities, schedule_times);

@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 			trim: true,
+		},
 		tasks_list: {
 			type: Array,
 			default: [],
@@ -29,6 +30,7 @@ const UserSchema = new mongoose.Schema(
 	},
 	{ collection: "tasks_list" }
 );
+	
 
 const User = mongoose.model("User", UserSchema);
 

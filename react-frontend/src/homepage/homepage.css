@@ -205,6 +205,7 @@ img {
 
 .offcanvas {
   background-color: #38455b;
+  --bs-gutter-x:0;
 }
 
 .offfmenu {
@@ -271,13 +272,16 @@ img {
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
-
-  padding-left: 3%;
-  padding-right: 2%;
 }
 
 #normal_priority{
-  color:khaki ;
+  color:rgb(147, 255, 128) ;
+  filter: drop-shadow(1px 1px 1px #222222);
+  font-size: 3vh;
+}
+
+#medium_priority{
+  color:rgb(238, 155, 0) ;
   filter: drop-shadow(1px 1px 1px #222222);
   font-size: 3vh;
 }
@@ -309,6 +313,7 @@ img {
 #task_checkDone{
   margin-top: auto;
   margin-bottom: auto;
+  margin-right: auto;
 }
 
 .form-check-input{

@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const userModel = require("./user");
 const dotenv = require("dotenv");
 
@@ -106,7 +105,6 @@ async function findUserByNameNJobNLocation(taskName,date,location)
 	return await userModel.find({ taskName: taskName, date: date,location:location });
 }
 
-
 async function deleleUserByID(id) 
 {
 	try 
@@ -120,7 +118,24 @@ async function deleleUserByID(id)
 	}
 }  
 
+async function deleleTaskByID(uid,id) 
+{
+	try 
+	{
+		return await userModel.updateOne( 
+			{ _id: uid },
+			{ $pull: {tasks_list: id} }
+		);
+	}
+	catch (error) 
+	{
+		console.log(error);
+		return undefined;
+	}
+}  
+
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
 exports.deleleUserByID = deleleUserByID;
+exports.deleleTaskByID = deleleTaskByID;

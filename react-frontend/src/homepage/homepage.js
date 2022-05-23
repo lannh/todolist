@@ -5,7 +5,7 @@ import Table from "../Table";
 import React , {useState} from "react";
 import PrimaryView from "./PrimaryView";
 //import ToDoListView from "./ToDoListView";
-//import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar";
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 
 
@@ -187,7 +187,7 @@ function Homepage ()
 					{formPopup} setTrigger ={setFormPopup} />
 			</div>
 			<Router>
-				  <Sidebar />
+				<Sidebar />
 				<Routes>
 					<Route
 						path="/"

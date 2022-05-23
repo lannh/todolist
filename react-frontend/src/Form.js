@@ -21,7 +21,7 @@ function Form (props)
 		else if(name === "date")
 			settask(
 				{taskName:task["taskName"],date: value,
-				location:task["location"]}
+					location:task["location"]}
 			);
 		else
 			settask(

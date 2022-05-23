@@ -4,9 +4,9 @@ import axios from "axios";
 import Table from "../Table";
 import React , {useState} from "react";
 import PrimaryView from "./PrimaryView";
-import ToDoListView from "./ToDoListView";
+//import ToDoListView from "./ToDoListView";
 //import Sidebar from "./Sidebar";
-//import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 
 
 function Homepage () 
@@ -106,7 +106,7 @@ function Homepage ()
 		});
 	}
 
-	async function fetchAll()
+	/*async function fetchAll()
 	{
 		try 
 		{
@@ -118,7 +118,7 @@ function Homepage ()
 			console.log(error);
 			return false;
 		}
-	}
+	}*/
 
 	/*useEffect(() => 
 	{
@@ -178,13 +178,13 @@ function Homepage ()
 			</div>
 			<div className="form_button_col">
 				<button className="btn btn-secondary btn-lg" 
-				id="add_task" onClick = {() => setFormPopup(true)} >
+					id="add_task" onClick = {() => setFormPopup(true)} >
 					+
 				</button>
 			</div>
 			<div className="container">
 				<Form handleSubmit={updateList} trigger = 
-				{formPopup} setTrigger ={setFormPopup} />
+					{formPopup} setTrigger ={setFormPopup} />
 			</div>
 			<Router>
 				  <Sidebar />
@@ -201,4 +201,4 @@ function Homepage ()
 
 }
 
-export default Homepage
+export default Homepage;

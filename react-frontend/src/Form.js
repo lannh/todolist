@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 function Form (props)
 {
@@ -20,7 +20,8 @@ function Form (props)
 			);
 		else if(name === "date")
 			settask(
-				{taskName: task["taskName"], date: value, location:task["location"]}
+				{taskName:task["taskName"],date: value,
+				location:task["location"]}
 			);
 		else
 			settask(

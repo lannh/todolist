@@ -1,6 +1,6 @@
 import React from "react";
 
-function TableHeader()  
+/*function TableHeader()  
 {
 	return (
 		<thead>
@@ -13,7 +13,7 @@ function TableHeader()
 			</tr>
 		</thead>
 	);
-}
+}*/
 
 function TableBody(props) 
 {

@@ -2,7 +2,6 @@ import Table from "./Table";
 import Form from "./Form";
 import axios from "axios";
 import React, {useState, useEffect} from "react";
-
 function MyApp() 
 {
 	const [characters, setCharacters] = useState([]);
@@ -39,7 +38,7 @@ function MyApp()
 		try 
 		{
 			const response = await axios.get("http://localhost:5001/users");
-			return response.data.users_list;
+			return response.data.tasks_list;
 		}
 		catch(error) 
 		{

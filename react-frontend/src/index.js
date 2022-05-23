@@ -5,6 +5,10 @@ import {Route, BrowserRouter, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
+
+
+import "./index.css";
+
 import "./homepage/homepage.css";
 import "./searchpage/searchpage.css";
 
@@ -20,4 +24,4 @@ ReactDOM.render(
 		</Routes>
 	</BrowserRouter>,
 	document.getElementById("root")
-);
+);	

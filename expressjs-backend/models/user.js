@@ -22,6 +22,9 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 			trim: true,
+		tasks_list: {
+			type: Array,
+			default: [],
 		},
 	},
 	{ collection: "tasks_list" }

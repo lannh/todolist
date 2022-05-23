@@ -5,8 +5,8 @@ import Table from "../Table";
 import React , {useState} from "react";
 import PrimaryView from "./PrimaryView";
 import ToDoListView from "./ToDoListView";
-import Sidebar from "./Sidebar";
-import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+//import Sidebar from "./Sidebar";
+//import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 
 
 function Homepage () 
@@ -195,6 +195,7 @@ function Homepage ()
 					/>
 				</Routes>
 			</Router>
+
 		</div>
 	);
 

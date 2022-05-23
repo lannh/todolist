@@ -9,15 +9,16 @@ const TaskSchema = new mongoose.Schema(
 		},
 		start_time: {
 			type: Date,
-			required: true,
+			default: new Date(),
 		},
 		end_time: {
 			type: Date,
-			required: true,
+			default: new Date(+new Date() + 7*24*60*60*1000),
 		},
 		priority_level: {
 			type: String,
-			required: true,
+			trim: true,
+			default: "normal",
 		}
 	},
 	{ collection: "Tasks" }

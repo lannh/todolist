@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema(
 		},
 		tasks_list: {
 			type: Array,
-			required: true,
+			default: [],
 		},
 	},
 	{ collection: "users_list" }

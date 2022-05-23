@@ -4,10 +4,10 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 // Import timeGridPlugin from "@fullcalendar/timegrid";
 
-import "@fullcalendar/daygrid/main.css";
-import "@fullcalendar/timegrid/main.css";
+//import "@fullcalendar/daygrid/main.css";
+//import "@fullcalendar/timegrid/main.css";
 
-// Import events from "./events";
+//import events from "./events";
 
 function PrimaryView ()
 {
@@ -31,13 +31,15 @@ function PrimaryView ()
 					 *   right: "dayGridMonth,timeGridWeek,timeGridDay",
 					 * }}
 					 */
+					dayMaxEvents
 					plugins={[dayGridPlugin]}
-					// Events={events}
+					/*events={events}*/
 					displayEventEnd="true"
 					eventColor=
 						{`#${Math.floor(Math.random()*16777215).toString(16)}`}
 					handleWindowResize="true"
 					aspectRatio="4"
+					
 				/>
 			</div>
 		</div>

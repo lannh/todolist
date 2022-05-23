@@ -1,23 +1,26 @@
 {
   "name": "expressjs-backend",
   "version": "1.0.0",
-  "description": "",
   "main": "backend.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon backend.js",
     "start": "node backend.js",
-    "lint": "eslint --fix --ext .js,.jsx ."
+    "lint": "eslint --fix --ext .js,.jsx .",
+    "test": "npx eslint ."
   },
+
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "all": "^0.0.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "mongoose": "^6.3.0"
+    "mongoose": "^6.3.3"
   },
   "devDependencies": {
+    "eslint-plugin-react": "^7.29.4",
     "nodemon": "^2.0.16"
-  }
+  },
+  "description": ""
 }

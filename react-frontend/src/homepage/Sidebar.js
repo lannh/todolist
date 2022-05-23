@@ -6,7 +6,7 @@ function Sidebar ()
 
 	return (
 		<>
-			<div className="offcanvas offcanvas-end w-25" tabIndex="-1"
+			<div className="offcanvas offcanvas-end" tabIndex="-1"
 				id="offcanvas" data-bs-keyboard="false" 
 				data-bs-backdrop="true">
 				<div className="offcanvas-header">
@@ -24,8 +24,8 @@ function Sidebar ()
 					<ul className="nav nav-pills flex-column 
 						mb-sm-auto mb-0 align-items-start" id="menu">
 						<li>
-							<Link to="/" class="nav-link text-truncate">
-								<i className="fs-5 bi-speedometer2" />
+							<Link to="/homepage" class="nav-link text-truncate">
+								<i className="bi bi-speedometer2" />
 								<span className="ms-1 d-none d-sm-inline">
 									Dashboard
 								</span>
@@ -33,32 +33,33 @@ function Sidebar ()
 						</li>
 
 						<li>
-							<a href="/" className="nav-link text-truncate">
-								<i className="fs-5 bi-table" />
+							<Link to="/search" 
+								className="nav-link text-truncate">
+								<i className="bi bi-binoculars" />
 								<span className="ms-1 d-none d-sm-inline">
-									Manage Tasks
+									Lookup a Task
 								</span>
-							</a>
+							</Link>
 						</li>
 
 						<li>
-							<a href="/#" className="nav-link text-truncate">
-								<i className="fs-5 bi-gear" />
+							<Link to="#" className="nav-link text-truncate">
+								<i className="bi bi-gear" />
 
 								<span className="ms-1 d-none d-sm-inline">
 									Account Setting
 								</span>
-							</a>
+							</Link>
 						</li>
 
 						<li>
-							<a href="/#" className="nav-link text-truncate">
-								<i className="fs-5 bi-box-arrow-left" />
+							<Link to="#" className="nav-link text-truncate">
+								<i className="bi bi-box-arrow-left" />
 
 								<span className="ms-1 d-none d-sm-inline">
 									Logout
 								</span>
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>

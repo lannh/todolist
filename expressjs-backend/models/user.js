@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
 	{
-		name: {
+		taskName: {
 			type: String,
 			required: true,
 			trim: true,
 		},
-		job: {
+		date: {
 			type: String,
 			required: true,
 			trim: true,
@@ -18,9 +18,20 @@ const UserSchema = new mongoose.Schema(
 						"must be at least 2 characters.");
 			},
 		},
+		location: {
+			type: String,
+			required: true,
+			trim: true,
+		},
+		tasks_list: {
+			type: Array,
+			default: [],
+		},
 	},
-	{ collection: "users_list" }
+	{ collection: "tasks_list" }
 );
+	
+
 
 const User = mongoose.model("User", UserSchema);
 

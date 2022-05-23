@@ -1,20 +1,19 @@
-const mongoose = require("mongoose");
 const userModel = require("./user");
 const dotenv = require("dotenv");
 
 dotenv.config();
 
-mongoose.set("debug", true);
+//mongoose.set("debug", true);
 
 /*mongoose
-  .connect("mongodb://localhost:27017/users", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => console.log(error));*/
+	.connect("mongodb://127.0.0.1", {
+    	useNewUrlParser: true,
+    	useUnifiedTopology: true,
+  	})
+  	.catch((error) => console.log(error));
+*/
 
-
-mongoose
+/*mongoose
 	.connect(
 		"mongodb+srv://" +
       process.env.MONGO_USER +
@@ -32,26 +31,30 @@ mongoose
 		}
 	)
 	.catch((error) => console.log(error));
+*/
 
-
-async function getUsers(name, job) 
+async function getUsers(taskName, date,location) 
 {
 	let result;
-	if (name === undefined && job === undefined) 
+	if (taskName === undefined && date === undefined && location === undefined) 
 	{
 		result = await userModel.find();
 	}
-	else if (name && !job) 
+	else if (taskName && !date && !location) 
 	{
-		result = await findUserByName(name);
+		result = await findUserByName(taskName);
 	}
-	else if (job && !name) 
+	else if (date && !taskName && !location) 
 	{
-		result = await findUserByJob(job);
+		result = await findUserByJob(date);
+	}
+	else if (location && !date && !taskName) 
+	{
+		result = await findUserByLocation(location);
 	}
 	else
 	{
-		result = await findUserByNameNJob(name, job);
+		result = await findUserByNameNJobNLocation(taskName, date,location);
 	}
 	return result;
 }
@@ -84,21 +87,24 @@ async function addUser(user)
 	}
 }
 
-async function findUserByName(name) 
+async function findUserByName(taskName) 
 {
-	return await userModel.find({ name: name });
+	return await userModel.find({ taskName: taskName });
 }
 
-async function findUserByJob(job) 
+async function findUserByJob(date) 
 {
-	return await userModel.find({ job: job });
+	return await userModel.find({ date: date });
 }
-
-async function findUserByNameNJob(name, job) 
+async function findUserByLocation(location) 
 {
-	return await userModel.find({ name: name, job: job });
+	return await userModel.find({ location: location });
 }
-
+async function findUserByNameNJobNLocation(taskName,date,location) 
+{
+	return await userModel.find({ taskName: taskName, 
+		date: date,location:location });
+}
 
 async function deleleUserByID(id) 
 {
@@ -113,7 +119,24 @@ async function deleleUserByID(id)
 	}
 }  
 
+async function deleleTaskByID(uid,id) 
+{
+	try 
+	{
+		return await userModel.updateOne( 
+			{ _id: uid },
+			{ $pull: {tasks_list: id} }
+		);
+	}
+	catch (error) 
+	{
+		console.log(error);
+		return undefined;
+	}
+}  
+
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
 exports.deleleUserByID = deleleUserByID;
+exports.deleleTaskByID = deleleTaskByID;

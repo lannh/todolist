@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/eslint-parser": "^7.17.0",
@@ -14,7 +15,15 @@
     "lint": "eslint --fix --ext .js,.jsx .",
     "fix-js": "eslint-auto-fix"
   },
+=======
+  
+  "scripts": {},
+>>>>>>> 0981c842b636eab36046bdc4397f441882cb33b6
   "dependencies": {
+    "autoprefixer": "10.4.5",
     "react": "^18.1.0"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5"
   }
 }

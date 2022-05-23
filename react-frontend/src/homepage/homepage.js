@@ -173,16 +173,18 @@ function Homepage ()
 
 				<div className="col-4" id="todolist_view">
 					<Table characterData={characters} 
-				removeCharacter={removeOneCharacter} />
+						removeCharacter={removeOneCharacter} />
 				</div>
 			</div>
 			<div className="form_button_col">
-				<button className="btn btn-secondary btn-lg" id="add_task" onClick = {() => setFormPopup(true)} >
+				<button className="btn btn-secondary btn-lg" 
+				id="add_task" onClick = {() => setFormPopup(true)} >
 					+
 				</button>
 			</div>
 			<div className="container">
-				<Form handleSubmit={updateList} trigger = {formPopup} setTrigger ={setFormPopup} />
+				<Form handleSubmit={updateList} trigger = 
+				{formPopup} setTrigger ={setFormPopup} />
 			</div>
 			<Router>
 				  <Sidebar />

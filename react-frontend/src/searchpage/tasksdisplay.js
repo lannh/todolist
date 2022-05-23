@@ -4,7 +4,27 @@ import Form from "react-bootstrap/Form";
 
 function TasksDisplayBody(props) 
 {
-	const rows = props.characterData.map((row, index) => 
+	const tasks_list = props.tasksData.map(row => 
+	{
+		const dueDate = new Date(row.end_time);
+			
+		let tmp = dueDate.toDateString();
+		let n = tmp.length;
+		row.dueDate = tmp.substring(4,n-4);
+			
+		tmp = dueDate.toLocaleTimeString();
+		n = tmp.length;
+		row.dueTime= 
+			{
+				time : 
+					("0" + tmp.substring(0,tmp.search(":"))).slice(-2) +
+					tmp.substring(tmp.search(":"),n-6),
+				AmPm : tmp.substring(n-2),
+			};		
+		return row;
+	});
+
+	const rows = tasks_list.map((row, index) => 
 	{
 		return (
 			<div className="d-flex flex-sm-row justify-content-around" 
@@ -14,24 +34,30 @@ function TasksDisplayBody(props)
 						<div className="card-body">
 							<div className="row row-2" id="task_info">
 								<div className="col-sm-auto" id="time_task">
-									<span>05-27<br />2022</span>
+									<span>Due:<br />
+										{row.dueDate}
+									</span>
 								</div>
 
 								<div className="col-sm-auto" id="time_task">
-									<span>PM<br />02:00</span>
+									<span>{row.dueTime.AmPm}<br />
+										{row.dueTime.time}
+									</span>
 								</div>
 
 								<div className="col col-sm-fill" id="task_name">
-									<span>{row.name}</span>
+									<span>{row.task_name}</span>
 								</div>
 
 								<div className="col-sm-auto" 
 									id="priority_level">
 									<i  className="bi bi-star-fill"
-										id="normal_priority"
+										id={row.priority_level+"_priority"}
 										data-toggle="tooltip" 
 										data-placement="auto"
-										title="Priority: Normal"/>
+										title={"Priority: " + 
+											row.priority_level}
+									/>
 								</div>
 
 								<div className="col-sm-auto" 
@@ -70,7 +96,7 @@ function TasksDisplayBody(props)
 						type="button" 
 						className="btn btn-secondary"
 						id="del_task"
-						onClick={() => props.removeCharacter(index)}>
+						onClick={() => props.removeTask(row._id)}>
 							Delete
 					</button>
 				</div>
@@ -85,22 +111,13 @@ function TasksDisplayBody(props)
 		</div>
 	);
 }
-/*			<tr scope="row" key={index}>
-				<td>{row._id}</td>
-				<td>{row.name}</td>         
-				<td>{row.job}</td>
-				<td>
-					<button onClick={() => props.removeCharacter(index)}>
-						Delete
-					</button>
-				</td>
-			</tr>*/
+
 function TasksDisplay(props) 
 {
 	return (
 		<>
-			<TasksDisplayBody characterData={props.characterData} 
-				removeCharacter={props.removeCharacter} />  
+			<TasksDisplayBody tasksData={props.tasksData} 
+				removeTask={props.removeTask} />  
 		</>
 	);  
 }

@@ -1,37 +1,4 @@
-const mongoose = require("mongoose");
 const userModel = require("./user");
-const dotenv = require("dotenv");
-
-dotenv.config();
-
-mongoose.set("debug", true);
-
-/*mongoose
-  .connect("mongodb://localhost:27017/users", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => console.log(error));*/
-
-
-mongoose
-	.connect(
-		"mongodb+srv://" +
-      process.env.MONGO_USER +
-      ":" +
-      process.env.MONGO_PWD +
-      "@" +
-      process.env.MONGO_CLUSTER +
-      "/" +
-      process.env.MONGO_DB +
-      "?retryWrites=true&w=majority",
-		// "mongodb://localhost:27017/users",
-		{
-			useNewUrlParser: true, //useFindAndModify: false,
-			useUnifiedTopology: true,
-		}
-	)
-	.catch((error) => console.log(error));
 
 
 async function getUsers(name, job) 
@@ -99,7 +66,6 @@ async function findUserByNameNJob(name, job)
 	return await userModel.find({ name: name, job: job });
 }
 
-
 async function deleleUserByID(id) 
 {
 	try 
@@ -113,7 +79,24 @@ async function deleleUserByID(id)
 	}
 }  
 
+async function deleleTaskByID(uid,id) 
+{
+	try 
+	{
+		return await userModel.updateOne( 
+			{ _id: uid },
+			{ $pull: {tasks_list: id} }
+		);
+	}
+	catch (error) 
+	{
+		console.log(error);
+		return undefined;
+	}
+}  
+
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
 exports.deleleUserByID = deleleUserByID;
+exports.deleleTaskByID = deleleTaskByID;

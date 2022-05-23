@@ -2,8 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import image from "../homepage/default_avatar.jpeg";
 import Sidebar from "./Sidebar";
-import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
-import Homepage from "./homepage";
 
 function HeaderHome ()
 {
@@ -30,17 +28,7 @@ function HeaderHome ()
 					</div>
 				</div>
 			</div>
-
-			<Router>
-				<Sidebar />
-
-				<Routes>
-					<Route
-						path="/homepage"
-						component={Homepage}
-					/>
-				</Routes>
-			</Router>
+			<Sidebar />
 		</>
 	);
 

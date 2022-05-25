@@ -12,7 +12,8 @@ import "./inputschedulepage/input_schedule.css";
 
 
 import SearchPage from "./searchpage/searchpage";
-import Homepage from "./homepage/homepage"; import InputSchedule from "./inputschedulepage/inputSchedule";
+import Homepage from "./homepage/homepage"; 
+import InputSchedule from "./inputschedulepage/inputSchedule";
 
 
 

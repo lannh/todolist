@@ -140,10 +140,8 @@ function SearchPage()
 						<div className="input-group input-group-lg mb-3"
 							id="searchBar">
 
-							<DropdownButton
-								alignRight
-								title={dropdownTitle}
-								key="Secondary"
+							<DropdownButton 
+								alignRight title={dropdownTitle} key="Secondary"
 								id="searchFilter"
 								variant="secondary"
 								size="lg"

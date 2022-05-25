@@ -15,17 +15,21 @@ function InputSchedule ()
 		});
 		setTimeSlots(updated);
 		/*try {
-			const response = await axios.delete('http://localhost:5000/users/' + props.id + '/inputSchedule/' + dayIndex);
+			const response = await axios.delete('http://localhost:5000/users/'
+				+ props.id + '/inputSchedule/' + dayIndex);
 			if (!(response && response.status === 204))
-				console.log('Could not delete time slot for user with id \'' + props.id + '\' in backend.');
+				console.log(
+				'Could not delete time slot for user with id \'' +
+				props.id + '\' in backend.');
 		}
-		catch (error){
+		catch (error)
+		{
 			//We're not handling errors. Just logging into the console.
 			console.log(error);
 		}*/
 	}
 
-	function updateList(dayIndex, slot) 
+	function updateList(dayIndex, slot)
 	{
 		/*postSlot(dayIndex, slot).then( result => {
 		if (result && result.status === 201) {*/
@@ -38,7 +42,8 @@ function InputSchedule ()
 
 	/*async function fetchAll(){
 		try {
-			const response = await axios.get('http://localhost:5000/users/' + props.id + '/inputSchedule');
+			const response = await axios.get('http://localhost:5000/users/'
+				+ props.id + '/inputSchedule');
 			return response.users.users_list[props.id]['availability'];     
 		}
 		catch (error){
@@ -49,7 +54,8 @@ function InputSchedule ()
 	}
 	async function postSlot(dayIndex, slot){
 		try {
-			const response = await axios.post('http://localhost:5000/users/' + props.id + '/inputSchedule/' + dayIndex, slot);
+			const response = await axios.post('http://localhost:5000/users/'
+				+ props.id + '/inputSchedule/' + dayIndex, slot);
 			return response;
 		}
 		catch (error) {
@@ -82,7 +88,6 @@ function InputSchedule ()
 				className="btn btn-secondary btn-lg" id="add_task">
 				+
 			</button>
-
 		</div>
 	);
 

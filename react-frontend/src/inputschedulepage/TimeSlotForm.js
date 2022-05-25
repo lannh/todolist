@@ -1,16 +1,8 @@
 import React, {useState} from "react";
 import TimePicker from "react-time-picker";
 
-function Form(props) 
+function Form(props)
 {
-	/*const [slot, setSlot] = useState(
-		{
-			startTimeHr: 0,
-			startTimeMin: 0,
-			endTimeHr: 0,
-			endTimeMin: 0
-		}
-	);*/
 	const [time, setTime] = useState(
 		{
 			startTime: "0:00",
@@ -18,40 +10,7 @@ function Form(props)
 		}
 	);
 
-	/*function handleChange(event) 
-	{
-		const { name, value } = event.target;
-		if (name === "startTimeHr")
-			setSlot(
-				{startTimeHr: value,
-					startTimeMin: slot["startTimeMin"],
-					endTimeHr: slot["endTimeHr"],
-					endTimeMin: slot["endTimeMin"]}
-			);
-		else if (name === "startTimeMin")
-			setSlot(
-				{startTimeHr: slot["startTimeHr"],
-					startTimeMin: value,
-					endTimeHr: slot["endTimeHr"],
-					endTimeMin: slot["endTimeMin"]}
-			);
-		else if (name === "endTimeHr")
-			setSlot(
-				{startTimeHr: slot["startTimeHr"],
-					startTimeMin: slot["startTimeMin"],
-					endTimeHr: value,
-					endTimeMin: slot["endTimeMin"]}
-			);
-		else
-			setSlot(
-				{startTimeHr: slot["startTimeHr"],
-					startTimeMin: slot["startTimeMin"],
-					endTimeHr: slot["endTimeHr"],
-					endTimeMin: value}
-			);
-	}*/
-
-	function setStartTime(sTime) 
+	function setStartTime(sTime)
 	{
 		console.log(sTime);
 
@@ -61,7 +20,7 @@ function Form(props)
 		);
 	}
 
-	function setEndTime(eTime) 
+	function setEndTime(eTime)
 	{
 		console.log(eTime);
 
@@ -71,7 +30,7 @@ function Form(props)
 		);
 	}
 
-	function submitForm() 
+	function submitForm()
 	{
 		props.handleSubmit(props.dayIndex, time);
 		setTime({startTime: "0:00", endTime: "1:00"});

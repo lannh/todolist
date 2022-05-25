@@ -1,6 +1,6 @@
 //TEST DATA
 
-var schedule_times = 
+export var debug_schedule_blocks = 
 [
 	{
 		start_time: 0,
@@ -32,7 +32,7 @@ var schedule_times =
 	}	
 ];
 
-var activities = 
+export var debug_tasks = 
 [
 	{
 		length: 1,
@@ -77,12 +77,12 @@ function activity_sort(a, b)
 
 function schedule_sort(a, b)
 {
-	return a.start_time < b.start_time;
+	return a.start_time > b.start_time;
 }
 
 // const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-function solve_schedule(task_array, schedule_blocks)
+export function solve_schedule(task_array, schedule_blocks)
 {
 	//Make sure schedule blocks are in order so during display phase
 	//we dont have to worry about this, just display in the current order.
@@ -309,12 +309,18 @@ function solve_schedule(task_array, schedule_blocks)
 		block_index++)
 	{
 		var debug_block = final_schedule_data[block_index];
+		if (debug_block.activities.length == 0)
+		{
+			final_schedule_data.splice(block_index, 1);
+		}
 		console.log(debug_block);
 	}
+
+	// final_schedule_data.sort(schedule_sort);	
+
+	return final_schedule_data;
 }
 
-solve_schedule(activities, schedule_times);
+// solve_schedule(debug_tasks, schedule_times);
 
 //node .\react-frontend\src\scheduler.js
-
-// export.solve_schedule = solve_schedule;

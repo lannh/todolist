@@ -1,6 +1,6 @@
 import Form from "react-bootstrap/Form";
 import React from "react";
-import "../scheduler.js";
+import * as scheduler from "../scheduler.js";
 /*
  *Import { useState, useEffect } from "react";
  *const [tasks, setCompleteTasks] = React.useState([]);
@@ -13,9 +13,32 @@ import "../scheduler.js";
  */
 /* Max task_name = 20 chars*/
 
-function ToDoListView ()
+//convert start time to string
+function csts(t)
 {
-	// solve_schedule(null, null);
+	// t = t / (24 * 60); for later
+	if(t > 12)
+		return (t - 12) + "PM";
+
+	if(t == 0)
+		t = 12;
+
+	return t + "AM";
+}
+
+//get block string
+function gbs(bd)
+{
+	var s = csts(bd.start_time);
+	var e = csts(bd.end_time);
+
+	return s + " - " + e;
+}
+
+function ToDoListView() 
+{
+	var schedule_data = scheduler.solve_schedule(scheduler.debug_tasks,
+		scheduler.debug_schedule_blocks);
 
 	/*
 	 *UseEffect(()=>
@@ -56,220 +79,64 @@ function ToDoListView ()
 				<span>To-Do</span>
 			</div>
 
-			<div className="p-2" id="todo_list">
-				<div className="card" id="todo_item">
-					<div className="card-body">
-						<div className="row row-2" id="task_info">
-							<div className="col-sm-auto" id="time_task">
-								<span>PM<br />12:00</span>
-							</div>
+			{schedule_data.map((schedule_block, index) => (
+				console.log(index, schedule_block.block_data.start_time),
+				
+				<div className="p-2" id="todo_list">
+					<span style={{ color: "white", fontSize: 32}}>
+						{gbs(schedule_block.block_data)}
+					</span>
+					
+					{schedule_block.activities.map((task_data, index) => (
+						
+						console.log(index, 
+							schedule_block.block_data.start_time),
+						
+						<div className="card" id="todo_item">
+							<div className="card-body">
+								<div className="row row-2" id="task_info">
+									<div className="col-sm-auto" 
+										id="time_task">
+										{task_data.length + " hr"}
+									</div>
 
-							<div className="col col-sm-fill" id="task_name">
-								<span> Task Name </span>
-							</div>
+									<div className="col col-sm-fill" 
+										id="task_name">
+										<span> Task Name </span>
+									</div>
 
-							<div className="col-sm-auto" id="priority_level">
-								<i  className="bi bi-star-fill"
-									id="high_priority" data-toggle="tooltip"
-									data-placement="auto"
-									title="Priority: High"/>
-							</div>
+									<div className="col-sm-auto" 
+										id="priority_level">
+										<i className="bi bi-star-fill"
+											id="high_priority" 
+											data-toggle="tooltip"
+											data-placement="auto"
+											title="Priority: High" />
+									</div>
 
-							<div className="col-sm-auto" id="task_checkDone">
-								<Form.Check aria-label="option 1" 
-									type="checkbox">
-									<Form.Check.Input
-										type="checkbox"
-										defaultChecked={false}
-										onClick={(e) =>
-										{
-											console.log(e.target.checked);
-										}}
-									/>
-								</Form.Check>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div className="card" id="todo_item">
-					<div className="card-body">
-						<div className="row row-2" id="task_info">
-							<div className="col-sm-auto" id="time_task">
-								<span>PM<br />02:00</span>
-							</div>
-
-							<div className="col col-sm-fill" id="task_name">
-								<span>Task Name 2</span>
-							</div>
-
-							<div className="col-sm-auto" id="priority_level">
-								<i  className="bi bi-star-fill"
-									id="normal_priority"
-									data-toggle="tooltip" data-placement="auto"
-									title="Priority: Normal"/>
-							</div>
-
-							<div className="col-sm-auto" id="task_checkDone">
-								<Form.Check aria-label="option 1"
-									type="checkbox">
-									<Form.Check.Input
-										type="checkbox" defaultChecked={false}
-										onClick={(e) =>
-										{
-											console.log(e.target.checked);
-										}}
-									/>
-								</Form.Check>
+									<div className="col-sm-auto" 
+										id="task_checkDone">
+										<Form.Check aria-label="option 1"
+											type="checkbox">
+											<Form.Check.Input
+												type="checkbox"
+												defaultChecked={false}
+												onClick={(e) => 
+												{
+													console.log(
+														e.target.checked);
+												}}
+											/>
+										</Form.Check>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-
-				<div className="card" id="todo_item">
-					<div className="card-body">
-						<div className="row row-2" id="task_info">
-							<div className="col-sm-auto" id="time_task">
-								<span>PM<br />05:00</span>
-							</div>
-
-							<div className="col col-sm-fill" id="task_name">
-								<span>Task Name 3</span>
-							</div>
-
-							<div className="col-sm-auto" id="priority_level">
-								<i  className="bi bi-star-fill"
-									id="normal_priority"
-									data-toggle="tooltip" data-placement="auto"
-									title="Priority: Normal" />
-							</div>
-
-							<div className="col-sm-auto" id="task_checkDone">
-								<Form.Check
-									aria-label="option 1" type="checkbox">
-									<Form.Check.Input
-										type="checkbox" defaultChecked={false}
-										onClick={(e) =>
-										{
-											console.log(e.target.checked);
-										}}
-									/>
-								</Form.Check>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div className="card" id="todo_item">
-					<div className="card-body">
-						<div className="row row-2" id="task_info">
-							<div className="col-sm-auto" id="time_task">
-								<span>PM<br />08:00</span>
-							</div>
-
-							<div className="col col-sm-fill" id="task_name">
-								<span>Task Name 4</span>
-							</div>
-
-							<div className="col-sm-auto" id="priority_level">
-								<i  className="bi bi-star-fill"
-									id="high_priority"
-									data-toggle="tooltip" data-placement="auto"
-									title="Priority: High" />
-							</div>
-
-							<div className="col-sm-auto" id="task_checkDone">
-								<Form.Check
-									aria-label="option 1" type="checkbox">
-									<Form.Check.Input
-										type="checkbox" defaultChecked={false}
-										onClick={(e) =>
-										{
-											console.log(e.target.checked);
-										}}
-									/> 
-								</Form.Check>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<div className="card" id="todo_item">
-					<div className="card-body">
-						<div className="row row-2" id="task_info">
-							<div className="col-sm-auto" id="time_task">
-								<span>PM<br />09:00</span>
-							</div>
-
-							<div className="col col-sm-fill" id="task_name">
-								<span>Task Name 5</span>
-							</div>
-
-							<div className="col-sm-auto" id="priority_level">
-								<i  className="bi bi-star-fill"
-									id="normal_priority"
-									data-toggle="tooltip" data-placement="auto"
-									title="Priority: Normal" />
-							</div>
-
-							<div className="col-sm-auto" id="task_checkDone">
-								<Form.Check
-									aria-label="option 1" type="checkbox">
-									<Form.Check.Input
-										type="checkbox" defaultChecked={false}
-										onClick={(e) =>
-										{
-											console.log(e.target.checked);
-										}}
-									/>
-								</Form.Check>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<div className="card" id="todo_item">
-					<div className="card-body">
-						<div className="row row-2" id="task_info">
-							<div className="col-sm-auto" id="time_task">
-								<span>PM<br />10:30</span>
-							</div>
-
-							<div className="col col-sm-fill" id="task_name">
-								<span>Task Name 6</span>
-							</div>
-
-							<div className="col-sm-auto" id="priority_level">
-								<i  className="bi bi-star-fill"
-									id="high_priority"
-									data-toggle="tooltip" data-placement="auto"
-									title="Priority: High" />
-							</div>
-
-							<div className="col-sm-auto" id="task_checkDone">
-								<Form.Check
-									aria-label="option 1" type="checkbox">
-									<Form.Check.Input
-										type="checkbox" defaultChecked={false}
-										onClick={(e) =>
-										{
-											console.log(e.target.checked);
-										}}
-									/>
-								</Form.Check>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-			</div>
-
-		</div>
+					))}
+				</div >
+			))}
+		</div >
 	);
-
 }
 
 export default ToDoListView;

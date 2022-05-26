@@ -49,11 +49,19 @@ function SearchPage()
 		{
 			return task._id !== id;
 		});
+
+		const updatedAllTasks = allTasks.filter(task => 
+		{
+			return task._id !== id;
+		});
     
 		makeDelCall(id).then(result => 
 		{
 			if(result && result.status === 204)
+			{
 				setTasks(updated);
+				setAllTasks(updatedAllTasks);
+			}
 		});
 	}
 

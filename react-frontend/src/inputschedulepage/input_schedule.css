@@ -323,7 +323,7 @@ img {
 }
 
 #normal_priority{
-  color:khaki ;
+  color:rgb(147, 255, 128) ;
   filter: drop-shadow(1px 1px 1px #222222);
   font-size: 3vh;
 }

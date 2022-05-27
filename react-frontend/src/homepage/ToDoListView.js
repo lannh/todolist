@@ -1,6 +1,8 @@
 import Form from "react-bootstrap/Form";
-import React from "react";
+import React, {useState}  from "react";
+import axios from "axios";
 import * as scheduler from "../scheduler.js";
+
 /*
  *Import { useState, useEffect } from "react";
  *const [tasks, setCompleteTasks] = React.useState([]);
@@ -37,41 +39,39 @@ function gbs(bd)
 
 function ToDoListView() 
 {
-	var schedule_data = scheduler.solve_schedule(scheduler.debug_tasks,
-		scheduler.debug_schedule_blocks);
+	const [tasks, setTasks] = useState([]);
 
-	/*
-	 *UseEffect(()=>
-	 *{
-	 *    tasks.map((x, key) =>
-	 *    {
-	 *        // using this derived state you could apply styles here
-	 *        const isCompleteTask = tasks.includes(x.id);
-	 *        return (
-	 *        <div className="task-list-item">
-	 *            <ul>
-	 *            <li className={isCompleteTask ?
-	 *		'lineThroughStyles' : 'li-title'}
-	 *	id="title" key={key}>
-	 *                {x.title}
-	 *            </li>
-	 *            <li className="li-desc" id="desc" key={key}>
-	 *                {x.description}
-	 *            </li>
-	 *            </ul>
-	 *            <div className="btn-container">
-	 *        <button onClick={() => completeTasks(x.id)}
-	 *className={isCompleteTask ? 'taskCompleteButtonStyles'
-	 *			: 'task-btns'}>
-	 *                Complete
-	 *            </button>
-	 *            <button className="task-btn-del">Delete</button>
-	 *            </div>
-	 *        </div>
-	 *        );
-	 *    });
-	 *}, []);
-	 */
+	async function fetchAll()
+	{
+		try 
+		{
+			const response = 
+				await axios.get("http://localhost:5001/user/tasks/"+
+								"62896e58b1cb8555ed799f3c");
+			return response.data.tasks_list;
+		}
+		catch(error) 
+		{
+			console.log(error);
+			return false;
+		}
+	}
+
+	fetchAll().then(result => 
+	{
+		if(result)
+			setTasks(result);
+	});
+
+	for (let task_index = 0; 
+		task_index < tasks.length; 
+		task_index++)
+	{
+		tasks[task_index].length = 1;
+		tasks[task_index].priority = 1;
+	}
+	var schedule_data = scheduler.solve_schedule(tasks,
+		scheduler.debug_schedule_blocks);
 
 	return (
 		<div className="d-flex flex-column" id="todolist_col">
@@ -79,18 +79,17 @@ function ToDoListView()
 				<span>To-Do</span>
 			</div>
 
-			{schedule_data.map((schedule_block, index) => (
-				console.log(index, schedule_block.block_data.start_time),
+			{schedule_data.map((schedule_block) => (
+				console.log(schedule_block),
 				
 				<div className="p-2" id="todo_list">
 					<span style={{ color: "white", fontSize: 32}}>
 						{gbs(schedule_block.block_data)}
 					</span>
 					
-					{schedule_block.activities.map((task_data, index) => (
+					{schedule_block.activities.map((task_data) => (
 						
-						console.log(index, 
-							schedule_block.block_data.start_time),
+						console.log(schedule_block),
 						
 						<div className="card" id="todo_item">
 							<div className="card-body">

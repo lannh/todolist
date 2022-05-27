@@ -313,7 +313,7 @@ export function solve_schedule(task_array, schedule_blocks)
 		{
 			final_schedule_data.splice(block_index, 1);
 		}
-		console.log(debug_block);
+		// console.log(debug_block);
 	}
 
 	// final_schedule_data.sort(schedule_sort);	

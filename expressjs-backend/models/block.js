@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 
 const BlockSchema = new mongoose.Schema(
 	{
-		startTime: {
+		start_time: {
 			type: Number,
 			required: true,
 		},
-		endTime: {
+		end_time: {
 			type: Number,
 			required: true,
 		},
-		startTimeFlexibility: {
+		start_time_flexibility: {
 			type: Number,
 			default: 0,
 		},
-		endTimeFlexibility: {
+		end_time_flexibility: {
 			type: Number,
 			default: 0,
 		},

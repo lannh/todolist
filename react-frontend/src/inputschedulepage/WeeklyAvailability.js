@@ -3,16 +3,16 @@ import Form from "./TimeSlotForm";
 
 function WeeklyAvailability (props)
 {
-	function timeNumToString(startTime, endTime)
+	function timeNumToString(start_time, end_time)
 	{
-		let tH = Math.trunc(startTime / 60).toString();
+		let tH = Math.trunc(start_time / 60).toString();
 		tH = (tH.length === 1)?"0"+tH:tH;
-		let tM = (startTime % 60).toString();
+		let tM = (start_time % 60).toString();
 		tM = (tM.length === 1)?"0"+tM:tM;
 		let stTime = tH + ":" + tM;
-		tH = Math.trunc(endTime / 60).toString();
+		tH = Math.trunc(end_time / 60).toString();
 		tH = (tH.length === 1)?"0"+tH:tH;
-		tM = (endTime % 60).toString();
+		tM = (end_time % 60).toString();
 		tM = (tM.length === 1)?"0"+tM:tM;
 		let enTime = tH + ":" + tM;
 		return [stTime, enTime];
@@ -22,12 +22,12 @@ function WeeklyAvailability (props)
 	{
 		const rows = props.timeSlots.map((row, index) => 
 		{
-			let [startTime, endTime] = timeNumToString(row.startTime, row.endTime);
+			let [start_time, end_time] = timeNumToString(row.start_time, row.end_time);
 			return (
 				<tr key={index}>
-					<td>{startTime}</td>
+					<td>{start_time}</td>
 					<td>&nbsp;-&nbsp;</td>
-					<td>{endTime}</td>
+					<td>{end_time}</td>
 					<td>
 						<button 
 							onClick={() => 

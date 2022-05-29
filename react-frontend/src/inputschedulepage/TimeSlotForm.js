@@ -5,10 +5,10 @@ function Form(props)
 {
 	const [time, setTime] = useState(
 		{
-			startTime: "0:00",
-			endTime: "1:00",
-			startTimeFlexibility: 0,
-			endTimeFlexibility: 0
+			start_time: "0:00",
+			end_time: "1:00",
+			start_time_flexibility: 0,
+			end_time_flexibility: 0
 		}
 	);
 
@@ -16,10 +16,10 @@ function Form(props)
 	{
 		setTime(
 			{
-				startTime: sTime,
-				endTime: time["endTime"],
-				startTimeFlexibility: time["startTimeFlexibility"],
-				endTimeFlexibility: time["endTimeFlexibility"]
+				start_time: sTime,
+				end_time: time["end_time"],
+				start_time_flexibility: time["start_time_flexibility"],
+				end_time_flexibility: time["end_time_flexibility"]
 			}
 		);
 	}
@@ -28,10 +28,10 @@ function Form(props)
 	{
 		setTime(
 			{
-				startTime: time["startTime"],
-				endTime: eTime,
-				startTimeFlexibility: time["startTimeFlexibility"],
-				endTimeFlexibility: time["endTimeFlexibility"]
+				start_time: time["start_time"],
+				end_time: eTime,
+				start_time_flexibility: time["start_time_flexibility"],
+				end_time_flexibility: time["end_time_flexibility"]
 			}
 		);
 	}
@@ -41,10 +41,10 @@ function Form(props)
 		const flex = parseInt(sFlex.nativeEvent.data);
 		setTime(
 			{
-				startTime: time["startTime"],
-				endTime: time["endTime"],
-				startTimeFlexibility: flex,
-				endTimeFlexibility: time["endTimeFlexibility"]
+				start_time: time["start_time"],
+				end_time: time["end_time"],
+				start_time_flexibility: flex,
+				end_time_flexibility: time["end_time_flexibility"]
 			}
 		);
 	}
@@ -54,61 +54,61 @@ function Form(props)
 		const flex = parseInt(eFlex.nativeEvent.data);
 		setTime(
 			{
-				startTime: time["startTime"],
-				endTime: time["endTime"],
-				startTimeFlexibility: time["startTimeFlexibility"],
-				endTimeFlexibility: flex
+				start_time: time["start_time"],
+				end_time: time["end_time"],
+				start_time_flexibility: time["start_time_flexibility"],
+				end_time_flexibility: flex
 			}
 		);
 	}
 
 	function submitForm()
 	{
-		if (isNaN(time.startTimeFlexibility) || isNaN(time.endTimeFlexibility)) 
+		if (isNaN(time.start_time_flexibility) || isNaN(time.end_time_flexibility)) 
 		{
 			console.log("Error - Flexibility should be a number. Please try again.");
 		}
-		else if (parseInt(time.startTime.substring(0, time.startTime.indexOf(":"))) >
-				parseInt(time.endTime.substring(0, time.endTime.indexOf(":"))))
+		else if (parseInt(time.start_time.substring(0, time.start_time.indexOf(":"))) >
+				parseInt(time.end_time.substring(0, time.end_time.indexOf(":"))))
 		{
 			console.log("Error - Start time is chronologically after end time. Please try again.");
 		}
-		else if (parseInt(time.startTime.substring(0, time.startTime.indexOf(":"))) ===
-				parseInt(time.endTime.substring(0, time.endTime.indexOf(":")))
-				&& (parseInt(time.startTime.substring(time.startTime.indexOf(":") + 1))) >=
-				parseInt(time.endTime.substring(time.endTime.indexOf(":") + 1)))
+		else if (parseInt(time.start_time.substring(0, time.start_time.indexOf(":"))) ===
+				parseInt(time.end_time.substring(0, time.end_time.indexOf(":")))
+				&& (parseInt(time.start_time.substring(time.start_time.indexOf(":") + 1))) >=
+				parseInt(time.end_time.substring(time.end_time.indexOf(":") + 1)))
 		{
 			console.log("Error - Start time is chronologically at or after end time. Please try again.");
 		}
 		else
 			props.handleSubmit(props.dayIndex, time);
-		setTime({startTime: "0:00", endTime: "1:00", startTimeFlexibility: 0, endTimeFlexibility: 0});
+		setTime({start_time: "0:00", end_time: "1:00", start_time_flexibility: 0, end_time_flexibility: 0});
 	}
 
 	return (
 		<form>
 			<label htmlFor="startTimeHr">Start Time</label>
 			<div>
-				<TimePicker onChange={setStartTime} value={time.startTime} />
+				<TimePicker onChange={setStartTime} value={time.start_time} />
 			</div>
 			<label htmlFor="startTimeFlex">Flexibility</label>
 			<input
 				type="number"
 				className="time_bound"
 				name="startTimeFlexibility"
-				value={time.startTimeFlexibility}
+				value={time.start_time_flexibility}
 				onChange={setStartTimeFlex} />
 			<br />
 			<label htmlFor="endTimeHr">End Time</label>
 			<div>
-				<TimePicker onChange={setEndTime} value={time.endTime} />
+				<TimePicker onChange={setEndTime} value={time.end_time} />
 			</div>
 			<label htmlFor="endTimeFlex">Flexibility</label>
 			<input
 				type="number"
 				className="time_bound"
 				name="endTimeFlexibility"
-				value={time.endTimeFlexibility}
+				value={time.end_time_flexibility}
 				onChange={setEndTimeFlex} />
 			<input type="button" value="Submit" onClick={submitForm} />
 		</form>

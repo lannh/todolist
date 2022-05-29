@@ -88,6 +88,9 @@ export function solve_schedule(task_array, schedule_blocks)
 	//we dont have to worry about this, just display in the current order.
 	//Also sort activities based on priority/length so that tasts with the
 	//highest "important" score get placed first
+	if (!task_array || !schedule_blocks)
+		return [];
+
 	schedule_blocks.sort(schedule_sort);
 	task_array.sort(activity_sort);
 
@@ -155,7 +158,7 @@ export function solve_schedule(task_array, schedule_blocks)
 				var ce = block.block_data.end_time;
 				var ns = block_index < final_schedule_data.length - 1 
 					? final_schedule_data[block_index + 1].block_data.start_time
-					: 24;
+					: 24 * 60;
 
 				var le = block_index > 0 
 					? final_schedule_data[block_index - 1].block_data.end_time 

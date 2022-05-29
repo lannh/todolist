@@ -36,7 +36,7 @@ function InputSchedule (props)
 		let st = (index === -1)?0:index;
 		let end = (index === -1)?7:index + 1;
 		for (let i = st; i < end; i++)
-			slots[days[i]].sort((a, b) => a.startTime - b.startTime);
+			slots[days[i]].sort((a, b) => a.start_time - b.start_time);
 	}
 
 	function noOverlap(dayIndex, slot) 
@@ -45,10 +45,10 @@ function InputSchedule (props)
 		let m = checkSlots[days[dayIndex]].length;
 		for (let i = 0; i < m; i++) 
 		{
-			if (checkSlots[days[dayIndex]][i].startTime <= slot.startTime
-				&& checkSlots[days[dayIndex]][i].endTime > slot.startTime
-				|| checkSlots[days[dayIndex]][i].startTime < slot.endTime
-				&& checkSlots[days[dayIndex]][i].endTime >= slot.endTime)
+			if (checkSlots[days[dayIndex]][i].start_time <= slot.start_time
+				&& checkSlots[days[dayIndex]][i].end_time > slot.start_time
+				|| checkSlots[days[dayIndex]][i].start_time < slot.end_time
+				&& checkSlots[days[dayIndex]][i].end_time >= slot.end_time)
 				return false;
 		}
 		return true;
@@ -56,15 +56,15 @@ function InputSchedule (props)
 
 	function updateList(dayIndex, slot)
 	{
-		const startTime = parseInt(slot.startTime.substring(0, slot.startTime.indexOf(":"))) * 60
-							+ parseInt(slot.startTime.substring(slot.startTime.indexOf(":") + 1));
-		const endTime = parseInt(slot.endTime.substring(0, slot.endTime.indexOf(":"))) * 60
-							+ parseInt(slot.endTime.substring(slot.endTime.indexOf(":") + 1));
+		const start_time = parseInt(slot.start_time.substring(0, slot.start_time.indexOf(":"))) * 60
+							+ parseInt(slot.start_time.substring(slot.start_time.indexOf(":") + 1));
+		const end_time = parseInt(slot.end_time.substring(0, slot.end_time.indexOf(":"))) * 60
+							+ parseInt(slot.end_time.substring(slot.end_time.indexOf(":") + 1));
 		let dbSlot = {
-			startTime: startTime,
-			endTime: endTime,
-			startTimeFlexibility: slot.startTimeFlexibility,
-			endTimeFlexibility: slot.endTimeFlexibility
+			start_time: start_time,
+			end_time: end_time,
+			start_time_flexibility: slot.start_time_flexibility,
+			end_time_flexibility: slot.end_time_flexibility
 		};
 
 		if (noOverlap(dayIndex, dbSlot))

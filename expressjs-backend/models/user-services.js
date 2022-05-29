@@ -1,4 +1,5 @@
 const userModel = require("./user");
+const scheduleModel = require("./schedule");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -77,7 +78,10 @@ async function addUser(user)
 	try 
 	{
 		const userToAdd = new userModel(user);
+		const scheduleToAdd = new scheduleModel();
+		userToAdd["schedule"] = scheduleToAdd._id;
 		const savedUser = await userToAdd.save();
+		await scheduleToAdd.save();
 		return savedUser;
 	}
 	catch (error) 
@@ -110,6 +114,8 @@ async function deleleUserByID(id)
 {
 	try 
 	{
+		const user = await userModel.findById(id);
+		await scheduleModel.findByIdAndDelete(user["schedule"]);
 		return await userModel.findByIdAndDelete(id);
 	}
 	catch (error) 
@@ -117,7 +123,7 @@ async function deleleUserByID(id)
 		console.log(error);
 		return undefined;
 	}
-}  
+}
 
 async function deleleTaskByID(uid,id) 
 {
@@ -133,7 +139,7 @@ async function deleleTaskByID(uid,id)
 		console.log(error);
 		return undefined;
 	}
-}  
+}
 
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;

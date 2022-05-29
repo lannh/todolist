@@ -141,9 +141,9 @@ function ToDoListView()
 		try 
 		{
 			const response = 
-				await axios.get("http://localhost:5001/user/tasks/"+
-								"62896e58b1cb8555ed799f3c");
-			return response.data.tasks_list;
+				await axios.get("http://localhost:5001/user/62938a5d129b495001006987/schedule");
+			console.log(response);
+			return response.data;
 		}
 		catch(error) 
 		{
@@ -169,8 +169,6 @@ function ToDoListView()
 	const current_month = start.getMonth();
 	console.log(current_day, current_month);
 
-	console.log(schedule_blocks);
-
 	for (let task_index = tasks.length-1; 
 		task_index >= 0; 
 		task_index--)
@@ -184,6 +182,8 @@ function ToDoListView()
 		tasks[task_index].length = 0.5 + task_index / 5;
 		tasks[task_index].priority = task_index;
 	}
+	
+	console.log(schedule_blocks);
 	var schedule_data = scheduler.solve_schedule(tasks,
 		scheduler.debug_schedule_blocks);
 

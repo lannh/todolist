@@ -299,21 +299,25 @@ export function solve_schedule(task_array, schedule_blocks)
 		}
 		
 		var final_block = final_schedule_data[best_index];
+		task_data.start_time = final_block.block_data.start_time + 
+			((final_block.block_data.end_time - final_block.block_data.start_time) 
+			- final_block.remaining_time);
+		// console.log(task_data.start_time);
 		var t_r = final_block.remaining_time - task_data.length;
 		final_block.remaining_time = t_r;
 		final_block.activities.push(task_data);
 	}
 
-	for (let block_index = 0; 
-		block_index < final_schedule_data.length; 
-		block_index++)
+	for (let block_index = final_schedule_data.length - 1; 
+		block_index >= 0; 
+		block_index--)
 	{
 		var debug_block = final_schedule_data[block_index];
 		if (debug_block.activities.length == 0)
 		{
 			final_schedule_data.splice(block_index, 1);
 		}
-		console.log(debug_block);
+		// console.log(debug_block);
 	}
 
 	// final_schedule_data.sort(schedule_sort);	

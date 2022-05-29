@@ -118,8 +118,9 @@ function lerp_hex_colors(a, b, amount) //yoink
 function ToDoListView() 
 {
 	const [tasks, setTasks] = useState([]);
+	const [schedule_blocks, setScheduleBlocks] = useState([]);
 
-	async function fetchAll()
+	async function fetchTasks()
 	{
 		try 
 		{
@@ -135,10 +136,32 @@ function ToDoListView()
 		}
 	}
 
-	fetchAll().then(result => 
+	async function fetchSchedule()
+	{
+		try 
+		{
+			const response = 
+				await axios.get("http://localhost:5001/user/tasks/"+
+								"62896e58b1cb8555ed799f3c");
+			return response.data.tasks_list;
+		}
+		catch(error) 
+		{
+			console.log(error);
+			return false;
+		}
+	}
+
+	fetchTasks().then(result => 
 	{
 		if(result)
 			setTasks(result);
+	});
+
+	fetchSchedule().then(result => 
+	{
+		if(result)
+			setScheduleBlocks(result);
 	});
 
 	var start = new Date(Date.now());
@@ -146,6 +169,7 @@ function ToDoListView()
 	const current_month = start.getMonth();
 	console.log(current_day, current_month);
 
+	console.log(schedule_blocks);
 
 	for (let task_index = tasks.length-1; 
 		task_index >= 0; 

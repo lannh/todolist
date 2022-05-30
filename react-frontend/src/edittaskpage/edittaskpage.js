@@ -1,19 +1,14 @@
 import axios from "axios";
 import React, {useState, useEffect}  from "react";
-
-import HeaderHome from "../homepage/header_home";
-
 import { useLocation, useNavigate } from "react-router-dom";
 
-
 import Form from "react-bootstrap/Form";
-
 import Row from "react-bootstrap/Row";
 import Alert from "react-bootstrap/Alert";
-
-
 import Calendar from "react-calendar";
+
 import HoursOptions from "./hoursoptions";
+import HeaderHome from "../homepage/header_home";
 
 function EditTaskPage() 
 {

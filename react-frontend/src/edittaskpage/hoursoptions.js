@@ -1,12 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React  from "react";
-//import Col from "react-bootstrap/esm/Col";
 import Form from "react-bootstrap/Form";
-
-
-//import MenuItem from "@material-ui/core/MenuItem";
-//import Select from "@material-ui/core/Select";
-
 
 
 const hrs = ["00","01", "02", "03", "04", "05","06","07","08","09","10",
@@ -21,9 +15,6 @@ const mins = ["00", "01", "02", "03", "04", "05","06","07","08","09","10",
 
 function HoursOptions(props) 
 {
-	/*const [duration, setDuration] = useState(0);
-	const [durationMins, setDurationMins] = useState(0);*/
-
 	function checkDuration(newDuration)
 	{
 		if(props.validated)

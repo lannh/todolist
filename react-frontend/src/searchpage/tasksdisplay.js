@@ -11,17 +11,7 @@ function TasksDisplayBody(props)
 			
 		let tmp = dueDate.toDateString();
 		let n = tmp.length;
-		row.dueDate = tmp.substring(4,n-4);
-			
-		tmp = dueDate.toLocaleTimeString();
-		n = tmp.length;
-		row.dueTime= 
-			{
-				time : 
-					("0" + tmp.substring(0,tmp.search(":"))).slice(-2) +
-					tmp.substring(tmp.search(":"),n-6),
-				AmPm : tmp.substring(n-2),
-			};		
+		row.dueDate = tmp.substring(4,n-4);	
 		return row;
 	});
 
@@ -35,15 +25,11 @@ function TasksDisplayBody(props)
 						<div className="card-body">
 							<div className="row row-2" id="task_info">
 								<div className="col-sm-auto" id="time_task">
-									<span>Due:<br />
-										{row.dueDate}
-									</span>
+									<span>Date:</span>
 								</div>
 
 								<div className="col-sm-auto" id="time_task">
-									<span>{row.dueTime.AmPm}<br />
-										{row.dueTime.time}
-									</span>
+									<span>{row.dueDate}</span>
 								</div>
 
 								<div className="col col-sm-fill" id="task_name">

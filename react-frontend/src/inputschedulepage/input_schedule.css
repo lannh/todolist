@@ -207,28 +207,7 @@ img {
   filter: drop-shadow(3px 3px 3px #222222);
 }
 
-.btn-secondary#add_task {
-  position: absolute;
-  bottom: 20px;
-  left: 8px;
-  background-color: #323232;
-  height: 70px;
-  width: 70px;
-  border-radius: 50%;
-  color: #bbeca1;
-  -webkit-filter: drop-shadow(3px 3px 3px #222222);
-  filter: drop-shadow(3px 3px 3px #222222);
-  font-size: 300%;
-  font-weight: lighter;
-  text-align: center;
-  padding: 0;
-  border-color: transparent;
-}
 
-.btn-secondary#add_task:hover {
-  background-color: #bbeca1;
-  color: #000000;
-}
 
 .offcanvas-header {
   background-color: #2f3c4f;

@@ -175,7 +175,7 @@ function SearchPage()
 											"Enter a date in mm/dd/yyyy format"
 										);
 									}}>
-										Due Date
+										Date
 									</div>
 								</Dropdown.Item>
 

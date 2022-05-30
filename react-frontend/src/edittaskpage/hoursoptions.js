@@ -1,37 +1,105 @@
+/* eslint-disable react/jsx-key */
 import React  from "react";
-
+//import Col from "react-bootstrap/esm/Col";
 import Form from "react-bootstrap/Form";
 
 
-function HoursOptions() 
-{
-	return (
-		<Form.Select aria-label="Default select example">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-			<option value="13">13</option>
-			<option value="14">14</option>
-			<option value="15">15</option>
-			<option value="16">16</option>
-			<option value="17">17</option>
-			<option value="18">18</option>
-			<option value="19">19</option>
-			<option value="20">20</option>
-			<option value="21">21</option>
-			<option value="22">22</option>
-			<option value="23">23</option>
+//import MenuItem from "@material-ui/core/MenuItem";
+//import Select from "@material-ui/core/Select";
 
-		</Form.Select>
+
+
+const hrs = ["00","01", "02", "03", "04", "05","06","07","08","09","10",
+	"11", "12", "13", "14", "15","16","17","18","19","20","21", "22", "23"];
+
+const mins = ["00", "01", "02", "03", "04", "05","06","07","08","09","10",
+	"11", "12", "13", "14", "15","16","17","18","19","20",
+	"21", "22", "23", "24", "25","26","27","28","29","30",
+	"31", "32", "33", "34", "35","36","37","38","39","40",
+	"41", "42", "43", "44", "45","46","47","48","49","50",
+	"51", "52", "53", "54", "55","56","57","58","59"];
+
+function HoursOptions(props) 
+{
+	/*const [duration, setDuration] = useState(0);
+	const [durationMins, setDurationMins] = useState(0);*/
+
+	function checkDuration(newDuration)
+	{
+		if(props.validated)
+		{
+			const hrsValidation = document.getElementById("hoursSelect");
+			const minsValidation = document.getElementById("minsSelect");
+
+			console.log(newDuration.hrs==="00" && newDuration.mins==="00");
+
+			if(newDuration.hrs!=="00" || newDuration.mins!=="00")
+			{
+				hrsValidation.setCustomValidity("");
+				minsValidation.setCustomValidity("");
+			}
+			else
+			{
+				hrsValidation.setCustomValidity(" ");
+				minsValidation.setCustomValidity("Estimated working time cannot be 0");	
+			}
+			hrsValidation.reportValidity();
+			minsValidation.reportValidity();
+		}
+	}
+
+	const handleChangeDurationHrs = event => 
+	{
+		const newDuration = 
+		{
+			...props.defaultDuration,
+			hrs: event.target.value
+		};
+
+		props.setDuration(newDuration);
+		checkDuration(newDuration);
+	};
+	const handleChangeDurationMins = event => 
+	{
+		const newDuration = 
+		{
+			...props.defaultDuration,
+			mins: event.target.value,
+		};
+
+		props.setDuration(newDuration);
+		checkDuration(newDuration);
+	};
+    
+
+	return (
+		<div className="d-flex flex-row" id="estimatedTimeSelect">
+			<div className="p-2">
+				<Form.Select 
+					value={props.defaultDuration.hrs} 
+					id="hoursSelect"
+					onChange={handleChangeDurationHrs}
+					aria-label="Default select example">
+					{hrs.map(hr => (
+						<option value={hr}>{hr}</option>
+					))} 
+				</Form.Select>
+			</div>
+			<div className="p-2"> <span>:</span> </div>
+			<div className="p-2">
+				<Form.Select 
+					value={props.defaultDuration.mins} 	
+					id="minsSelect"
+					onChange={handleChangeDurationMins}
+					aria-label="Default select example">
+					{mins.map(m => (
+						<option value={m}>{m}</option>
+					))} 
+
+				</Form.Select>
+			</div>
+		</div>
+
 	);
 }
 

@@ -1,42 +1,34 @@
-//import axios from "axios";
-import React, {useState}  from "react";
+import axios from "axios";
+import React, {useState, useEffect}  from "react";
 
 import HeaderHome from "../homepage/header_home";
-//import DropdownButton from "react-bootstrap/DropdownButton";
-//import Dropdown from "react-bootstrap/Dropdown";
+
 
 import Form from "react-bootstrap/Form";
-//import Col from "react-bootstrap/Col";
+
 import Row from "react-bootstrap/Row";
-//import InputGroup from "react-bootstrap/InputGroup";
+import Alert from "react-bootstrap/Alert";
+
 
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import HoursOptions from "./hoursoptions";
 
-function EditTaskPage() 
+function EditTaskPage(props) 
 {
-	const [dateState, setDateState] = useState(new Date());
-	const changeDate = (e) => 
-	{
-		setDateState(e);
-	};
-	/*const [searchInput, setSearchInput] = useState("");
-	const [searchFilter, setSearchFilter] = useState("1");
-	const [dropdownTitle, setDropdownTitle] = useState("Task Name");
-	const [searchPlaceHolder, setSearchPlaceHolder] 
-		= useState("Enter a task name");
+	const [curTask, setCurTask] = useState({});
 
-	const [tasks, setTasks] = useState([]);
-	const [allTasks, setAllTasks] = useState([]);
+	const [dateState, setDateState] = useState(new Date());
+	const [taskName, setTaskName] = useState("");
+	const [duration, setDuration] = useState({hrs:"00", mins:"00"});
+	const [priority, setPriority] = useState("");
 
 	async function fetchAll()
 	{
 		try 
 		{
 			const response = 
-				await axios.get("http://localhost:5001/user/tasks/"+userId);
-			return response.data.tasks_list;
+				await axios.get("http://localhost:5001/tasks/"+props.taskID);
+			return response.data;
 		}
 		catch(error) 
 		{
@@ -50,39 +42,52 @@ function EditTaskPage()
 		fetchAll().then(result => 
 		{
 			if(result)
-				setAllTasks(result);
+			{
+				setCurTask(result);
+
+				setPriority(result.priority_level);
+				setTaskName(result.task_name);
+				setDateState(new Date(result.due_date));
+
+				let curDuration = result.estimated_duration;
+				setDuration({
+					hrs: ("0"+String(parseInt(curDuration/60))).slice(-2), 
+					mins: String(curDuration%60)
+				});
+			}
 		});
 	}, []);
 
-	function removeOneTask(id)
+	function updateTask()
 	{
-		const updated = tasks.filter(task => 
-		{
-			return task._id !== id;
-		});
+		let newTask = curTask;
 
-		const updatedAllTasks = allTasks.filter(task => 
-		{
-			return task._id !== id;
-		});
+		newTask.task_name = taskName;
+		newTask.due_date = new Date(dateState);
+		newTask.priority_level = priority;
+
+		let intDuration = parseInt(duration.hrs)*60 + parseInt(duration.mins);
+		newTask.estimated_duration = intDuration;
     
-		makeDelCall(id).then(result => 
+		makeUpdateCall(props.taskID, newTask).then(result => 
 		{
 			if(result && result.status === 204)
 			{
-				setTasks(updated);
-				setAllTasks(updatedAllTasks);
+				setCurTask(newTask);
+				setIsSuccessfullySubmitted(true);
 			}
+			else 
+				setIsSuccessfullySubmitted(false);
 		});
 	}
 
-	async function makeDelCall(id)
+	async function makeUpdateCall(id, newTask)
 	{
 		try 
 		{
 			const response = 
-				await axios.delete("http://localhost:5001/tasks/"
-					+userId+"/"+id);
+				await axios.put("http://localhost:5001/update/tasks"
+					+"/"+id, newTask);
 			return response;
 		}
 		catch(error) 
@@ -92,69 +97,45 @@ function EditTaskPage()
 		}
 	}
 
-
-	function handleClick(e) 
-	{
-		e.preventDefault();
-
-		// Variable to hold the filtered list before putting into state
-		let newList = [];
-
-		if(allTasks === undefined)
-			setTasks([]);
-		else
-		{
-		// If the search bar isn't empty
-			if (searchInput !== "") 
-			{
-				newList = allTasks.filter(task => 
-				{
-					let curTask;
-					let curFilter;
-
-					switch(searchFilter) 
-					{
-					case "1":
-						curTask = task.task_name.toLowerCase();
-						curFilter = searchInput.toLowerCase();
-						return curTask.includes(curFilter);
-					case "2":
-						curTask = new Date(task.end_time);
-						curFilter = new Date(searchInput);
-
-						return curTask.getFullYear() === curFilter.getFullYear()
-						&& curTask.getDate() === curFilter.getDate()
-						&& curTask.getMonth() === curFilter.getMonth();
-					case "3":
-						curTask = task.priority_level.toLowerCase();
-						curFilter = searchInput.toLowerCase();
-						return curTask.includes(curFilter);
-					}
-				});
-			}
-			else 
-			{
-			// If the search bar is empty, set newList to original task list
-				newList = allTasks;
-			}
-		}
-		// Set the filtered state based on what our rules added to newList
-		setTasks(newList);
-	}*/
-
 	const [validated, setValidated] = useState(false);
+	const [isSuccessfullySubmitted,setIsSuccessfullySubmitted] = useState(false);
 
 	const handleSubmit = (event) => 
 	{
+		const hrsValidation = document.getElementById("hoursSelect");
+		const minsValidation = document.getElementById("minsSelect");
+		
 		const form = event.currentTarget;
+
+		event.preventDefault();
+
+		if(duration.hrs==="00" && duration.mins==="00")
+		{
+			event.stopPropagation();
+			hrsValidation.setCustomValidity(" ");
+			minsValidation.setCustomValidity("Estimated working time cannot be 0");
+
+			setIsSuccessfullySubmitted(false);
+		}
+		else
+		{
+			hrsValidation.setCustomValidity("");
+			minsValidation.setCustomValidity("");
+		}
+
 		if (form.checkValidity() === false) 
 		{
-			event.preventDefault();
 			event.stopPropagation();
+			setIsSuccessfullySubmitted(false);
 		}
-  
+		else
+			updateTask();
+
+		hrsValidation.reportValidity();
+		minsValidation.reportValidity();
 		setValidated(true);
 	};
+	const [show, setShow] = useState(true);
 
 	return (
 		<div className="container-fluid">
@@ -168,48 +149,66 @@ function EditTaskPage()
 					id="editTask_col">
     
 					<div className="p-2" id="editTaskPage_title">Edit Task</div>
-    
+
+					{isSuccessfullySubmitted && show && (
+						<Alert variant="success" onClose={() => setShow(false)} dismissible>
+							<Alert.Heading>Your task has been updated successfully.</Alert.Heading>
+						</Alert>)}
+						
 					<div className="p-2" id="editTaskPage">
-						<Form noValidate validated={validated} onSubmit={handleSubmit}>
-
-							<div className="d-flex flex-sm-row justify-content-around" id="editTaskBody">
-								<div className="col-sm-7" id="taskEditInfo">
-									<Form.Group as={Row} sm="auto" controlId="validationCustom03">
-										<Form.Label>Task Name:</Form.Label>
-										<Form.Control type="text" placeholder="Task name" required />
-										<Form.Control.Feedback type="invalid">
-                            Please provide a valid task name.
+						<Form id="editTaskForm" noValidate validated={validated} onSubmit={handleSubmit}>
+							<div className="d-flex flex-row">
+								<div className="d-flex flex-column" id="taskEditInfo">
+									<div className="p-2">
+										<Form.Label for="inputTaskName">Task Name</Form.Label>
+										<Form.Control 
+											id="inputTaskName" type="text"
+											defaultValue={taskName} 
+											placeholder="Task name" required
+											onChange={(e) => setTaskName(e.target.value)} />
+										<Form.Control.Feedback type="invalid" id="taskNameValidation"> 
+											Please provide a valid task name. 
 										</Form.Control.Feedback>
-									</Form.Group>
-									<Form.Group as={Row} sm="auto" controlId="validationCustom04">
-										<Form.Label>Estimate Working Time (Hrs):</Form.Label>
-										<HoursOptions />
-									</Form.Group>
-									<Form.Group as={Row} sm="auto" controlId="validationCustom05">
-										<Form.Label>Priority Level:</Form.Label>
-										<Form.Select aria-label="Default select example">
-											<option value="1">Normal</option>
-											<option value="2">Medium</option>
-											<option value="3">High</option>
+									</div>
+
+									<div className="p-2" id="estimatedTimeLabel">
+										<Form.Label>Estimated Working Time (hh:mm)</Form.Label>
+										<HoursOptions 
+											defaultDuration={duration}
+											setDuration={setDuration} 
+											validated={validated}
+										/>
+									</div>
+
+									<div className="p-2">
+										<Form.Label for="priorityEdit">Priority Level</Form.Label>
+										<Form.Select 
+											value={priority} 
+											onChange={(e) => setPriority(e.target.value)}
+											id="priorityEdit" aria-label="Default select example">
+											<option value="normal">Normal</option>
+											<option value="medium">Medium</option>
+											<option value="high">High</option>
 										</Form.Select>
-										<Form.Control.Feedback type="invalid">
-                            Please provide a valid zip.
-										</Form.Control.Feedback>
-									</Form.Group>
-
-									<div className="row row-cols" id="submitEdit">
-										<button  id="editSubmit" type="submit">Update Task</button>
 									</div>
 								</div>
-
-								<div className="col-sm-auto" id="editTaskDate">
+									
+								<div className="d-flex flex-column" id="editDueDate">
+									<Form.Label id="dueDateLabel" as={Row} sm="w-100">Due date</Form.Label> 
 									<Calendar 
+										id="editDate"
+										as={Row}
+										defaultValue={dateState}
 										value={dateState}
-										onChange={changeDate}
+										onChange={(e) => setDateState(new Date(e))}
 									/>
 								</div>
 							</div>
-
+							<div className="d-flex flex-row" id="editSubmitRow">
+								<button  
+									className="btn btn-secondary"
+									id="editSubmitButton"type="submit">Update Task</button>
+							</div>
 						</Form>
 					</div>
 				</div>

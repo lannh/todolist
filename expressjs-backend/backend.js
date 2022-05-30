@@ -51,7 +51,7 @@ app.get("/users", async (req, res) =>
 	try 
 	{
 		const result = await userServices.getUsers(name, job);
-		res.send({users_list: result});         
+		res.status(200).send({users_list: result});         
 	}
 	catch (error) 
 	{
@@ -71,7 +71,7 @@ app.get("/users/:id", async (req, res) =>
 	else
 	{
 		result = {users_list: result};
-		res.send(result);
+		res.status(200).send(result);
 	}
 });
 
@@ -117,6 +117,20 @@ app.get("/user/tasks/:id", async (req, res) =>
 	}
 });
 
+//get task by id
+app.get("/tasks/:id", async (req, res) => 
+{
+	const id = req.params["id"]; //or req.params.id
+	let result = await taskServices.findTaskById(id);
+
+	if(result === undefined || result===null)
+		res.status(404).send("Resource not found.");
+	else
+	{
+		res.status(200).send(result);
+	}
+});
+
 //delete task by id
 app.delete("/tasks/:uid/:id", async (req, res) => 
 {
@@ -130,6 +144,19 @@ app.delete("/tasks/:uid/:id", async (req, res) =>
 		res.status(204).end();
 });
 
+//update task by id
+app.put("/update/tasks/:id", async (req, res) => 
+{
+	const idToDel = req.params.id;
+	const newTask = req.body;
+	let taskToUpdate = await taskServices.updateTaskByID(idToDel, newTask);
+	console.log(taskToUpdate);
+
+	if(taskToUpdate === undefined)
+		res.status(404).send("resource not found").end();
+	else
+		res.status(204).end();
+});
 
 
 app.listen(process.env.PORT || port, () => 

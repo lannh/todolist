@@ -1,6 +1,7 @@
 .row#editTaskPage {
     display: flex;
     height: 80vh;
+    overflow: auto;
 }
 
 
@@ -36,11 +37,8 @@
 
     margin-top: auto;
     margin-bottom: auto;
-    row-gap: 1em;
 
     align-items: center;
-    justify-items:flex-end;
-    display: flex;
   }
 
 

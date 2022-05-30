@@ -54,7 +54,7 @@ async function updateTaskByID(id, newTask)
 				task_name: newTask.task_name,
 				priority_level: newTask.priority_level,
 				due_date: newTask.due_date,
-				estimated_duration: newTask.estimated_duration
+				length: newTask.length
 			});
 	}
 	catch (error) 

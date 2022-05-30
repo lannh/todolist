@@ -108,7 +108,7 @@ function SearchPage()
 						curFilter = searchInput.toLowerCase();
 						return curTask.includes(curFilter);
 					case "2":
-						curTask = new Date(task.end_time);
+						curTask = new Date(task.due_date);
 						curFilter = new Date(searchInput);
 
 						return curTask.getFullYear() === curFilter.getFullYear()

@@ -1,12 +1,13 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import {Link} from "react-router-dom";
 
 
 function TasksDisplayBody(props) 
 {
 	const tasks_list = props.tasksData.map(row => 
 	{
-		const dueDate = new Date(row.end_time);
+		const dueDate = new Date(row.due_date);
 			
 		let tmp = dueDate.toDateString();
 		let n = tmp.length;
@@ -82,13 +83,16 @@ function TasksDisplayBody(props)
 
 				<div className="p-2"
 					id="button_sp">
-					<button type="button" 
-						className="btn btn-secondary"
-						id="edit_task"
+					<Link to="/edit-task" state={{ taskID: row._id }}>
+
+						<button type="button" 
+							className="btn btn-secondary"
+							id="edit_task"
 						//onClick={()}
-					>
+						>
 							Edit
-					</button>
+						</button>
+					</Link>
 				</div>
 				<div className="p-2"
 					id="button_sp">

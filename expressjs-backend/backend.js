@@ -147,9 +147,9 @@ app.delete("/tasks/:uid/:id", async (req, res) =>
 //update task by id
 app.put("/update/tasks/:id", async (req, res) => 
 {
-	const idToDel = req.params.id;
+	const idToUpdate = req.params.id;
 	const newTask = req.body;
-	let taskToUpdate = await taskServices.updateTaskByID(idToDel, newTask);
+	let taskToUpdate = await taskServices.updateTaskByID(idToUpdate, newTask);
 	console.log(taskToUpdate);
 
 	if(taskToUpdate === undefined)

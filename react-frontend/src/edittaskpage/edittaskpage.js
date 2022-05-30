@@ -3,6 +3,8 @@ import React, {useState, useEffect}  from "react";
 
 import HeaderHome from "../homepage/header_home";
 
+import { useLocation, useNavigate } from "react-router-dom";
+
 
 import Form from "react-bootstrap/Form";
 
@@ -13,9 +15,12 @@ import Alert from "react-bootstrap/Alert";
 import Calendar from "react-calendar";
 import HoursOptions from "./hoursoptions";
 
-function EditTaskPage(props) 
+function EditTaskPage() 
 {
-	const [curTask, setCurTask] = useState({});
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	const [curTask, setCurTask] = useState();
 
 	const [dateState, setDateState] = useState(new Date());
 	const [taskName, setTaskName] = useState("");
@@ -27,7 +32,7 @@ function EditTaskPage(props)
 		try 
 		{
 			const response = 
-				await axios.get("http://localhost:5001/tasks/"+props.taskID);
+				await axios.get("http://localhost:5001/tasks/"+location.state.taskID);
 			return response.data;
 		}
 		catch(error) 
@@ -39,6 +44,10 @@ function EditTaskPage(props)
 
 	useEffect(() => 
 	{
+		console.log("inside useeffect");
+		if(location.state===undefined || location.state===null)
+			navigate(-1);
+
 		fetchAll().then(result => 
 		{
 			if(result)
@@ -49,10 +58,10 @@ function EditTaskPage(props)
 				setTaskName(result.task_name);
 				setDateState(new Date(result.due_date));
 
-				let curDuration = result.estimated_duration;
+				let curDuration = result.length;
 				setDuration({
-					hrs: ("0"+String(parseInt(curDuration/60))).slice(-2), 
-					mins: String(curDuration%60)
+					hrs: ("0" + String(parseInt(curDuration/60))).slice(-2), 
+					mins: ("0" + String(curDuration%60)).slice(-2)
 				});
 			}
 		});
@@ -67,14 +76,16 @@ function EditTaskPage(props)
 		newTask.priority_level = priority;
 
 		let intDuration = parseInt(duration.hrs)*60 + parseInt(duration.mins);
-		newTask.estimated_duration = intDuration;
+		newTask.length = intDuration;
     
-		makeUpdateCall(props.taskID, newTask).then(result => 
+		const taskID = location.state.taskID;
+		makeUpdateCall(taskID, newTask).then(result => 
 		{
 			if(result && result.status === 204)
 			{
 				setCurTask(newTask);
 				setIsSuccessfullySubmitted(true);
+				setShow(true);
 			}
 			else 
 				setIsSuccessfullySubmitted(false);
@@ -111,7 +122,7 @@ function EditTaskPage(props)
 
 		if(duration.hrs==="00" && duration.mins==="00")
 		{
-			event.stopPropagation();
+
 			hrsValidation.setCustomValidity(" ");
 			minsValidation.setCustomValidity("Estimated working time cannot be 0");
 
@@ -125,95 +136,111 @@ function EditTaskPage(props)
 
 		if (form.checkValidity() === false) 
 		{
-			event.stopPropagation();
+
 			setIsSuccessfullySubmitted(false);
 		}
 		else
+		{
 			updateTask();
+		}
 
 		hrsValidation.reportValidity();
 		minsValidation.reportValidity();
 		setValidated(true);
 	};
-	const [show, setShow] = useState(true);
+	const [show, setShow] = useState(false);
 
 	return (
-		<div className="container-fluid">
-			<div className="row">
-				<HeaderHome />
-			</div>
+		<>
+			{location.state!==undefined && location.state!==null &&
+				<div className="container-fluid">
+					<div className="row">
+						<HeaderHome />
+					</div>
 
-			<div className="row" id="editTaskPage">
+					<div className="row" id="editTaskPage">
 
-				<div className="d-flex flex-column"
-					id="editTask_col">
-    
-					<div className="p-2" id="editTaskPage_title">Edit Task</div>
+						<div className="d-flex flex-column"
+							id="editTask_col">
+			
+							<div className="p-2" id="editTaskPage_title">Edit Task</div>
 
-					{isSuccessfullySubmitted && show && (
-						<Alert variant="success" onClose={() => setShow(false)} dismissible>
-							<Alert.Heading>Your task has been updated successfully.</Alert.Heading>
-						</Alert>)}
-						
-					<div className="p-2" id="editTaskPage">
-						<Form id="editTaskForm" noValidate validated={validated} onSubmit={handleSubmit}>
-							<div className="d-flex flex-row">
-								<div className="d-flex flex-column" id="taskEditInfo">
-									<div className="p-2">
-										<Form.Label for="inputTaskName">Task Name</Form.Label>
-										<Form.Control 
-											id="inputTaskName" type="text"
-											defaultValue={taskName} 
-											placeholder="Task name" required
-											onChange={(e) => setTaskName(e.target.value)} />
-										<Form.Control.Feedback type="invalid" id="taskNameValidation"> 
-											Please provide a valid task name. 
-										</Form.Control.Feedback>
+							{isSuccessfullySubmitted && show && (
+								<Alert variant="success" onClose={() => setShow(false)} dismissible>
+									<Alert.Heading>Your task has been updated successfully.</Alert.Heading>
+								</Alert>)}
+								
+							<div className="p-2" id="editTaskPage">
+								<Form id="editTaskForm" noValidate validated={validated} onSubmit={handleSubmit}>
+									<div className="d-flex flex-row">
+										<div className="d-flex flex-column" id="taskEditInfo">
+											<div className="p-2">
+												<Form.Label htmlFor="inputTaskName">Task Name</Form.Label>
+												<Form.Control 
+													id="inputTaskName" type="text"
+													defaultValue={taskName} 
+													placeholder="Task name" required
+													onChange={(e) => 
+													{
+														setTaskName(e.target.value);
+														setShow(false);
+													}} />
+												<Form.Control.Feedback type="invalid" id="taskNameValidation"> 
+													Please provide a valid task name. 
+												</Form.Control.Feedback>
+											</div>
+
+											<div className="p-2" id="estimatedTimeLabel">
+												<Form.Label>Estimated Working Time (hh:mm)</Form.Label>
+												<HoursOptions 
+													defaultDuration={duration}
+													setDuration={setDuration} 
+													validated={validated}
+													show={show}
+													setShow={setShow}
+												/>
+											</div>
+
+											<div className="p-2">
+												<Form.Label htmlFor="priorityEdit">Priority Level</Form.Label>
+												<Form.Select 
+													value={priority} 
+													onChange={(e) => 
+													{
+														setPriority(e.target.value),
+														setShow(false);
+													}}
+													id="priorityEdit" aria-label="Default select example">
+													<option value="normal">Normal</option>
+													<option value="medium">Medium</option>
+													<option value="high">High</option>
+												</Form.Select>
+											</div>
+										</div>
+											
+										<div className="d-flex flex-column" id="editDueDate">
+											<Form.Label id="dueDateLabel" as={Row} sm="w-100">Due date</Form.Label> 
+											<Calendar 
+												id="editDate"
+												as={Row}
+												defaultValue={dateState}
+												value={dateState}
+												onChange={(e) => setDateState(new Date(e))}
+											/>
+										</div>
 									</div>
-
-									<div className="p-2" id="estimatedTimeLabel">
-										<Form.Label>Estimated Working Time (hh:mm)</Form.Label>
-										<HoursOptions 
-											defaultDuration={duration}
-											setDuration={setDuration} 
-											validated={validated}
-										/>
+									<div className="d-flex flex-row" id="editSubmitRow">
+										<button  
+											className="btn btn-secondary"
+											id="editSubmitButton"type="submit">Update Task</button>
 									</div>
-
-									<div className="p-2">
-										<Form.Label for="priorityEdit">Priority Level</Form.Label>
-										<Form.Select 
-											value={priority} 
-											onChange={(e) => setPriority(e.target.value)}
-											id="priorityEdit" aria-label="Default select example">
-											<option value="normal">Normal</option>
-											<option value="medium">Medium</option>
-											<option value="high">High</option>
-										</Form.Select>
-									</div>
-								</div>
-									
-								<div className="d-flex flex-column" id="editDueDate">
-									<Form.Label id="dueDateLabel" as={Row} sm="w-100">Due date</Form.Label> 
-									<Calendar 
-										id="editDate"
-										as={Row}
-										defaultValue={dateState}
-										value={dateState}
-										onChange={(e) => setDateState(new Date(e))}
-									/>
-								</div>
+								</Form>
 							</div>
-							<div className="d-flex flex-row" id="editSubmitRow">
-								<button  
-									className="btn btn-secondary"
-									id="editSubmitButton"type="submit">Update Task</button>
-							</div>
-						</Form>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			}
+		</>
 	);
 }
 

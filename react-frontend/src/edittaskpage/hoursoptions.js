@@ -57,6 +57,7 @@ function HoursOptions(props)
 		};
 
 		props.setDuration(newDuration);
+		props.setShow(false);
 		checkDuration(newDuration);
 	};
 	const handleChangeDurationMins = event => 
@@ -68,6 +69,7 @@ function HoursOptions(props)
 		};
 
 		props.setDuration(newDuration);
+		props.setShow(false);
 		checkDuration(newDuration);
 	};
     
@@ -80,8 +82,8 @@ function HoursOptions(props)
 					id="hoursSelect"
 					onChange={handleChangeDurationHrs}
 					aria-label="Default select example">
-					{hrs.map(hr => (
-						<option value={hr}>{hr}</option>
+					{hrs.map((hr) => (
+						<option key={hr.toString()} value={hr}>{hr}</option>
 					))} 
 				</Form.Select>
 			</div>
@@ -92,8 +94,8 @@ function HoursOptions(props)
 					id="minsSelect"
 					onChange={handleChangeDurationMins}
 					aria-label="Default select example">
-					{mins.map(m => (
-						<option value={m}>{m}</option>
+					{mins.map((m,index) => (
+						<option key={m.toString()+index} value={m}>{m}</option>
 					))} 
 
 				</Form.Select>

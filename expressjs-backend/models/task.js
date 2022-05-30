@@ -7,7 +7,7 @@ const TaskSchema = new mongoose.Schema(
 			required: true,
 			trim: true,
 		},
-		estimated_duration: {
+		length: {
 			type: Number,
 			required: true,
 			default: 15

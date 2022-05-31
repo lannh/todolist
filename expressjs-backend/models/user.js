@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema(
 						"must be at least 2 characters.");
 			},
 		},
+		schedule: {
+			type: Object,
+			default: null
+		},
 		tasks_list: {
 			type: Array,
 			default: [],

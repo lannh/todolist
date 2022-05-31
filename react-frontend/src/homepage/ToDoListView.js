@@ -36,9 +36,9 @@ const schedule_key =
 {
 	0: "Sun",
 	1: "Mon",
-	2: "Tues",
+	2: "Tue",
 	3: "Wed",
-	4: "Thur",
+	4: "Thu",
 	5: "Fri",
 	6: "Sat",
 };
@@ -191,13 +191,14 @@ function ToDoListView()
 		// {
 		// 	// tasks.splice(task_index, 1);
 		// }
-		tasks[task_index].length = 120;
+		tasks[task_index].length = 15;
 		tasks[task_index].priority = task_index;
 	}
 	
 	console.log("shit", schedule_blocks, schedule_blocks[week_day_string]);
 	var schedule_data = scheduler.solve_schedule(tasks, schedule_blocks[week_day_string]);
-
+	console.log("wat", week_day_string);
+	console.log(tasks);
 	var thresh = get_min_max_priority(tasks);
 	return (
 		<div className="d-flex flex-column" id="todolist_col">
@@ -205,8 +206,8 @@ function ToDoListView()
 				<span>To-Do</span>
 			</div>
 
-			{schedule_data.map((schedule_block, index) => (	//maps schedule data to schedule blocks
-				console.log(index, schedule_block.block_data.start_time),
+			{schedule_data.map((schedule_block) => (	//maps schedule data to schedule blocks
+				console.log(schedule_block.block_data.start_time),
 				
 				<div className="p-2" id="todo_list">
 					<span style={{ color: "white", fontSize: 32}}>
@@ -215,7 +216,7 @@ function ToDoListView()
 					
 					{schedule_block.activities.map((task_data) => ( //maps activties to task data
 						
-						console.log(""),
+						console.log(task_data),
 						
 						<div className="card" id="todo_item">
 							<div className="card-body">

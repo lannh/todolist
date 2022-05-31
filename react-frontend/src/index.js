@@ -23,8 +23,8 @@ ReactDOM.render(
 			<Route path="/" element={<Homepage/ >}/>
 			<Route path="/homepage" element={<Homepage/ >}/>
 			<Route path="/search" element={<SearchPage />}/>
-			<Route path="/input-schedule" element={<InputSchedule />}/>
 			<Route path="/edit-task" element={<EditTaskPage />}/>
+			<Route path="/input-schedule" element={<InputSchedule id="62938a5d129b495001006987" />}/>
 		</Routes>
 	</BrowserRouter>,
 	document.getElementById("root")

@@ -172,7 +172,7 @@ function Homepage ()
 				<div className="col-4" id="todolist_view">
 					<Table characterData={characters} 
 						removeCharacter={removeOneCharacter} />
-					<ToDoListView />
+					<ToDoListView characterData = {characters}/>
 				</div>
 			</div>
 			<div className="form_button_col">

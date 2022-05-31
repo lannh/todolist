@@ -33,7 +33,8 @@ function Sidebar ()
 						</li>
 
 						<li>
-							<a href="/input-schedule" className="nav-link text-truncate">
+							<a href="/input-schedule" 
+								className="nav-link text-truncate">
 								<i className="bi bi-bell" />
 								<span className="ms-1 d-none d-sm-inline">
 									Update Availability

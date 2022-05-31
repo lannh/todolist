@@ -45,5 +45,39 @@ async function deleleTaskByID(id, uid)
 	}
 }  
 
+async function updateTaskByID(id, newTask) 
+{
+	try 
+	{
+		return await taskModel.findOneAndUpdate({_id: id}, 
+			{
+				task_name: newTask.task_name,
+				priority_level: newTask.priority_level,
+				due_date: newTask.due_date,
+				length: newTask.length
+			});
+	}
+	catch (error) 
+	{
+		console.log(error);
+		return undefined;
+	}
+} 
+
+async function findTaskById(id) 
+{
+	try 
+	{
+		return await taskModel.findById(id);
+	}
+	catch (error) 
+	{
+		console.log(error);
+		return undefined;
+	}
+}
+
 exports.findTasksByUserId = findTasksByUserId;
 exports.deleleTaskByID = deleleTaskByID;
+exports.updateTaskByID = updateTaskByID;
+exports.findTaskById = findTaskById;

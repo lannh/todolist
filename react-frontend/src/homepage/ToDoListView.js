@@ -72,7 +72,7 @@ function csts(t)
 }
 
 //get block string
-/*function gbs(bd)
+function gbs(bd)
 {
 	var s = csts(bd.start_time);
 	var e = csts(bd.end_time);
@@ -229,7 +229,7 @@ function ToDoListView()
 									 <div className="col-sm-auto" 
 										id="time_task">
 										{"Length[ "+tts(task_data.length)+" ]"}
-									</div> }
+									</div>
 
 									<div className="col col-sm-fill" 
 										id="task_name">
@@ -271,23 +271,6 @@ function ToDoListView()
 			))}
 		</div >
 	);
-}*/
-function ToDoListView(props) 
-{
-	const tasks = props.characterData.map((task_data,index) =>
-		<div key={index}> 
-			<div> {task_data.taskName} </div>
-		</div>
-	);
-	return (
-		<div className="d-flex flex-column" id="todolist_col">
-			<div className="p-2" id="todolist_title">
-				<span>To-Do</span>
-			</div>
-			<div className="p-2" id="todo_list">
-				{tasks}
-			</div >
-		</div >
-	);
 }
+
 export default ToDoListView;

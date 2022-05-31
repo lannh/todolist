@@ -6,7 +6,7 @@
     "dev": "nodemon backend.js",
     "start": "node backend.js",
     "lint": "eslint --fix --ext .js,.jsx .",
-    "test": "jest",
+    "test": "npx eslint .",
     "coverage": "jest --collectCoverage --forceExit"
   },
   "author": "",

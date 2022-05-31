@@ -32,9 +32,20 @@ import * as scheduler from "../scheduler.js";
 // 	return hour.toString() + min_string;
 // }
 
+const schedule_key = 
+{
+	0: "Sun",
+	1: "Mon",
+	2: "Tues",
+	3: "Wed",
+	4: "Thur",
+	5: "Fri",
+	6: "Sat",
+};
+
 function csts(t)
 {
-	// t = t / (24 * 60); for later
+	t = t / (60);
 	var hour = Math.floor(t);
 	var min = Math.floor((t - hour) * 60);
 
@@ -141,9 +152,8 @@ function ToDoListView()
 		try 
 		{
 			const response = 
-				await axios.get("http://localhost:5001/user/tasks/"+
-								"62896e58b1cb8555ed799f3c");
-			return response.data.tasks_list;
+				await axios.get("http://localhost:5001/user/62938a5d129b495001006987/schedule");
+			return response.data.schedule;
 		}
 		catch(error) 
 		{
@@ -166,10 +176,10 @@ function ToDoListView()
 
 	var start = new Date(Date.now());
 	const current_day = start.getDate();
+	const current_week_day = start.getDay();
 	const current_month = start.getMonth();
-	console.log(current_day, current_month);
-
-	console.log(schedule_blocks);
+	const week_day_string = schedule_key[current_week_day];
+	console.log(current_day, schedule_key[current_week_day], current_month);
 
 	for (let task_index = tasks.length-1; 
 		task_index >= 0; 
@@ -181,11 +191,12 @@ function ToDoListView()
 		// {
 		// 	// tasks.splice(task_index, 1);
 		// }
-		tasks[task_index].length = 0.5 + task_index / 5;
+		tasks[task_index].length = 120;
 		tasks[task_index].priority = task_index;
 	}
-	var schedule_data = scheduler.solve_schedule(tasks,
-		scheduler.debug_schedule_blocks);
+	
+	console.log("shit", schedule_blocks, schedule_blocks[week_day_string]);
+	var schedule_data = scheduler.solve_schedule(tasks, schedule_blocks[week_day_string]);
 
 	var thresh = get_min_max_priority(tasks);
 	return (
@@ -202,7 +213,7 @@ function ToDoListView()
 						{gbs(schedule_block.block_data)}
 					</span>
 					
-					{schedule_block.activities.map((task_data, index) => ( //maps activties to task data
+					{schedule_block.activities.map((task_data) => ( //maps activties to task data
 						
 						console.log(""),
 						
@@ -215,10 +226,11 @@ function ToDoListView()
 										+ csts(task_data.start_time + task_data.length)}
 									</div>
 
+									{/* 									
 									 <div className="col-sm-auto" 
 										id="time_task">
 										{"Length[ "+tts(task_data.length)+" ]"}
-									</div> }
+									</div> */}
 
 									<div className="col col-sm-fill" 
 										id="task_name">
@@ -261,4 +273,5 @@ function ToDoListView()
 		</div >
 	);
 }
+
 export default ToDoListView;

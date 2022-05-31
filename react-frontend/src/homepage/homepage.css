@@ -20,15 +20,53 @@ body {
   background-color: #25435f;
   min-width: 1000px;
   min-height: 700px;
+  
 }
 .form {
   position: fixed;
-  top: 0;
-  left:0;
-  width:60%;
-  height:60%;
+  top: 21%;
+  left:5%;
+  width:55%;
+  height:70%;
   z-index: 3;
-  background-color: #73efff;
+  filter: drop-shadow(2px 2px 2px #222222);
+  background-color: #bcccdc;
+} 
+#closeButton {
+  left:100%;
+}
+
+.labels {
+  display:block;
+  color: white;
+  font-size:18px;
+}
+#date {
+  display:block;
+}
+
+#submitButton {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#allLabels {
+  display: flex;
+}
+.letterLabel {
+  margin-left: 12px;
+  font-size: 15px;
+}
+.dayCheck {
+  margin-left: 10px;
+  transform: scale(1.65);
+}
+.datePicker {
+  z-index: 4;
+}
+#dates {
+  display: block;
+  flex-direction: row;
 }
 .header_home {
   align-items: center;

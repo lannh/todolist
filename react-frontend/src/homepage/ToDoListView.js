@@ -1,6 +1,6 @@
-import Form from "react-bootstrap/Form";
+//import Form from "react-bootstrap/Form";
 import React from "react";
-import * as scheduler from "../scheduler.js";
+//import * as scheduler from "../scheduler.js";
 /*
  *Import { useState, useEffect } from "react";
  *const [tasks, setCompleteTasks] = React.useState([]);
@@ -14,7 +14,7 @@ import * as scheduler from "../scheduler.js";
 /* Max task_name = 20 chars*/
 
 //convert start time to string
-function csts(t)
+/*function csts(t)
 {
 	// t = t / (24 * 60); for later
 	if(t > 12)
@@ -24,23 +24,23 @@ function csts(t)
 		t = 12;
 
 	return t + "AM";
-}
+}*/
 
 //get block string
-function gbs(bd)
+/*function gbs(bd)
 {
 	var s = csts(bd.start_time);
 	var e = csts(bd.end_time);
 
 	return s + " - " + e;
-}
-
+}*/
+/*
 function ToDoListView() 
 {
 	var schedule_data = scheduler.solve_schedule(scheduler.debug_tasks,
 		scheduler.debug_schedule_blocks);
-
-	/*
+*/
+/*
 	 *UseEffect(()=>
 	 *{
 	 *    tasks.map((x, key) =>
@@ -73,13 +73,13 @@ function ToDoListView()
 	 *}, []);
 	 */
 
-	return (
+/*return (
 		<div className="d-flex flex-column" id="todolist_col">
 			<div className="p-2" id="todolist_title">
 				<span>To-Do</span>
 			</div>
 
-			{schedule_data.map((schedule_block, index) => (
+			{schedule_data.map((schedule_block, index) => (	//maps schedule data to schedule blocks
 				console.log(index, schedule_block.block_data.start_time),
 				
 				<div className="p-2" id="todo_list">
@@ -87,7 +87,7 @@ function ToDoListView()
 						{gbs(schedule_block.block_data)}
 					</span>
 					
-					{schedule_block.activities.map((task_data, index) => (
+					{schedule_block.activities.map((task_data, index) => ( //maps activties to task data
 						
 						console.log(index, 
 							schedule_block.block_data.start_time),
@@ -137,6 +137,23 @@ function ToDoListView()
 			))}
 		</div >
 	);
+}*/
+function ToDoListView(props) 
+{
+	const tasks = props.characterData.map((task_data,index) =>
+		<div key={index}> 
+			<div> {task_data.taskName} </div>
+		</div>
+	);
+	return (
+		<div className="d-flex flex-column" id="todolist_col">
+			<div className="p-2" id="todolist_title">
+				<span>To-Do</span>
+			</div>
+			<div className="p-2" id="todo_list">
+				{tasks}
+			</div >
+		</div >
+	);
 }
-
 export default ToDoListView;

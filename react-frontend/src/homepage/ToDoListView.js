@@ -213,7 +213,7 @@ function ToDoListView()
 						{gbs(schedule_block.block_data)}
 					</span>
 					
-					{schedule_block.activities.map((task_data, index) => ( //maps activties to task data
+					{schedule_block.activities.map((task_data) => ( //maps activties to task data
 						
 						console.log(""),
 						
@@ -226,10 +226,11 @@ function ToDoListView()
 										+ csts(task_data.start_time + task_data.length)}
 									</div>
 
+									{/* 									
 									 <div className="col-sm-auto" 
 										id="time_task">
 										{"Length[ "+tts(task_data.length)+" ]"}
-									</div>
+									</div> */}
 
 									<div className="col col-sm-fill" 
 										id="task_name">

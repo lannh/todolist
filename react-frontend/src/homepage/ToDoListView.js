@@ -181,11 +181,10 @@ function ToDoListView()
 	},[]);
 
 	var start = new Date(Date.now());
-	const current_day = start.getDate();
+	// const current_day = start.getDate();
 	const current_week_day = start.getDay();
-	const current_month = start.getMonth();
+	// const current_month = start.getMonth();
 	const week_day_string = schedule_key[current_week_day];
-	console.log(current_day, schedule_key[current_week_day], current_month);
 
 	for (let task_index = tasks.length-1; 
 		task_index >= 0; 
@@ -201,10 +200,7 @@ function ToDoListView()
 		tasks[task_index].priority = task_index;
 	}
 	
-	console.log("shit", schedule_blocks, schedule_blocks[week_day_string]);
 	var schedule_data = scheduler.solve_schedule(tasks, schedule_blocks[week_day_string]);
-	console.log("wat", week_day_string);
-	console.log(tasks);
 	var thresh = get_min_max_priority(tasks);
 	return (
 		<div className="d-flex flex-column" id="todolist_col">
@@ -213,7 +209,7 @@ function ToDoListView()
 			</div>
 
 			{schedule_data.map((schedule_block) => (	//maps schedule data to schedule blocks
-				console.log(schedule_block.block_data.start_time),
+				console.log(""),
 				
 				<div className="p-2" id="todo_list">
 					<span style={{ color: "white", fontSize: 32}}>
@@ -222,7 +218,7 @@ function ToDoListView()
 					
 					{schedule_block.activities.map((task_data) => ( //maps activties to task data
 						
-						console.log(task_data),
+						console.log(""),
 						
 						<div className="card" id="todo_item">
 							<div className="card-body">

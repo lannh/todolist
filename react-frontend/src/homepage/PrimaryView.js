@@ -45,8 +45,8 @@ function PrimaryView ()
 	var task_counts = [];
 	for(var task_index = 0; task_index < tasks.length; task_index++)
 	{
-		var task_date = "2022-05-31";
-		// var task_data = tasks[task_index].due_date;
+		var task_date_raw = tasks[task_index].due_date;
+		var task_date = task_date_raw.slice(0, 10);//"2022-05-31";
 		if (!(task_date in task_counts))
 		{
 			task_counts[task_date] = 0;
@@ -56,7 +56,6 @@ function PrimaryView ()
 
 	for (const [task_date, task_count] of Object.entries(task_counts)) 
 	{
-		console.log(task_date, task_count);
 		event_data.push({
 			title: task_count + " Tasks",
 			date: task_date

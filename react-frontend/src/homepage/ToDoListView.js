@@ -181,26 +181,29 @@ function ToDoListView()
 	},[]);
 
 	var start = new Date(Date.now());
-	// const current_day = start.getDate();
+	const current_day = start.getDate();
 	const current_week_day = start.getDay();
-	// const current_month = start.getMonth();
+	const current_month = start.getMonth() + 1;
 	const week_day_string = schedule_key[current_week_day];
 
 	for (let task_index = tasks.length-1; 
 		task_index >= 0; 
 		task_index--)
 	{
-		// const task_month = tasks[task_index].due_date.getMonth();
-		// const task_day = tasks[task_index].due_date.getDate();
-		// if(!(task_month == current_month && current_day == task_day))
-		// {
-		// 	// tasks.splice(task_index, 1);
-		// }
+		var task_date_raw = tasks[task_index].due_date;
+		var task_date = task_date_raw.slice(0, 10);//"2022-05-31";
+		task_date = task_date.split("-");
+		
 		tasks[task_index].length = 15;
 		tasks[task_index].priority = task_index;
+		if(!(parseInt(task_date[1]) == current_month && current_day == parseInt(task_date[2])))
+		{
+			tasks.splice(task_index, 1);
+		}
 	}
 	
 	var schedule_data = scheduler.solve_schedule(tasks, schedule_blocks[week_day_string]);
+	
 	var thresh = get_min_max_priority(tasks);
 	return (
 		<div className="d-flex flex-column" id="todolist_col">

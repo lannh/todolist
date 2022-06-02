@@ -120,7 +120,7 @@ async function getSchedule(id)
 				return undefined;
 			}
 		}
-        
+
 		return schedule;
 	}
 	catch (err) 

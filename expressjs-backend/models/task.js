@@ -20,6 +20,10 @@ const TaskSchema = new mongoose.Schema(
 			type: String,
 			trim: true,
 			default: "normal",
+		},
+		done: {
+			type: Boolean,
+			default: false
 		}
 	},
 	{ collection: "Tasks" }

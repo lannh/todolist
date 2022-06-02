@@ -21,6 +21,7 @@ function EditTaskPage()
 	const [taskName, setTaskName] = useState("");
 	const [duration, setDuration] = useState({hrs:"00", mins:"00"});
 	const [priority, setPriority] = useState("");
+	const [done, setDone] = useState(false);
 
 	async function fetchAll()
 	{
@@ -52,6 +53,7 @@ function EditTaskPage()
 				setPriority(result.priority_level);
 				setTaskName(result.task_name);
 				setDateState(new Date(result.due_date));
+				setDone(result.done);
 
 				let curDuration = result.length;
 				setDuration({
@@ -69,6 +71,7 @@ function EditTaskPage()
 		newTask.task_name = taskName;
 		newTask.due_date = new Date(dateState);
 		newTask.priority_level = priority;
+		newTask.done = done;
 
 		let intDuration = parseInt(duration.hrs)*60 + parseInt(duration.mins);
 		newTask.length = intDuration;
@@ -210,6 +213,19 @@ function EditTaskPage()
 													<option value="medium">Medium</option>
 													<option value="high">High</option>
 												</Form.Select>
+											</div>
+
+											<div className="p-2" 
+												id="task_checkDone">
+												<Form.Check aria-label="option 1"
+													type="checkbox">
+													<Form.Check.Input
+														type="checkbox" 
+														checked={done}
+														onClick={e => setDone(e.target.checked)}
+													/>
+													<span>  This task has been completed.</span>
+												</Form.Check>
 											</div>
 										</div>
 											

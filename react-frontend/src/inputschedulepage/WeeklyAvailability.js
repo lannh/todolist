@@ -148,7 +148,7 @@ function WeeklyAvailability (props)
 				<tr key={index}>
 					<td>{start_time}</td>
 					<td>&nbsp;-&nbsp;</td>
-					<td>{end_time}</td>
+					<td>{end_time}&nbsp;&nbsp;</td>
 					<td>
 						<button 
 							onClick={() => 
@@ -169,67 +169,101 @@ function WeeklyAvailability (props)
 	return (
 		<div className="d-flex align-content-sm-stretch flex-sm-column"
 			id="primary_view">
-			<div className="p-2" id="input_schedule_prompt">
+			<div className="p-1" id="input_schedule_prompt">
 				<span className="input_schedule_prompt">
 					Your Weekly Availability
 				</span>
 			</div>
 
-			<div className="row" id="input_schedule">
+			<div className="row" id="input_schedule_titles">
 				<div className="col-1" id="input_day_view">
 					<div className="p-3" id="day_title">
 						<span className="day_title">Monday</span>
 					</div>
-					<SlotList timeSlots={slots.Mon} 
-						removeTimeSlot={removeTimeSlot} dayIndex={0} />
-					<Form handleSubmit={updateList} dayIndex={0} />
 				</div>
 				<div className="col-1" id="input_day_view">
 					<div className="p-3" id="day_title">
 						<span className="day_title">Tuesday</span>
 					</div>
-					<SlotList timeSlots={slots.Tue} 
-						removeTimeSlot={removeTimeSlot} dayIndex={1} />
-					<Form handleSubmit={updateList} dayIndex={1} />
 				</div>
 				<div className="col-1" id="input_day_view">
 					<div className="p-3" id="day_title">
 						<span className="day_title">Wednesday</span>
 					</div>
-					<SlotList timeSlots={slots.Wed} 
-						removeTimeSlot={removeTimeSlot} dayIndex={2} />
-					<Form handleSubmit={updateList} dayIndex={2} />
 				</div>
 				<div className="col-1" id="input_day_view">
 					<div className="p-3" id="day_title">
 						<span className="day_title">Thursday</span>
 					</div>
-					<SlotList timeSlots={slots.Thu} 
-						removeTimeSlot={removeTimeSlot} dayIndex={3} />
-					<Form handleSubmit={updateList} dayIndex={3} />
 				</div>
 				<div className="col-1" id="input_day_view">
 					<div className="p-3" id="day_title">
 						<span className="day_title">Friday</span>
 					</div>
-					<SlotList timeSlots={slots.Fri} 
-						removeTimeSlot={removeTimeSlot} dayIndex={4} />
-					<Form handleSubmit={updateList} dayIndex={4} />
 				</div>
 				<div className="col-1" id="input_day_view">
 					<div className="p-3" id="day_title">
 						<span className="day_title">Saturday</span>
 					</div>
-					<SlotList timeSlots={slots.Sat} 
-						removeTimeSlot={removeTimeSlot} dayIndex={5} />
-					<Form handleSubmit={updateList} dayIndex={5} />
 				</div>
 				<div className="col-1" id="input_day_view">
 					<div className="p-3" id="day_title">
 						<span className="day_title">Sunday</span>
 					</div>
+				</div>
+			</div>
+
+			<div className="row" id="input_schedule_blocks">
+				<div className="col-1" id="input_day_view">
+					<SlotList timeSlots={slots.Mon} 
+						removeTimeSlot={removeTimeSlot} dayIndex={0} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<SlotList timeSlots={slots.Tue} 
+						removeTimeSlot={removeTimeSlot} dayIndex={1} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<SlotList timeSlots={slots.Wed} 
+						removeTimeSlot={removeTimeSlot} dayIndex={2} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<SlotList timeSlots={slots.Thu} 
+						removeTimeSlot={removeTimeSlot} dayIndex={3} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<SlotList timeSlots={slots.Fri} 
+						removeTimeSlot={removeTimeSlot} dayIndex={4} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<SlotList timeSlots={slots.Sat} 
+						removeTimeSlot={removeTimeSlot} dayIndex={5} />
+				</div>
+				<div className="col-1" id="input_day_view">
 					<SlotList timeSlots={slots.Sun} 
 						removeTimeSlot={removeTimeSlot} dayIndex={6} />
+				</div>
+			</div>
+
+			<div className="row" id="input_schedule">
+				<div className="col-1" id="input_day_view">
+					<Form handleSubmit={updateList} dayIndex={0} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<Form handleSubmit={updateList} dayIndex={1} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<Form handleSubmit={updateList} dayIndex={2} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<Form handleSubmit={updateList} dayIndex={3} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<Form handleSubmit={updateList} dayIndex={4} />
+				</div>
+				<div className="col-1" id="input_day_view">
+					<Form handleSubmit={updateList} dayIndex={5} />
+				</div>
+				<div className="col-1" id="input_day_view">
 					<Form handleSubmit={updateList} dayIndex={6} />
 				</div>
 			</div>

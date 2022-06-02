@@ -91,7 +91,7 @@ function Form(props)
 			<div>
 				<TimePicker onChange={setStartTime} value={time.start_time} />
 			</div>
-			<label htmlFor="startTimeFlex">Flexibility</label>
+			<label htmlFor="startTimeFlex">Flexibility&nbsp;&nbsp;</label>
 			<input
 				type="number"
 				className="time_bound"
@@ -103,13 +103,14 @@ function Form(props)
 			<div>
 				<TimePicker onChange={setEndTime} value={time.end_time} />
 			</div>
-			<label htmlFor="endTimeFlex">Flexibility</label>
+			<label htmlFor="endTimeFlex">Flexibility&nbsp;&nbsp;</label>
 			<input
 				type="number"
 				className="time_bound"
 				name="endTimeFlexibility"
 				value={time.end_time_flexibility}
 				onChange={setEndTimeFlex} />
+			<br />
 			<input type="button" value="Submit" onClick={submitForm} />
 		</form>
 	);

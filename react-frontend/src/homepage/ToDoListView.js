@@ -1,6 +1,6 @@
 
 import Form from "react-bootstrap/Form";
-import React, {useState}  from "react";
+import React, {useState, useEffect}  from "react";
 import axios from "axios";
 import * as scheduler from "../scheduler.js";
 /*
@@ -162,17 +162,23 @@ function ToDoListView()
 		}
 	}
 
-	fetchTasks().then(result => 
+	useEffect(() => 
 	{
-		if(result)
-			setTasks(result);
-	});
+		fetchTasks().then(result => 
+		{
+			if(result)
+				setTasks(result);
+		});
+	},[]);
 
-	fetchSchedule().then(result => 
+	useEffect(() => 
 	{
-		if(result)
-			setScheduleBlocks(result);
-	});
+		fetchSchedule().then(result => 
+		{
+			if(result)
+				setScheduleBlocks(result);
+		});
+	},[]);
 
 	var start = new Date(Date.now());
 	const current_day = start.getDate();

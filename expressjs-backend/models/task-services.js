@@ -30,6 +30,27 @@ async function findTasksByUserId(id)
 }
 */
 
+/*
+async function addTask(uid, task) 
+{
+	try 
+	{
+		const user = await userServices.findUserById(uid);
+		const task_model = new taskModel(task);
+		const savedTask = await task.save();
+		await user.updateOne(
+			{_id: uid},
+			{$push: {tasks_list: savedTask}}
+		);
+		return savedTask;
+	}
+	catch(error)
+	{
+		console.log(error);
+		return undefined;
+	}
+}
+*/
 
 async function deleleTaskByID(id, uid) 
 {

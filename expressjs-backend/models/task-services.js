@@ -21,12 +21,11 @@ async function addTasktoUser(uid,task)
 {
 	try 
 	{
-		console.log(task);
+		//console.log(task);
 		const newTask = new taskModel(task);	
-		console.log("TASK SERVICES");
-		console.log(newTask);
+		//console.log("TASK SERVICES");
+		//console.log(newTask);
 		const savedTask = await newTask.save();
-		//await userServices.addTasktoUser(uid,task);
 		await userServices.addTasktoUser(uid,savedTask._id);
 		return savedTask;
 	}

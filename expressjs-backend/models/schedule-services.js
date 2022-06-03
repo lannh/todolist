@@ -132,7 +132,8 @@ async function getSchedule(id)
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-async function addBlockOnDay(uid, day, slotID) 
+//user id, day parameter, body of schedule(actual data)
+async function addBlockOnDay(uid, day, slotID) //USED IN BACKEND.JS
 {
 	try 
 	{

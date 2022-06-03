@@ -24,15 +24,16 @@ async function addTasktoUser(uid, taskID)
 {
 	try{
 		//checks if its a valid user
-		const us = await findUserById(uid);
+		const us = await findUserById(uid);	//finds the user
 		if (us === undefined) 
 		{
 			console.log("Failed to retreive task for user with id " + uid + ".\n");
 			return us;
 		}
-		const id = us.task;
+		//USER IS FOUND
+		const listID = us.tasks_list;
 		await userModel.updateOne(	//ERROR RIGHT HERE
-			{ _id: id },
+			{ _id: listID },
 			{ $push: taskID },
 			function (error, success) 
 			{

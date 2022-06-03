@@ -1,7 +1,7 @@
 const userModel = require("./user");
 const scheduleModel = require("./schedule");
+const userServices = require("./user-services");
 const dotenv = require("dotenv");
-const { default: mongoose } = require("mongoose");
 
 dotenv.config();
 
@@ -19,7 +19,8 @@ async function findUserById(id)
 }
 async function addTasktoUser(uid, taskID) 
 {
-	try{
+	try
+	{
 		//checks if its a valid user
 		const us = await userServices.findUserById(uid);
 		if (us === undefined) 
@@ -84,8 +85,26 @@ async function deleleUserByID(id)
 	}
 }
 
+//this function is to delete a task inside the task_list of a user
+async function deleleTaskByID(uid,id) 
+{
+	try 
+	{
+		return await userModel.updateOne( 
+			{ _id: uid },
+			{ $pull: {tasks_list: id} }
+		);
+	}
+	catch (error) 
+	{
+		console.log(error);
+		return undefined;
+	}
+}
+
 exports.findUserById = findUserById;
 exports.addUser = addUser;
 exports.addTasktoUser = addTasktoUser;
 exports.deleleUserByID = deleleUserByID;
 exports.deleleTaskByID = deleleTaskByID;
+

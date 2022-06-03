@@ -34,16 +34,13 @@ describe("Connection", () =>
 		if(rhs === undefined || rhs === null)
 			return false;
         
-		const lhsDueDate = new Date(lhs.due_date);
-		const rhsDueDate = new Date (rhs.due_date);
-
 		return String(lhs._id) === String(rhs._id) && lhs.name === rhs.name;
 	}
 
 	test("find user by id", async () => 
 	{
 		const result = await userServices.findUserById(testingUser._id);
-		expect(compareTasks(testingUser, result)).toBeTruthy();
+		expect(compareUsers(testingUser, result)).toBeTruthy();
 	});
 
 	test("delete user by id", async () => 

@@ -11,7 +11,7 @@ async function addBlockOnDay(uid, day, slot)
 		const result = await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
 		if (result === false)
 		{
-			console.log("Block could not be added to schedule of user with id \'" + uid + "\'");
+			console.log("Block could not be added to schedule of user with id '" + uid + "'");
 			return undefined;
 		}
 		return savedBlock;

@@ -2,7 +2,9 @@ const userModel = require("./user");
 const scheduleModel = require("./schedule");
 const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
-
+import { MongoClient } from "mongodb";
+const uri = "";
+const client = new MongoClient(uri);
 dotenv.config();
 
 async function findUserById(id) 
@@ -17,6 +19,7 @@ async function findUserById(id)
 		return undefined;
 	}
 }
+
 async function addTasktoUser(uid, taskID) 
 {
 	try{
@@ -27,7 +30,10 @@ async function addTasktoUser(uid, taskID)
 			console.log("Failed to retreive task for user with id " + uid + ".\n");
 			return us;
 		}
-		await userModel.updateOne(
+		const database = client.db("users");
+		const taskDatabase = database.collection("Tasks");
+		await taskDatabase.insertOne(newTask);
+		/*await userModel.updateOne(
 			{_id:uid},
 			{$push:taskID},
 			function (error, success) 
@@ -41,7 +47,7 @@ async function addTasktoUser(uid, taskID)
 					console.log(success);
 				}
 			}
-		);
+		);*/
 		return true;	
 	}
 	catch (error) 

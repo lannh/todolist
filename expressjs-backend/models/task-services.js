@@ -1,13 +1,19 @@
 const { application } = require("express");
 const taskModel = require("./task");
 const userServices = require("./user-services");
+//import { MongoClient } from "mongodb";
 
+//const uri = "";
+//const client = new MongoClient(uri);
 //adds task to a given user using the userid
 async function addTasktoUser(uid,task) 
 {
 	try 
 	{
-		const newTask = new taskModel(task);
+		//const database = client.db("users");
+		//const taskDatabase = database.collection("Tasks");
+		const newTask = new taskModel(task);	//doc to insert into database
+		//await taskDatabase.insertOne(newTask);	//adds task to database
 		const savedTask = await newTask.save();
 		await userServices.addTasktoUser(uid,savedTask._id.valueOf());
 		return savedTask;

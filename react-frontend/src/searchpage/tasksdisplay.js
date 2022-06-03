@@ -33,7 +33,7 @@ function TasksDisplayBody(props)
 								</div>
 
 								<div className="col col-sm-fill" id="task_name">
-									<span>{row.task_name}</span>
+									<span>{row.taskName}</span>
 								</div>
 
 								<div className="col-sm-auto" 

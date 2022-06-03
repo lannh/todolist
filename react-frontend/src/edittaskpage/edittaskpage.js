@@ -50,7 +50,7 @@ function EditTaskPage()
 				setCurTask(result);
 
 				setPriority(result.priority_level);
-				setTaskName(result.task_name);
+				setTaskName(result.taskName);
 				setDateState(new Date(result.due_date));
 
 				let curDuration = result.length;
@@ -66,7 +66,7 @@ function EditTaskPage()
 	{
 		let newTask = curTask;
 
-		newTask.task_name = taskName;
+		newTask.taskName = taskName;
 		newTask.due_date = new Date(dateState);
 		newTask.priority_level = priority;
 

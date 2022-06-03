@@ -265,7 +265,7 @@ function ToDoListView()
 
 									<div className="col col-sm-fill" 
 										id="task_name">
-										<span> {task_data.task_name} </span>
+										<span> {task_data.taskName} </span>
 									</div>
 
 									<div className="col-sm-auto" 

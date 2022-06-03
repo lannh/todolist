@@ -82,7 +82,7 @@ async function updateTaskByID(id, newTask)
 	{
 		return await taskModel.findOneAndUpdate({_id: id}, 
 			{
-				task_name: newTask.task_name,
+				taskName: newTask.taskName,
 				priority_level: newTask.priority_level,
 				due_date: newTask.due_date,
 				length: newTask.length

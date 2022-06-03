@@ -46,6 +46,7 @@ app.use(express.json());
 app.post("/tasks", async (req, res) => 
 {	
 	const task = req.params.body;
+	task.priority_level = "normal";
 	const id = req.params;
 	console.log(task);
 	console.log(id);

@@ -259,12 +259,13 @@ function ToDoListView()
 		task_index >= 0; 
 		task_index--)
 	{
+		// console.log(tasks);
 		var task_date_raw = tasks[task_index].due_date;
 		var task_date = task_date_raw.slice(0, 10);//"2022-05-31";
 		task_date = task_date.split("-");
 		
-		tasks[task_index].length = 15;
-		tasks[task_index].priority = task_index;
+		// tasks[task_index].length = 15;
+		// tasks[task_index].priority = task_index;
 		if(!(parseInt(task_date[1]) == current_month && current_day == parseInt(task_date[2])))
 		{
 			tasks.splice(task_index, 1);

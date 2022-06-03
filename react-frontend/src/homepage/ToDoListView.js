@@ -212,7 +212,6 @@ function ToDoListView()
 	{
 		try 
 		{
-			console.log(id);
 			const response = 
 				await axios.put("http://localhost:5001/update/tasks"
 					+"/"+id, newTask);

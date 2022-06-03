@@ -94,10 +94,10 @@ function Homepage ()
 		});
 	}
 
-	function updateList(person)
+	function updateList(task)
 	{
 		//setCharacters([...characters,person]);
-		makePostCall(person).then(result => 
+		makePostCall(task).then(result => 
 		{
 			if(result && result.status === 201)
 				setCharacters([...characters, result.data]);
@@ -127,12 +127,12 @@ function Homepage ()
 		});
 	}, []);
 */
-	async function makePostCall(person)
+	async function makePostCall(task)
 	{
 		try 
 		{
 			const response = 
-				await axios.post("http://localhost:5001/users", person);
+				await axios.post("http://localhost:5001/tasks", task);
 			return response;
 		}
 		catch (error) 

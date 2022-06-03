@@ -8,7 +8,7 @@ const TaskSchema = new mongoose.Schema(
 			trim: true,
 		},
 		length: {
-			type: Number,
+			type: Number, 
 			required: true,
 			default: 15
 		},

@@ -1,6 +1,23 @@
+const { application } = require("express");
 const taskModel = require("./task");
 const userServices = require("./user-services");
 
+//adds task to a given user using the userid
+async function addTasktoUser(uid,task) 
+{
+	try 
+	{
+		const newTask = new taskModel(task);
+		const savedTask = await newTask.save();
+		await userServices.addTasktoUser(uid,savedTask._id.valueOf());
+		return savedTask;
+	}
+	catch (err) 
+	{
+		console.log(err);
+		return undefined;
+	}
+}
 
 async function findTasksByUserId(id) 
 {
@@ -30,6 +47,27 @@ async function findTasksByUserId(id)
 }
 */
 
+/*
+async function addTask(uid, task) 
+{
+	try 
+	{
+		const user = await userServices.findUserById(uid);
+		const task_model = new taskModel(task);
+		const savedTask = await task.save();
+		await user.updateOne(
+			{_id: uid},
+			{$push: {tasks_list: savedTask}}
+		);
+		return savedTask;
+	}
+	catch(error)
+	{
+		console.log(error);
+		return undefined;
+	}
+}
+*/
 
 async function deleleTaskByID(id, uid) 
 {
@@ -80,5 +118,6 @@ async function findTaskById(id)
 
 exports.findTasksByUserId = findTasksByUserId;
 exports.deleleTaskByID = deleleTaskByID;
+exports.addTasktoUser = addTasktoUser;
 exports.updateTaskByID = updateTaskByID;
 exports.findTaskById = findTaskById;

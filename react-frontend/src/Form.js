@@ -1,16 +1,17 @@
 import React from "react";
-import DatePicker from "react-datepicker";
+//import DatePicker from "react-datepicker";
 //import TimePicker from "react-time-picker";
-import "react-datepicker/dist/react-datepicker.css";
+//import "react-datepicker/dist/react-datepicker.css";
 //import "bootstrap/dist/css/bootstrap.min.css";
 function Form (props)
 {
-
+	//creates a task 
 	const [task, settask] = React.useState(
 		{
 			taskName: "",
-			date: "",
-			location:""
+			length:0,
+			date: new Date(Date.now),
+			priority_level:""
 		}
 	);
 
@@ -19,23 +20,28 @@ function Form (props)
 		const{name, value} = event.target;
 		if(name === "taskName")
 			settask(
-				{ taskName:value, date: task["date"], location:task["location"]}
+				{ taskName:value,length:task["length"], date: task["date"], location:task["location"]}
 			);
 		else if(name === "date")
 			settask(
-				{taskName:task["taskName"],date: value,
-					location:task["location"]}
+				{taskName:task["taskName"],length:task["length"],date: value, location:task["location"]}
+			);
+		else if(name === "priority_level")
+			settask(
+				{taskName:task["taskName"] , length:task["length"] ,
+					date: task["date"],priority_level :value}
 			);
 		else
 			settask(
-				{taskName:task["taskName"] , date: task["date"],location :value}
+				{taskName:task["taskName"] , length:value, 
+					date: task["date"],priority_level :task["priority_level"]}
 			);
 	}
 
 	function submitForm()
 	{
 		props.handleSubmit(task);
-		settask({taskName: "", job: "", location: ""});
+		settask({taskName: "",length:0 , date:new Date(Date.now), priority_level:""});
 	}
 
 	return (props.trigger) ? (
@@ -49,93 +55,30 @@ function Form (props)
 					id="taskName"
 					value={task.taskName}
 					onChange={handleChange} />
-				<div id= "dates">
-					<DatePicker 
-						className ="datePicker" 
-						name="startDate" 
-						placeholderText="Start Date"
-						dateFormat ="MM/dd/yyyy" />
-					<DatePicker 
-						className ="datePicker" 
-						name="endDate" 
-						placeholderText="End Date"
-						dateFormat ="MM/dd/yyyy"/>
-				</div> 
-				<label className = "labels" id = "dayLabel "
-					htmlFor="date">Days</label>
-				<label className="letterLabel"> M  </label>
-				<label className="letterLabel"> T  </label>
-				<label className="letterLabel"> W  </label>
-				<label className="letterLabel"> T  </label>
-				<label className="letterLabel"> F  </label>
-				<label className="letterLabel"> S  </label>
-				<label className="letterLabel"> S  </label>
-				<div id="allLabels">
-					<input 
-						type = "checkbox"
-						name="days"
-						id="monday"
-						className="dayCheck" />
-					<input 
-						type = "checkbox"
-						name="days"
-						id="tuesday"
-						className="dayCheck" />
-					<input 
-						type = "checkbox"
-						name="days"
-						id="wednesday"
-						className="dayCheck" />
-					<input 
-						type = "checkbox"
-						name="days"
-						id="thursday" 
-						className="dayCheck"/>
-					<input 
-						type = "checkbox"
-						name="days"
-						id="friday"
-						className="dayCheck" />
-					<input 
-						type = "checkbox"
-						name="days"
-						id="saturday"
-						className="dayCheck" />
-					<input 
-						type = "checkbox"
-						name="days"
-						id="sunday"
-						className="dayCheck" />
-				</div>
+				
 				<label className = "labels" id = "dateLabel "
-					htmlFor="date">Date</label>
+					htmlFor="Length">Length</label>
 				<input 
 					type="text"
+					name="length"
+					id="length"
+					value={task.length}
+					onChange={handleChange} />
+
+				
+				<label className = "labels" htmlFor="date">Date</label>
+				<input 
+					type= "date"
 					name="date"
 					id="date"
 					value={task.date}
-					onChange={handleChange} />
-				<label className = "labels" id = "dateLabel "
-					htmlFor="date">Start Time</label>
+					onChange={handleChange} /> 
+				<label className = "labels" htmlFor="priority level">Priority Level</label>
 				<input 
-					type="text"
-					name="startTime"
-					id="startTime"
-					/*value={task.location}
-					onChange={handleChange}*/ />
-				<input 
-					type="text"
-					name="endTime"
-					id="endTime"
-					/*value={task.location}
-					onChange={handleChange}*/ />
-				
-				<label className = "labels" htmlFor="location">Location</label>
-				<input 
-					type="text"
-					name="location"
-					id="location"
-					value={task.location}
+					type= "text"
+					name="priority_level"
+					id="priority_level"
+					value={task.priority_level}
 					onChange={handleChange} />
 				<input id ="submitButton" type="button"
 					value="Submit"onClick={submitForm}/>    

@@ -81,6 +81,48 @@ function SearchPage()
 		}
 	}
 
+	function checkDoneTask(id, val)
+	{
+		const updatedTasks = tasks.map(task => task);
+		/*tasks.filter((task,index) => 
+		{
+			if(task._id === id)
+				return index;
+		});*/
+    
+		let index = updatedTasks.findIndex(task=>task._id===id);
+		updatedTasks[index].done = val;
+
+		const updatedAllTasks = allTasks.map(task => task);
+		index = updatedAllTasks.findIndex(task=> task._id===id);
+		updatedAllTasks[index].done = val;
+
+		makeUpdateTaskDoneCall(id, updatedTasks[index]).then(result => 
+		{
+			if(result && result.status === 204)
+			{
+				setTasks(updatedTasks);
+				setAllTasks(updatedAllTasks);
+			}
+		});
+	}
+
+	async function makeUpdateTaskDoneCall(id, newTask)
+	{
+		try 
+		{
+			const response = 
+				await axios.put("http://localhost:5001/update/tasks"
+					+"/"+id, newTask);
+			return response;
+		}
+		catch(error) 
+		{
+			console.log(error);
+			return false;
+		}
+	}
+
 
 	function handleClick(e) 
 	{
@@ -110,6 +152,10 @@ function SearchPage()
 					case "2":
 						curTask = new Date(task.due_date);
 						curFilter = new Date(searchInput);
+						
+						if(curFilter.getFullYear()===2001)
+							return curTask.getDate() === curFilter.getDate()
+								&& curTask.getMonth() === curFilter.getMonth();
 
 						return curTask.getFullYear() === curFilter.getFullYear()
 						&& curTask.getDate() === curFilter.getDate()
@@ -127,6 +173,15 @@ function SearchPage()
 				newList = allTasks;
 			}
 		}
+
+		newList.sort((a,b) => 
+		{
+			if(a.due_date > b.due_date)
+				return 1;
+			if(a.due_date < b.due_date)
+				return -1;
+			return 0;
+		});
 		// Set the filtered state based on what our rules added to newList
 		setTasks(newList);
 	}
@@ -222,7 +277,7 @@ function SearchPage()
 
 					<div className="p-2" id="todo_list">
 						<TasksDisplay tasksData={tasks} 
-							removeTask={removeOneTask} />
+							removeTask={removeOneTask} updateTask={checkDoneTask}/>
 					</div>
 				</div>
 			</div>

@@ -91,16 +91,14 @@ describe("Connection", () =>
 
 	test("find task by user id", async () => 
 	{
-		const testUserId = "62896e58b1cb8555ed799f3c";
+		const testUserId = "62997f873db1beea8cd74d15";
 		const expectedTasksList = [
-			"627d828d7ba44d05e54b5781",
-			"627d85a67ba44d05e54b5782",
-			"627d86197ba44d05e54b5783",
-			"627d87cb7ba44d05e54b5787",
-			"627d88157ba44d05e54b5788",
-			"628e77b910f5bcd30f2a0eeb",
-			"628e77e710f5bcd30f2a0eec",
-			"628e782510f5bcd30f2a0eed"            
+			"629978af1612f4476fe554c9",
+			"6299786b27c503e398ae778a",
+			"629977c10df9585e1799b280",
+			"62997639c19ecce01a612ad5",
+			"629974f9b7e8b8e88d6f8b2b",
+			"6299738339b014f0491e3186"          
 		];
 
 		const result = await taskServices.findTasksByUserId(testUserId);
@@ -172,7 +170,7 @@ describe("Connection", () =>
 
 	afterAll(async () => 
 	{
-		await taskModel.findByIdAndDelete(testingTask._id);
+		await taskModel.deleteMany({_id:testingTask._id});
 		mongoose.disconnect();
 	});
 });

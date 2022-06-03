@@ -1,9 +1,12 @@
 const userModel = require("./user");
 const scheduleModel = require("./schedule");
+
 const taskModel = require("./task");
-const dotenv = require("dotenv");
-const { default: mongoose } = require("mongoose");
 const { addTask } = require("./task-services");
+
+const userServices = require("./user-services");
+
+const dotenv = require("dotenv");
 dotenv.config();
 
 async function findUserById(id) 
@@ -22,8 +25,10 @@ async function findUserById(id)
 //ADDS TASK TO A SPECIFIED USER
 async function addTasktoUser(uid, taskID) 
 {
+
 	try{		
 		console.log("NUMBER 1 WITHIN USER SERVICES");
+
 		//checks if its a valid user
 		const us = await findUserById(uid);	//finds the user
 
@@ -107,8 +112,26 @@ async function deleleUserByID(id)
 	}
 }
 
+//this function is to delete a task inside the task_list of a user
+async function deleleTaskByID(uid,id) 
+{
+	try 
+	{
+		return await userModel.updateOne( 
+			{ _id: uid },
+			{ $pull: {tasks_list: id} }
+		);
+	}
+	catch (error) 
+	{
+		console.log(error);
+		return undefined;
+	}
+}
+
 exports.findUserById = findUserById;
 exports.addUser = addUser;
 exports.addTasktoUser = addTasktoUser;
 exports.deleleUserByID = deleleUserByID;
 exports.deleleTaskByID = deleleTaskByID;
+

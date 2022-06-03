@@ -205,6 +205,50 @@ function ToDoListView()
 		});
 	},[]);
 
+	function handleCheck(e, task_data)
+	{
+		if(e.target.checked !== task_data.done)
+			checkDoneTask(task_data._id, e.target.checked);
+		
+	}
+
+	function checkDoneTask(id, val)
+	{
+		const updatedTasks = tasks.map(task => task);
+		/*tasks.filter((task,index) => 
+		{
+			if(task._id === id)
+				return index;
+		});*/
+    
+		let index = updatedTasks.findIndex(task=>task._id===id);
+		updatedTasks[index].done = val;
+
+		makeUpdateTaskDoneCall(id, updatedTasks[index]).then(result => 
+		{
+			if(result && result.status === 204)
+			{
+				setTasks(updatedTasks);
+			}
+		});
+	}
+
+	async function makeUpdateTaskDoneCall(id, newTask)
+	{
+		try 
+		{
+			const response = 
+				await axios.put("http://localhost:5001/update/tasks"
+					+"/"+id, newTask);
+			return response;
+		}
+		catch(error) 
+		{
+			console.log(error);
+			return false;
+		}
+	}
+
 	var start = new Date(Date.now());
 	const current_day = start.getDate();
 	const current_week_day = start.getDay();
@@ -239,10 +283,12 @@ function ToDoListView()
 			{schedule_data.map((schedule_block) => (	//maps schedule data to schedule blocks
 				console.log(""),
 				
-				<div className="p-2" id="todo_list">
-					<span style={{ color: "white", fontSize: 32}}>
-						{gbs(schedule_block.block_data)}
-					</span>
+				<div className="p-2 w-100" id="todo_list">
+					<div className="row">
+						<span style={{ color: "white", fontSize: 32}}>
+							{gbs(schedule_block.block_data)}
+						</span>
+					</div>
 					
 					{schedule_block.activities.map((task_data) => ( //maps activties to task data
 						
@@ -251,10 +297,14 @@ function ToDoListView()
 						<div className="card" id="todo_item">
 							<div className="card-body">
 								<div className="row row-2" id="task_info">
-									<div className="col-sm-auto" 
+									<div className="col col-sm-auto" 
+										style={(task_data.done===true ? {color: "gray"} : {color: "black"})}
 										id="time_task">
-										{csts(task_data.start_time) + "-" 
-										+ csts(task_data.start_time + task_data.length)}
+										<span>
+											{csts(task_data.start_time)}
+											-
+											{csts(task_data.start_time + task_data.length)}
+										</span>
 									</div>
 
 									{/* 									
@@ -264,6 +314,7 @@ function ToDoListView()
 									</div> */}
 
 									<div className="col col-sm-fill" 
+										style={(task_data.done===true ? {color: "gray"} : {color: "black"})}
 										id="task_name">
 										<span> {task_data.taskName} </span>
 									</div>
@@ -286,11 +337,11 @@ function ToDoListView()
 											type="checkbox">
 											<Form.Check.Input
 												type="checkbox"
-												defaultChecked={false}
+												defaultChecked={task_data.done}
 												onClick={(e) => 
 												{
-													console.log(
-														e.target.checked);
+													handleCheck(e, task_data);
+													console.log(task_data._id);
 												}}
 											/>
 										</Form.Check>

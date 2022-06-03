@@ -21,6 +21,12 @@ const TaskSchema = new mongoose.Schema(
 			trim: true,
 			default: "normal",
 		},
+
+		done: {
+			type: Boolean,
+			default: false
+		}
+
 	},
 	{ collection: "Tasks" }
 );

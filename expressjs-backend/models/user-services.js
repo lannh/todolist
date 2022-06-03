@@ -1,8 +1,6 @@
 const userModel = require("./user");
 const scheduleModel = require("./schedule");
-const userServices = require("./user-services");
 const dotenv = require("dotenv");
-
 dotenv.config();
 
 async function findUserById(id) 
@@ -17,20 +15,28 @@ async function findUserById(id)
 		return undefined;
 	}
 }
+
+//ADDS TASK TO A SPECIFIED USER
 async function addTasktoUser(uid, taskID) 
 {
+
 	try
-	{
+	{		
+		console.log("NUMBER 1 WITHIN USER SERVICES");
+
 		//checks if its a valid user
-		const us = await userServices.findUserById(uid);
+		const us = await findUserById(uid);	//finds the user
+
 		if (us === undefined) 
 		{
 			console.log("Failed to retreive task for user with id " + uid + ".\n");
 			return us;
 		}
-		await userModel.updateOne(
-			{_id:uid},
-			{$push:taskID},
+		//USER IS FOUND
+		console.log("WITHIN USER SERVICES");
+		await userModel.updateOne(	//ERROR RIGHT HERE
+			{ _id: us._id },
+			{ $push: {tasks_list : taskID} },
 			function (error, success) 
 			{
 				if (error) 
@@ -42,7 +48,7 @@ async function addTasktoUser(uid, taskID)
 					console.log(success);
 				}
 			}
-		);
+		).clone();
 		return true;	
 	}
 	catch (error) 
@@ -58,7 +64,9 @@ async function addUser(user)
 	{
 		const userToAdd = new userModel(user);
 		const scheduleToAdd = new scheduleModel();
+		//const tasksListToAdd = [];
 		userToAdd["schedule"] = scheduleToAdd._id;
+		userToAdd["tasks_list"] = [];
 		const savedUser = await userToAdd.save();
 		await scheduleToAdd.save();
 		return savedUser;
@@ -70,6 +78,7 @@ async function addUser(user)
 	}
 }
 
+ 
 async function deleleUserByID(id) 
 {
 	try 

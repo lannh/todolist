@@ -1,13 +1,28 @@
 const taskModel = require("./task");
 const userServices = require("./user-services");
 
+async function addTask(task)
+{
+	try 
+	{
+		const taskToAdd = new taskModel(task);
+		const savedTask = await taskToAdd.save();
+		return savedTask;
+	}
+	catch(error)
+	{
+		console.log(error);
+		return false;
+	}
+}
 //adds task to a given user using the userid
 async function addTasktoUser(uid,task) 
 {
 	try 
 	{
-		const newTask = new taskModel(task);
-		const savedTask = await newTask.save();
+		//console.log(task);
+		const newTask = new taskModel(task);	
+		const savedTask = await newTask.save();	//inserts into Tasks 
 		await userServices.addTasktoUser(uid,savedTask._id.valueOf());
 		return savedTask;
 	}
@@ -46,28 +61,6 @@ async function findTasksByUserId(id)
 }
 */
 
-/*
-async function addTask(uid, task) 
-{
-	try 
-	{
-		const user = await userServices.findUserById(uid);
-		const task_model = new taskModel(task);
-		const savedTask = await task.save();
-		await user.updateOne(
-			{_id: uid},
-			{$push: {tasks_list: savedTask}}
-		);
-		return savedTask;
-	}
-	catch(error)
-	{
-		console.log(error);
-		return undefined;
-	}
-}
-*/
-
 async function deleleTaskByID(id, uid) 
 {
 	try 
@@ -88,7 +81,7 @@ async function updateTaskByID(id, newTask)
 	{
 		return await taskModel.findOneAndUpdate({_id: id}, 
 			{
-				task_name: newTask.task_name,
+				taskName: newTask.taskName,
 				priority_level: newTask.priority_level,
 				due_date: newTask.due_date,
 				length: newTask.length,
@@ -118,5 +111,6 @@ async function findTaskById(id)
 exports.findTasksByUserId = findTasksByUserId;
 exports.deleleTaskByID = deleleTaskByID;
 exports.addTasktoUser = addTasktoUser;
+exports.addTask = addTask;
 exports.updateTaskByID = updateTaskByID;
 exports.findTaskById = findTaskById;

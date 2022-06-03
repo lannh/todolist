@@ -34,7 +34,7 @@ describe("Connection", () =>
 		});
 
 		const newTask = 
-			{task_name: "testing-test", due_date: new Date("12-31-2029"), priority_level: "normal", length: 10001};
+			{taskName: "testing-test", due_date: new Date("12-31-2029"), priority_level: "normal", length: 10001};
 		const taskToSave = new taskModel(newTask);
 		testingTask = await taskToSave.save();
 	});
@@ -47,7 +47,7 @@ describe("Connection", () =>
 		const lhsDueDate = new Date(lhs.due_date);
 		const rhsDueDate = new Date (rhs.due_date);
 
-		return String(lhs._id) === String(rhs._id) && lhs.task_name === rhs.task_name &&
+		return String(lhs._id) === String(rhs._id) && lhs.taskName === rhs.taskName &&
             lhsDueDate.toISOString()===rhsDueDate.toISOString() &&
             lhs.priority_level === rhs.priority_level && lhs.length === rhs.length;
 	}
@@ -121,7 +121,7 @@ describe("Connection", () =>
 	test("delete task by id", async () => 
 	{
 		const newTask = 
-			{task_name: "testing-test", due_date: new Date("12-31-2029"), priority_level: "normal", length: 10001};
+			{taskName: "testing-test", due_date: new Date("12-31-2029"), priority_level: "normal", length: 10001};
 		const taskToSave = new taskModel(newTask);
 		const taskToDel = await taskToSave.save();
 

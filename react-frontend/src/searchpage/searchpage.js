@@ -152,6 +152,10 @@ function SearchPage()
 					case "2":
 						curTask = new Date(task.due_date);
 						curFilter = new Date(searchInput);
+						
+						if(curFilter.getFullYear()===2001)
+							return curTask.getDate() === curFilter.getDate()
+								&& curTask.getMonth() === curFilter.getMonth();
 
 						return curTask.getFullYear() === curFilter.getFullYear()
 						&& curTask.getDate() === curFilter.getDate()

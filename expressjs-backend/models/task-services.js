@@ -1,19 +1,13 @@
 const { application } = require("express");
 const taskModel = require("./task");
 const userServices = require("./user-services");
-//import { MongoClient } from "mongodb";
 
-//const uri = "";
-//const client = new MongoClient(uri);
 //adds task to a given user using the userid
 async function addTasktoUser(uid,task) 
 {
 	try 
 	{
-		//const database = client.db("users");
-		//const taskDatabase = database.collection("Tasks");
-		const newTask = new taskModel(task);	//doc to insert into database
-		//await taskDatabase.insertOne(newTask);	//adds task to database
+		const newTask = new taskModel(task);
 		const savedTask = await newTask.save();
 		await userServices.addTasktoUser(uid,savedTask._id.valueOf());
 		return savedTask;
@@ -50,28 +44,6 @@ async function findTasksByUserId(id)
 /*async function findTaskByName(name) 
 {
 	return await taskModel.find({ name: name });
-}
-*/
-
-/*
-async function addTask(uid, task) 
-{
-	try 
-	{
-		const user = await userServices.findUserById(uid);
-		const task_model = new taskModel(task);
-		const savedTask = await task.save();
-		await user.updateOne(
-			{_id: uid},
-			{$push: {tasks_list: savedTask}}
-		);
-		return savedTask;
-	}
-	catch(error)
-	{
-		console.log(error);
-		return undefined;
-	}
 }
 */
 

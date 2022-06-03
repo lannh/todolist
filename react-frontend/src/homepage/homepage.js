@@ -131,6 +131,7 @@ function Homepage ()
 	{
 		try 
 		{
+			console.log(task);
 			const response = 
 				await axios.post("http://localhost:5001/tasks", task);
 			return response;

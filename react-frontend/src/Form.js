@@ -41,7 +41,7 @@ function Form (props)
 	function submitForm()
 	{
 		props.handleSubmit(task);
-		settask({taskName: "",length:0 , date:new Date(Date.now), priority_level:""});
+		settask({task_name: "",length:0 , date:new Date(Date.now), priority_level:""});
 	}
 
 	return (props.trigger) ? (

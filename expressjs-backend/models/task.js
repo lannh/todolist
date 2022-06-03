@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const TaskSchema = new mongoose.Schema(
 	{
-		task_name: {
+		taskName: {
 			type: String,
 			required: true,
 			trim: true,
@@ -12,7 +12,7 @@ const TaskSchema = new mongoose.Schema(
 			required: true,
 			default: 15
 		},
-		due_date: {
+		date: {
 			type: Date,
 			default: new Date(Date.now),
 		},
@@ -20,7 +20,7 @@ const TaskSchema = new mongoose.Schema(
 			type: String,
 			trim: true,
 			default: "normal",
-		}
+		},
 	},
 	{ collection: "Tasks" }
 );

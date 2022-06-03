@@ -1,7 +1,9 @@
 const userModel = require("./user");
 const scheduleModel = require("./schedule");
+const taskModel = require("./task");
 const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
+const { addTask } = require("./task-services");
 dotenv.config();
 
 async function findUserById(id) 
@@ -17,18 +19,19 @@ async function findUserById(id)
 	}
 }
 
+//ADDS TASK TO A SPECIFIED USER
 async function addTasktoUser(uid, taskID) 
 {
 	try{
 		//checks if its a valid user
-		const us = await userServices.findUserById(uid);
+		const us = await findUserById(uid);
 		if (us === undefined) 
 		{
 			console.log("Failed to retreive task for user with id " + uid + ".\n");
 			return us;
 		}
 		const id = us.task;
-		await userModel.updateOne(
+		await userModel.updateOne(	//ERROR RIGHT HERE
 			{ _id: id },
 			{ $push: taskID },
 			function (error, success) 

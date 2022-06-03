@@ -161,6 +161,23 @@ function ToDoListView()
 			return false;
 		}
 	}
+	/*async function fetchTaskNoID()
+	{
+		try 
+		{
+			const response = 
+				await axios.get("http://localhost:5001/user/tasks/"+
+				"62896e58b1cb8555ed799f3c");
+			return response.data.tasks_list;
+		}
+		catch(error) 
+		{
+			console.log(error);
+			return false;
+		}
+	}*/
+
+
 
 	useEffect(() => 
 	{
@@ -170,6 +187,14 @@ function ToDoListView()
 				setTasks(result);
 		});
 	},[]);
+	/*useEffect(() => 
+	{
+		fetchTaskNoID().then(result => 
+		{
+			if(result)
+				setTasks(result);
+		});
+	},[]);*/
 
 	useEffect(() => 
 	{

@@ -6,7 +6,6 @@ import React , {useState} from "react";
 import PrimaryView from "./PrimaryView";
 import ToDoListView from "./ToDoListView";
 
-
 function Homepage () 
 {
 	// Const [user, setUsers] = useState([]);
@@ -130,10 +129,11 @@ function Homepage ()
 	async function makePostCall(task)
 	{
 		try 
-		{
+		{	
+			console.log("IN HOMEPAGE ");
 			console.log(task);
 			const response = 
-				await axios.post("http://localhost:5001/tasks", task);
+				await axios.post("http://localhost:5001/user/tasks/62896e58b1cb8555ed799f3c", task);
 			return response;
 		}
 		catch (error) 

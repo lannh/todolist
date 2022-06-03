@@ -292,7 +292,7 @@ function ToDoListView()
 									<div className="col col-sm-fill" 
 										style={(task_data.done===true ? {color: "gray"} : {color: "black"})}
 										id="task_name">
-										<span> Task Name </span>
+										<span> {task_data.task_name} </span>
 									</div>
 
 									<div className="col-sm-auto" 

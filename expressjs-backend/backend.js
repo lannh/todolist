@@ -205,6 +205,20 @@ app.get("/user/tasks/:id", async (req, res) =>
 	}
 });
 
+//get task by id
+app.get("/tasks/:id", async (req, res) => 
+{
+	const id = req.params["id"]; //or req.params.id
+	let result = await taskServices.findTaskById(id);
+
+	if(result === undefined || result===null)
+		res.status(404).send("Resource not found.");
+	else
+	{
+		res.status(200).send(result);
+	}
+});
+
 //delete task by id
 app.delete("/tasks/:uid/:id", async (req, res) => 
 {

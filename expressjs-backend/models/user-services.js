@@ -84,19 +84,7 @@ async function addUser(user)
 	}
 }
 
-async function deleleTaskByID(id, uid) 
-{
-	try 
-	{
-		await userServices.deleleTaskByID(uid, id);
-		return await taskModel.findByIdAndDelete(id);
-	}
-	catch (error) 
-	{
-		//console.log(error);
-		return undefined;
-	}
-}  
+ 
 async function deleleUserByID(id) 
 {
 	try 

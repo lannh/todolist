@@ -10,7 +10,7 @@ function Form (props)
 		{
 			taskName: "",
 			length:0,
-			date: new Date(Date.now),
+			due_date: new Date(Date.now),
 			priority_level:""
 		}
 	);
@@ -20,28 +20,28 @@ function Form (props)
 		const{name, value} = event.target;
 		if(name === "taskName")
 			settask(
-				{ taskName:value,length:task["length"], date: task["date"], location:task["location"]}
+				{ taskName:value,length:task["length"], due_date: task["due_date"], location:task["location"]}
 			);
-		else if(name === "date")
+		else if(name === "due_date")
 			settask(
-				{taskName:task["taskName"],length:task["length"],date: value, location:task["location"]}
+				{taskName:task["taskName"],length:task["length"],due_date: value, location:task["location"]}
 			);
 		else if(name === "priority_level")
 			settask(
 				{taskName:task["taskName"] , length:task["length"] ,
-					date: task["date"],priority_level :value}
+					due_date: task["due_date"],priority_level :value}
 			);
 		else
 			settask(
 				{taskName:task["taskName"] , length:value, 
-					date: task["date"],priority_level :task["priority_level"]}
+					due_date: task["due_date"],priority_level :task["priority_level"]}
 			);
 	}
 
 	function submitForm()
 	{
 		props.handleSubmit(task);
-		settask({task_name: "",length:0 , date:new Date(Date.now), priority_level:""});
+		settask({task_name: "",length:0 , due_date:new Date(Date.now), priority_level:""});
 	}
 
 	return (props.trigger) ? (
@@ -66,11 +66,11 @@ function Form (props)
 					onChange={handleChange} />
 
 				
-				<label className = "labels" htmlFor="date">Date</label>
+				<label className = "labels" htmlFor="due_date">Due Date</label>
 				<input 
 					type= "date"
-					name="date"
-					id="date"
+					name="due_date"
+					id="due_date"
 					value={task.date}
 					onChange={handleChange} /> 
 				<label className = "labels" htmlFor="priority level">Priority Level</label>

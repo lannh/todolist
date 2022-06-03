@@ -1,7 +1,6 @@
 import HeaderHome from "./header_home";
 import Form from "../Form";
 import axios from "axios";
-import Table from "../Table";
 import React , {useState} from "react";
 import PrimaryView from "./PrimaryView";
 import ToDoListView from "./ToDoListView";
@@ -76,13 +75,13 @@ function Homepage ()
 	*/
 	const [characters, setCharacters] = useState([]);
 	const [formPopup, setFormPopup] = useState(false);
-	function removeOneCharacter(index)
+	/*function removeOneCharacter(index)
 	{
 		const updated = characters.filter((character,i) => 
 		{
 			return i!== index;
 		});
-		/*setCharacters(updated);*/
+		setCharacters(updated);
 
 		const userToDel = characters.find((character, i) => i===index);
     
@@ -91,7 +90,7 @@ function Homepage ()
 			if(result && result.status === 204)
 				setCharacters(updated);
 		});
-	}
+	}*/
 
 	function updateList(task)
 	{
@@ -143,7 +142,7 @@ function Homepage ()
 		}
 	}
 
-	async function makeDelCall(id)
+	/*async function makeDelCall(id)
 	{
 		try 
 		{
@@ -156,7 +155,7 @@ function Homepage ()
 			console.log(error);
 			return false;
 		}
-	}
+	}*/
 
 
 	return (
@@ -171,8 +170,6 @@ function Homepage ()
 				</div>
 
 				<div className="col-4" id="todolist_view">
-					<Table characterData={characters} 
-						removeCharacter={removeOneCharacter} />
 					<ToDoListView characterData = {characters}/>
 				</div>
 			</div>

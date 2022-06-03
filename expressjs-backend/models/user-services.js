@@ -22,9 +22,11 @@ async function findUserById(id)
 //ADDS TASK TO A SPECIFIED USER
 async function addTasktoUser(uid, taskID) 
 {
-	try{
+	try{		
+		console.log("NUMBER 1 WITHIN USER SERVICES");
 		//checks if its a valid user
 		const us = await findUserById(uid);	//finds the user
+
 		if (us === undefined) 
 		{
 			console.log("Failed to retreive task for user with id " + uid + ".\n");
@@ -32,9 +34,10 @@ async function addTasktoUser(uid, taskID)
 		}
 		//USER IS FOUND
 		const listID = us.tasks_list;
+		console.log("WITHIN USER SERVICES");
 		await userModel.updateOne(	//ERROR RIGHT HERE
-			{ _id: listID },
-			{ $push: taskID },
+			{ _id: us._id },
+			{ $push: {tasks_list : taskID} },
 			function (error, success) 
 			{
 				if (error) 
@@ -62,7 +65,9 @@ async function addUser(user)
 	{
 		const userToAdd = new userModel(user);
 		const scheduleToAdd = new scheduleModel();
+		//const tasksListToAdd = [];
 		userToAdd["schedule"] = scheduleToAdd._id;
+		userToAdd["tasks_list"] = [];
 		const savedUser = await userToAdd.save();
 		await scheduleToAdd.save();
 		return savedUser;

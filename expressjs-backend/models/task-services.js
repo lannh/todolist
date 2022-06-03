@@ -23,10 +23,8 @@ async function addTasktoUser(uid,task)
 	{
 		//console.log(task);
 		const newTask = new taskModel(task);	
-		//console.log("TASK SERVICES");
-		//console.log(newTask);
-		const savedTask = await newTask.save();
-		await userServices.addTasktoUser(uid,savedTask._id);
+		const savedTask = await newTask.save();	//inserts into Tasks 
+		await userServices.addTasktoUser(uid,savedTask._id.valueOf());
 		return savedTask;
 	}
 	catch (err) 

@@ -46,7 +46,7 @@ async function addTasktoUser(uid, taskID)
 					console.log(success);
 				}
 			}
-		);
+		).clone();
 		return true;	
 	}
 	catch (error) 

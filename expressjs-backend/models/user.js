@@ -2,35 +2,22 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
 	{
-		taskName: {
+		name: {
 			type: String,
 			required: true,
 			trim: true,
 		},
-		date: {
-			type: String,
-			required: true,
-			trim: true,
-			validate(value) 
-			{
-				if (value.length < 2)
-					throw new Error("Invalid job," + 
-						"must be at least 2 characters.");
-			},
-		},
-		location: {
-			type: String,
-			required: true,
-			trim: true,
+		schedule: {
+			type: Object,
+			default: null
 		},
 		tasks_list: {
 			type: Array,
 			default: [],
 		},
 	},
-	{ collection: "tasks_list" }
+	{ collection: "users_list" }
 );
-	
 
 const User = mongoose.model("User", UserSchema);
 

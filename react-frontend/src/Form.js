@@ -1,13 +1,17 @@
 import React from "react";
-
+//import DatePicker from "react-datepicker";
+//import TimePicker from "react-time-picker";
+//import "react-datepicker/dist/react-datepicker.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 function Form (props)
 {
-
+	//creates a task 
 	const [task, settask] = React.useState(
 		{
 			taskName: "",
-			date: "",
-			location:""
+			length:0,
+			date: new Date(Date.now),
+			priority_level:""
 		}
 	);
 
@@ -16,30 +20,35 @@ function Form (props)
 		const{name, value} = event.target;
 		if(name === "taskName")
 			settask(
-				{ taskName:value, date: task["date"], location:task["location"]}
+				{ taskName:value,length:task["length"], date: task["date"], location:task["location"]}
 			);
 		else if(name === "date")
 			settask(
-				{taskName:task["taskName"],date: value,
-					location:task["location"]}
+				{taskName:task["taskName"],length:task["length"],date: value, location:task["location"]}
+			);
+		else if(name === "priority_level")
+			settask(
+				{taskName:task["taskName"] , length:task["length"] ,
+					date: task["date"],priority_level :value}
 			);
 		else
 			settask(
-				{taskName:task["taskName"] , date: task["date"],location :value}
+				{taskName:task["taskName"] , length:value, 
+					date: task["date"],priority_level :task["priority_level"]}
 			);
 	}
 
 	function submitForm()
 	{
 		props.handleSubmit(task);
-		settask({taskName: "", job: "", location: ""});
+		settask({taskName: "",length:0 , date:new Date(Date.now), priority_level:""});
 	}
 
 	return (props.trigger) ? (
 		<div className="form"  id="offform" >
-			<h3> HELLO </h3>
 			<form>
-				<label htmlFor="taskName">Task Name</label>
+				<label className = "labels" id = "taskNameLabel" 
+					htmlFor="taskName">Task Name</label>
 				<input
 					type="text"
 					name="taskName"
@@ -47,23 +56,35 @@ function Form (props)
 					value={task.taskName}
 					onChange={handleChange} />
 				
-				<label htmlFor="date">Date</label>
+				<label className = "labels" id = "dateLabel "
+					htmlFor="Length">Length</label>
 				<input 
 					type="text"
+					name="length"
+					id="length"
+					value={task.length}
+					onChange={handleChange} />
+
+				
+				<label className = "labels" htmlFor="date">Date</label>
+				<input 
+					type= "date"
 					name="date"
 					id="date"
 					value={task.date}
-					onChange={handleChange} />
-				<label htmlFor="location">Location</label>
+					onChange={handleChange} /> 
+				<label className = "labels" htmlFor="priority level">Priority Level</label>
 				<input 
-					type="text"
-					name="location"
-					id="location"
-					value={task.location}
+					type= "text"
+					name="priority_level"
+					id="priority_level"
+					value={task.priority_level}
 					onChange={handleChange} />
-				<input type="button"value="Submit"onClick={submitForm}/>    
+				<input id ="submitButton" type="button"
+					value="Submit"onClick={submitForm}/>    
 			</form>
-			<button onClick = {() => props.setTrigger(false)} > 
+			<button id="closeButton" onClick = {() => 
+				props.setTrigger(false)} > 
 			Close Popup </button> 
 		</div>
 	) : "";

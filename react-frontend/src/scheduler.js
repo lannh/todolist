@@ -1,6 +1,6 @@
 //TEST DATA
 
-var schedule_times = 
+export var debug_schedule_blocks = 
 [
 	{
 		start_time: 0,
@@ -32,7 +32,7 @@ var schedule_times =
 	}	
 ];
 
-var activities = 
+export var debug_tasks = 
 [
 	{
 		length: 1,
@@ -77,17 +77,20 @@ function activity_sort(a, b)
 
 function schedule_sort(a, b)
 {
-	return a.start_time < b.start_time;
+	return a.start_time > b.start_time;
 }
 
 // const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-function solve_schedule(task_array, schedule_blocks)
+export function solve_schedule(task_array, schedule_blocks)
 {
 	//Make sure schedule blocks are in order so during display phase
 	//we dont have to worry about this, just display in the current order.
 	//Also sort activities based on priority/length so that tasts with the
 	//highest "important" score get placed first
+	if (!task_array || !schedule_blocks || schedule_blocks.length == 0 || task_array.length == 0)
+		return [];
+
 	schedule_blocks.sort(schedule_sort);
 	task_array.sort(activity_sort);
 
@@ -155,7 +158,7 @@ function solve_schedule(task_array, schedule_blocks)
 				var ce = block.block_data.end_time;
 				var ns = block_index < final_schedule_data.length - 1 
 					? final_schedule_data[block_index + 1].block_data.start_time
-					: 24;
+					: 24 * 60;
 
 				var le = block_index > 0 
 					? final_schedule_data[block_index - 1].block_data.end_time 
@@ -299,22 +302,32 @@ function solve_schedule(task_array, schedule_blocks)
 		}
 		
 		var final_block = final_schedule_data[best_index];
+		task_data.start_time = final_block.block_data.start_time + 
+			((final_block.block_data.end_time - final_block.block_data.start_time) 
+			- final_block.remaining_time);
+		// console.log(task_data.start_time);
 		var t_r = final_block.remaining_time - task_data.length;
 		final_block.remaining_time = t_r;
 		final_block.activities.push(task_data);
 	}
 
-	for (let block_index = 0; 
-		block_index < final_schedule_data.length; 
-		block_index++)
+	for (let block_index = final_schedule_data.length - 1; 
+		block_index >= 0; 
+		block_index--)
 	{
 		var debug_block = final_schedule_data[block_index];
-		console.log(debug_block);
+		if (debug_block.activities.length == 0)
+		{
+			final_schedule_data.splice(block_index, 1);
+		}
+		// console.log(debug_block);
 	}
+
+	// final_schedule_data.sort(schedule_sort);	
+
+	return final_schedule_data;
 }
 
-solve_schedule(activities, schedule_times);
+// solve_schedule(debug_tasks, schedule_times);
 
 //node .\react-frontend\src\scheduler.js
-
-// export.solve_schedule = solve_schedule;

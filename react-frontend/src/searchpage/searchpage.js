@@ -49,11 +49,19 @@ function SearchPage()
 		{
 			return task._id !== id;
 		});
+
+		const updatedAllTasks = allTasks.filter(task => 
+		{
+			return task._id !== id;
+		});
     
 		makeDelCall(id).then(result => 
 		{
 			if(result && result.status === 204)
+			{
 				setTasks(updated);
+				setAllTasks(updatedAllTasks);
+			}
 		});
 	}
 
@@ -100,7 +108,7 @@ function SearchPage()
 						curFilter = searchInput.toLowerCase();
 						return curTask.includes(curFilter);
 					case "2":
-						curTask = new Date(task.end_time);
+						curTask = new Date(task.due_date);
 						curFilter = new Date(searchInput);
 
 						return curTask.getFullYear() === curFilter.getFullYear()
@@ -140,10 +148,8 @@ function SearchPage()
 						<div className="input-group input-group-lg mb-3"
 							id="searchBar">
 
-							<DropdownButton
-								alignRight
-								title={dropdownTitle}
-								key="Secondary"
+							<DropdownButton 
+								alignRight title={dropdownTitle} key="Secondary"
 								id="searchFilter"
 								variant="secondary"
 								size="lg"
@@ -169,7 +175,7 @@ function SearchPage()
 											"Enter a date in mm/dd/yyyy format"
 										);
 									}}>
-										Due Date
+										Date
 									</div>
 								</Dropdown.Item>
 

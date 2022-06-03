@@ -10,67 +10,6 @@
   }
 }
 
-html,
-body {
-  position: fixed;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #25435f;
-  min-width: 1000px;
-  max-width: 100%;
-  min-height: 1000px;
-}
-.form {
-  position: fixed;
-  top: 21%;
-  left:5%;
-  width:55%;
-  height:70%;
-  z-index: 3;
-  filter: drop-shadow(2px 2px 2px #222222);
-  background-color: #bcccdc;
-} 
-#closeButton {
-  left:100%;
-}
-
-.labels {
-  display:block;
-  color: white;
-  font-size:18px;
-}
-#date {
-  display:block;
-}
-
-#submitButton {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-#allLabels {
-  display: flex;
-}
-.letterLabel {
-  margin-left: 12px;
-  font-size: 15px;
-}
-.dayCheck {
-  margin-left: 10px;
-  transform: scale(1.65);
-}
-.datePicker {
-  z-index: 4;
-}
-#dates {
-  display: block;
-  flex-direction: row;
-}
-div.form-group span {
-  color: red;
-}
 
 .header_home {
   align-items: center;
@@ -164,7 +103,29 @@ img {
   height: 80vh;
 }
 
-.col-8#calendar_view {
+.row#input_schedule_titles {
+  display: flex;
+  height: 8vh;
+  width: 95%;
+  column-count: 7;
+}
+
+.row#input_schedule_blocks {
+  display: flex;
+  height: 25vh;
+  width: 95%;
+  column-count: 7;
+  overflow-y: auto;
+}
+
+.row#input_schedule {
+  display: flex;
+  height: 32vh;
+  width: 95%;
+  column-count: 7;
+}
+
+.col-7#input_schedule_view {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -174,27 +135,55 @@ img {
   filter: drop-shadow(2px 1px 2px #222222);
 }
 
+.col-1#input_day_view {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #2765a0;
+  filter: drop-shadow(2px 1px 2px #222222);
+}
+
 .d-flex#primary_view {
-  width: 83%;
-  height: 73vh;
+  width: 90%;
+  height: 76vh;
   color: #f0f4f8;
   background-color: #323538;
-  border-radius: 4%;
+  border-radius: 2%;
   justify-content: space-evenly;
   align-items:center;
   align-self: center;
   filter: drop-shadow(3px 3px 3px #222222);
 }
 
-.p-2#calendar_title {
+.p-1#input_schedule_prompt {
   position: relative;
-  text-align: center;
-  justify-content: center;
+  text-align: left;
+  justify-content: left;
+  height: 7vh;
 }
 
-.calendar_title{
+.input_schedule_prompt{
   font-size: 5vh;
   filter: drop-shadow(3px 3px 3px #222222);
+}
+
+.p-3#day_title {
+  position: relative;
+  text-align: left;
+  justify-content: left;
+}
+
+.day_title{
+  font-size: 3vh;
+  filter: drop-shadow(3px 3px 3px #222222);
+}
+
+.time_bound{
+  margin: 10px 0;
+  border: 2px solid #696969;
+  width: 60px;
 }
 
 .p-2#calendar{
@@ -205,28 +194,17 @@ img {
   align-content: center;
   filter: drop-shadow(3px 3px 3px #222222);
 }
-.btn-secondary#add_task {
-  position: absolute;
-  bottom: 3rem;
-  left: 1rem;
-  background-color: #323232;
-  height: 90px;
-  width: 90px;
-  border-radius: 50%;
-  color: #bbeca1;
-  -webkit-filter: drop-shadow(3px 3px 3px #222222);
+
+.p-2#input_schedule{
+  width: 93%;
+  height: 90%;
+  justify-content: stretch;
+  align-items: center;
+  align-content: center;
   filter: drop-shadow(3px 3px 3px #222222);
-  font-size: 300%;
-  font-weight: lighter;
-  text-align: center;
-  padding: 0;
-  border-color: transparent;
 }
 
-.btn-secondary#add_task:hover {
-  background-color: #bbeca1;
-  color: #000000;
-}
+
 
 .offcanvas-header {
   background-color: #2f3c4f;
@@ -242,21 +220,11 @@ img {
 
 .offcanvas {
   background-color: #38455b;
-  --bs-gutter-x:0;
-}
-
-.offfmenu {
-  background-color: #dbe8ff;
 }
 
 .nav-link {
   color: #bcccdc;
   font-size: 3vh;
-}
-
-.form-label {
-  color: #bcccdc;
-  font-size: 3vh;  
 }
 
 .nav-link:hover {
@@ -269,16 +237,6 @@ img {
 
 .btn-close#close_sidebar:hover {
   background-color: #bbeca1;
-}
-
-#login_button {
-  border-color: #b5e0ff;
-  color: #b5e0ff;
-}
-
-#submit_login_button {
-  background-color: #bcccdc;
-  color: #38455b;
 }
 
 #todolist_view{
@@ -324,16 +282,13 @@ img {
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
+
+  padding-left: 3%;
+  padding-right: 2%;
 }
 
 #normal_priority{
   color:rgb(147, 255, 128) ;
-  filter: drop-shadow(1px 1px 1px #222222);
-  font-size: 3vh;
-}
-
-#medium_priority{
-  color:rgb(238, 155, 0) ;
   filter: drop-shadow(1px 1px 1px #222222);
   font-size: 3vh;
 }
@@ -365,7 +320,6 @@ img {
 #task_checkDone{
   margin-top: auto;
   margin-bottom: auto;
-  margin-right: auto;
 }
 
 .form-check-input{

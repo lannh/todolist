@@ -4,9 +4,7 @@ import axios from "axios";
 import Table from "../Table";
 import React , {useState} from "react";
 import PrimaryView from "./PrimaryView";
-//import ToDoListView from "./ToDoListView";
-import Sidebar from "./Sidebar";
-import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import ToDoListView from "./ToDoListView";
 
 
 function Homepage () 
@@ -96,10 +94,10 @@ function Homepage ()
 		});
 	}
 
-	function updateList(person)
+	function updateList(task)
 	{
 		//setCharacters([...characters,person]);
-		makePostCall(person).then(result => 
+		makePostCall(task).then(result => 
 		{
 			if(result && result.status === 201)
 				setCharacters([...characters, result.data]);
@@ -129,12 +127,12 @@ function Homepage ()
 		});
 	}, []);
 */
-	async function makePostCall(person)
+	async function makePostCall(task)
 	{
 		try 
 		{
 			const response = 
-				await axios.post("http://localhost:5001/users", person);
+				await axios.post("http://localhost:5001/tasks", task);
 			return response;
 		}
 		catch (error) 
@@ -174,6 +172,7 @@ function Homepage ()
 				<div className="col-4" id="todolist_view">
 					<Table characterData={characters} 
 						removeCharacter={removeOneCharacter} />
+					<ToDoListView characterData = {characters}/>
 				</div>
 			</div>
 			<div className="form_button_col">
@@ -186,15 +185,6 @@ function Homepage ()
 				<Form handleSubmit={updateList} trigger = 
 					{formPopup} setTrigger ={setFormPopup} />
 			</div>
-			<Router>
-				<Sidebar />
-				<Routes>
-					<Route
-						path="/"
-						component={Homepage}
-					/>
-				</Routes>
-			</Router>
 
 		</div>
 	);

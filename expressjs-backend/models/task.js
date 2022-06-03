@@ -7,13 +7,14 @@ const TaskSchema = new mongoose.Schema(
 			required: true,
 			trim: true,
 		},
-		start_time: {
-			type: Date,
-			default: new Date(),
+		length: {
+			type: Number, 
+			required: true,
+			default: 15
 		},
-		end_time: {
+		due_date: {
 			type: Date,
-			default: new Date(+new Date() + 7*24*60*60*1000),
+			default: new Date(Date.now),
 		},
 		priority_level: {
 			type: String,

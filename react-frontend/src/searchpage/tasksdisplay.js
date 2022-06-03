@@ -1,26 +1,17 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import {Link} from "react-router-dom";
 
 
 function TasksDisplayBody(props) 
 {
 	const tasks_list = props.tasksData.map(row => 
 	{
-		const dueDate = new Date(row.end_time);
+		const dueDate = new Date(row.due_date);
 			
 		let tmp = dueDate.toDateString();
 		let n = tmp.length;
-		row.dueDate = tmp.substring(4,n-4);
-			
-		tmp = dueDate.toLocaleTimeString();
-		n = tmp.length;
-		row.dueTime= 
-			{
-				time : 
-					("0" + tmp.substring(0,tmp.search(":"))).slice(-2) +
-					tmp.substring(tmp.search(":"),n-6),
-				AmPm : tmp.substring(n-2),
-			};		
+		row.dueDate = tmp.substring(4,n-4);	
 		return row;
 	});
 
@@ -34,15 +25,11 @@ function TasksDisplayBody(props)
 						<div className="card-body">
 							<div className="row row-2" id="task_info">
 								<div className="col-sm-auto" id="time_task">
-									<span>Due:<br />
-										{row.dueDate}
-									</span>
+									<span>Date:</span>
 								</div>
 
 								<div className="col-sm-auto" id="time_task">
-									<span>{row.dueTime.AmPm}<br />
-										{row.dueTime.time}
-									</span>
+									<span>{row.dueDate}</span>
 								</div>
 
 								<div className="col col-sm-fill" id="task_name">
@@ -82,13 +69,16 @@ function TasksDisplayBody(props)
 
 				<div className="p-2"
 					id="button_sp">
-					<button type="button" 
-						className="btn btn-secondary"
-						id="edit_task"
+					<Link to="/edit-task" state={{ taskID: row._id }}>
+
+						<button type="button" 
+							className="btn btn-secondary"
+							id="edit_task"
 						//onClick={()}
-					>
+						>
 							Edit
-					</button>
+						</button>
+					</Link>
 				</div>
 				<div className="p-2"
 					id="button_sp">

@@ -146,7 +146,7 @@ function SearchPage()
 					switch(searchFilter) 
 					{
 					case "1":
-						curTask = task.task_name.toLowerCase();
+						curTask = task.taskName.toLowerCase();
 						curFilter = searchInput.toLowerCase();
 						return curTask.includes(curFilter);
 					case "2":

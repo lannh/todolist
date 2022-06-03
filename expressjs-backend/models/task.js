@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const TaskSchema = new mongoose.Schema(
 	{
-		task_name: {
+		taskName: {
 			type: String,
 			required: true,
 			trim: true,
@@ -21,10 +21,12 @@ const TaskSchema = new mongoose.Schema(
 			trim: true,
 			default: "normal",
 		},
+
 		done: {
 			type: Boolean,
 			default: false
 		}
+
 	},
 	{ collection: "Tasks" }
 );

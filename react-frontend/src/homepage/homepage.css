@@ -305,6 +305,8 @@ img {
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
+  overflow: auto;
+  white-space: pre
 }
 
 #normal_priority{
@@ -353,3 +355,4 @@ img {
   width: 3vh;
   height: 3vh;
 }
+

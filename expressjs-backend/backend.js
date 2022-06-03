@@ -196,6 +196,19 @@ app.delete("/tasks/:uid/:id", async (req, res) =>
 		res.status(204).end();
 });
 
+//update task by id
+app.put("/update/tasks/:id", async (req, res) => 
+{
+	const idToUpdate = req.params.id;
+	const newTask = req.body;
+	let taskToUpdate = await taskServices.updateTaskByID(idToUpdate, newTask);
+	console.log(taskToUpdate);
+
+	if(taskToUpdate === undefined)
+		res.status(404).send("resource not found").end();
+	else
+		res.status(204).end();
+});
 
 
 app.listen(process.env.PORT || port, () => 

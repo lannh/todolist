@@ -1,6 +1,7 @@
 const userModel = require("./user");
 const scheduleModel = require("./schedule");
 const dotenv = require("dotenv");
+const { default: mongoose } = require("mongoose");
 
 dotenv.config();
 
@@ -70,6 +71,39 @@ async function findUserById(id)
 	{
 		console.log(error);
 		return undefined;
+	}
+}
+async function addTasktoUser(uid, taskID) 
+{
+	try{
+		//checks if its a valid user
+		const us = await userServices.findUserById(uid);
+		if (us === undefined) 
+		{
+			console.log("Failed to retreive task for user with id " + uid + ".\n");
+			return us;
+		}
+		await userModel.updateOne(
+			{_id:uid},
+			{$push:taskID},
+			function (error, success) 
+			{
+				if (error) 
+				{
+					console.log(error);
+				}
+				else 
+				{
+					console.log(success);
+				}
+			}
+		);
+		return true;	
+	}
+	catch (error) 
+	{
+		console.log(error);
+		return false;
 	}
 }
 
@@ -144,5 +178,6 @@ async function deleleTaskByID(uid,id)
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
+exports.addTasktoUser = addTasktoUser;
 exports.deleleUserByID = deleleUserByID;
 exports.deleleTaskByID = deleleTaskByID;

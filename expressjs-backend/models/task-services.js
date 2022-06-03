@@ -1,6 +1,23 @@
+const { application } = require("express");
 const taskModel = require("./task");
 const userServices = require("./user-services");
 
+//adds task to a given user using the userid
+async function addTasktoUser(uid,task) 
+{
+	try 
+	{
+		const newTask = new taskModel(task);
+		const savedTask = await newTask.save();
+		await userServices.addTasktoUser(uid,savedTask._id.valueOf());
+		return savedTask;
+	}
+	catch (err) 
+	{
+		console.log(err);
+		return undefined;
+	}
+}
 
 async function findTasksByUserId(id) 
 {
@@ -79,5 +96,6 @@ async function findTaskById(id)
 
 exports.findTasksByUserId = findTasksByUserId;
 exports.deleleTaskByID = deleleTaskByID;
+exports.addTasktoUser = addTasktoUser;
 exports.updateTaskByID = updateTaskByID;
 exports.findTaskById = findTaskById;

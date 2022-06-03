@@ -90,6 +90,49 @@ app.post("/users", async (req, res) =>
 		res.status(500).end();
 });
 
+//add new task to user 
+app.post("/users/:uid/tasks", async (req, res) => 
+{	
+	const task = req.params.body;
+	const uid = req.params.uid;
+	try
+	{
+		const result = await taskServices.addTasktoUser(uid,task);
+		if (result !== undefined)
+			res.status(201).send({savedTask: result});
+		else
+			res.status(500).send("An error ocurred in the server.");
+	}
+	catch (error)
+	{
+		console.log(error);
+		res.status(500).send("An error ocurred in the server.");
+	}
+});
+
+
+
+//add block to user's schedule
+app.post("/user/:uid/schedule/:day", async(req, res) =>
+{
+	const slot = req.body;
+	const uid = req.params.uid;
+	const day = req.params.day;
+	try 
+	{
+		const result = await blockServices.addBlockOnDay(uid, day, slot);
+		if (result !== undefined)
+			res.status(201).send({savedSlot: result});
+		else
+			res.status(500).send("An error ocurred in the server.");
+	}
+	catch (error)
+	{
+		console.log(error);
+		res.status(500).send("An error ocurred in the server.");
+	}
+}
+);
 //delete user by id
 app.delete("/user/:id", async (req, res) => 
 {
@@ -120,28 +163,7 @@ app.get("/user/:uid/schedule", async (req, res) =>
 }
 );
 
-//add block to user's schedule
-app.post("/user/:uid/schedule/:day", async(req, res) =>
-{
-	const slot = req.body;
-	const uid = req.params.uid;
-	const day = req.params.day;
 
-	try 
-	{
-		const result = await blockServices.addBlockOnDay(uid, day, slot);
-		if (result !== undefined)
-			res.status(201).send({savedSlot: result});
-		else
-			res.status(500).send("An error ocurred in the server.");
-	}
-	catch (error)
-	{
-		console.log(error);
-		res.status(500).send("An error ocurred in the server.");
-	}
-}
-);
 
 //remove block from user's schedule
 app.delete("/user/:uid/schedule/:day/:id", async(req, res) =>

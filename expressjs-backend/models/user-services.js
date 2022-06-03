@@ -1,11 +1,5 @@
 const userModel = require("./user");
 const scheduleModel = require("./schedule");
-
-const taskModel = require("./task");
-const { addTask } = require("./task-services");
-
-const userServices = require("./user-services");
-
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -26,7 +20,8 @@ async function findUserById(id)
 async function addTasktoUser(uid, taskID) 
 {
 
-	try{		
+	try
+	{		
 		console.log("NUMBER 1 WITHIN USER SERVICES");
 
 		//checks if its a valid user
@@ -38,7 +33,6 @@ async function addTasktoUser(uid, taskID)
 			return us;
 		}
 		//USER IS FOUND
-		const listID = us.tasks_list;
 		console.log("WITHIN USER SERVICES");
 		await userModel.updateOne(	//ERROR RIGHT HERE
 			{ _id: us._id },

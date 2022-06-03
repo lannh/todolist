@@ -1,4 +1,3 @@
-const { application } = require("express");
 const taskModel = require("./task");
 const userServices = require("./user-services");
 
@@ -14,7 +13,7 @@ async function addTasktoUser(uid,task)
 	}
 	catch (err) 
 	{
-		console.log(err);
+		//console.log(err);
 		return undefined;
 	}
 }
@@ -35,7 +34,7 @@ async function findTasksByUserId(id)
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return undefined;
 	}
 }
@@ -78,7 +77,7 @@ async function deleleTaskByID(id, uid)
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return undefined;
 	}
 }  
@@ -92,7 +91,8 @@ async function updateTaskByID(id, newTask)
 				task_name: newTask.task_name,
 				priority_level: newTask.priority_level,
 				due_date: newTask.due_date,
-				length: newTask.length
+				length: newTask.length,
+				done: newTask.done
 			});
 	}
 	catch (error) 
@@ -110,7 +110,7 @@ async function findTaskById(id)
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return undefined;
 	}
 }

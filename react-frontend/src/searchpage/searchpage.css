@@ -1,3 +1,14 @@
+
+@media (min-width: 0px)
+{
+  .flex-sm-column {
+    flex-direction: column !important;
+  }
+  .flex-sm-row {
+    flex-direction: row !important;
+  }
+}
+
 #searchPage {
     display: flex;
     height: 80vh;
@@ -22,7 +33,7 @@
 #todo_item1{
     position: relative;
     width: 100%;
-    min-width: 400px;
+    min-width: 450px;
     max-width: 100%;
 
     background-color: #C4C4C4;
@@ -107,4 +118,12 @@
   #searchInput:focus {
     border: 1px solid #bbeca1;
     box-shadow: 1px 1px 0px 2px #bbeca1;
+  }
+
+  #task_info {
+    flex-wrap: nowrap;
+  }
+
+  #time_task{
+    width: fit-content;
   }

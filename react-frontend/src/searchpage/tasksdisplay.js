@@ -5,34 +5,50 @@ import {Link} from "react-router-dom";
 
 function TasksDisplayBody(props) 
 {
-	const tasks_list = props.tasksData.map(row => 
+	const tasks_list = (props.tasksData.map(row => 
 	{
 		const dueDate = new Date(row.due_date);
 			
 		let tmp = dueDate.toDateString();
 		let n = tmp.length;
-		row.dueDate = tmp.substring(4,n-4);	
+		row.dueDate = tmp.substring(4,n-4) + ", "+ dueDate.getFullYear().toString().slice(-2);
+		
+		const curDuration = row.length;
+		row.duration = {
+			hrs: ("0" + String(parseInt(curDuration/60))).slice(-2), 
+			mins: ("0" + String(curDuration%60)).slice(-2)
+		};
+
 		return row;
-	});
+	}));
+
+	function handleCheck(e, row)
+	{
+		if(e.target.checked !== row.done)
+			props.updateTask(row._id, e.target.checked);
+	}
 
 	const rows = tasks_list.map((row, index) => 
 	{
 		return (
 			<div className="d-flex flex-sm-row justify-content-around" 
-				key={index}>
+				key={index} id="display_todo_item">
 				<div className="p-2 w-100">
 					<div className="card" id="todo_item1">
 						<div className="card-body">
 							<div className="row row-2" id="task_info">
-								<div className="col-sm-auto" id="time_task">
-									<span>Date:</span>
+								<div className="col-sm-auto" id="time_task"
+									style={(row.done===true ? {color: "grey"} : {color: "black"})}>
+									<span>Date: <br/> {row.dueDate} </span>
 								</div>
 
-								<div className="col-sm-auto" id="time_task">
-									<span>{row.dueDate}</span>
+								<div className="col-sm-auto" id="time_task"
+									style={(row.done===true ? {color: "gray"} : {color: "black"})}>
+									<span>Estimated time: <br/> {row.duration.hrs} : {row.duration.mins}</span>
 								</div>
 
-								<div className="col col-sm-fill" id="task_name">
+								<div className="col col-sm-fill" id="task_name"
+									style={(row.done===true ? {color: "grey"} : {color: "black"})}>
 									<span>{row.task_name}</span>
 								</div>
 
@@ -53,11 +69,8 @@ function TasksDisplayBody(props)
 										type="checkbox">
 										<Form.Check.Input
 											type="checkbox" 
-											defaultChecked={false}
-											onClick={(e) =>
-											{
-												console.log(e.target.checked);
-											}}
+											defaultChecked={row.done}
+											onClick={(e) => handleCheck(e, row)}
 										/>
 									</Form.Check>
 								</div>
@@ -107,7 +120,7 @@ function TasksDisplay(props)
 	return (
 		<>
 			<TasksDisplayBody tasksData={props.tasksData} 
-				removeTask={props.removeTask} />  
+				removeTask={props.removeTask} updateTask={props.updateTask} />  
 		</>
 	);  
 }

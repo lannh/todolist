@@ -62,7 +62,7 @@ describe("Connection", () =>
 		for (let i = 0; i < 10; i++)
 			uid += String(i);
 		const day = "3";
-		const anotherBlock = {start_time: 420, start_time_flexibility: 3, end_time_flexibility: 5};
+		const anotherBlock = {start_time: 420, end_time: 480, start_time_flexibility: 3, end_time_flexibility: 5};
 		const result = await blockServices.addBlockOnDay(uid, day, anotherBlock);
 		
 		expect(compareBlocks(anotherBlock, result)).toBeFalsy();
@@ -88,6 +88,16 @@ describe("Connection", () =>
 		for (let i = 0; i < 10; i++)
 			id += String(i);
 		const result = await blockServices.deleteBlockById(uid, day, id);
+		
+		expect(compareBlocks(newBlock, result)).toBeFalsy();
+	});
+
+	test("delete block by id (undefined id) -- will fail", async () => 
+	{
+		const newBlock = {start_time: 420, end_time: 480, start_time_flexibility: 3, end_time_flexibility: 5};
+		const uid = "629a16ba86dd526af5def396";
+		const day = "3";
+		const result = await blockServices.deleteBlockById(uid, day, undefined);
 		
 		expect(compareBlocks(newBlock, result)).toBeFalsy();
 	});

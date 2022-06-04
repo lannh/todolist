@@ -35,9 +35,9 @@ describe("Connection", () =>
 		{
 			let n = rhs[days[i]].length;
 			console.log("***n = " + n + "***");
+			console.log(rhs[days[i]]);
 			for (let j = 0; j < n; j++)
 			{
-				console.log(rhs[days[i]][j]);
 				if (lhs[days[i]][j] !== rhs[days[i]][j]["_id"].valueOf())
 					return false;
 			}

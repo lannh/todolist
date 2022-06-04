@@ -28,9 +28,11 @@ async function deleteBlockById(uid, day, id)
 	try 
 	{
 		const result = await scheduleServices.deleteBlockById(uid, day, id);
+		const blockRes = await blockModel.findByIdAndDelete(id);
 		if (result === false)
 			return undefined;
-		return await blockModel.findByIdAndDelete(id);
+		else
+			return blockRes;
 	}
 	catch (err) 
 	{

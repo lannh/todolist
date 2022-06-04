@@ -195,30 +195,6 @@ describe("Connection", () =>
 		expect(result).toBe(undefined);
 	});
 
-	test("add task", async () => 
-	{
-		const newTask = 
-			{taskName: "testing-test", due_date: new Date("12-31-2029"), priority_level: "normal", length: 10001};
-
-		const addedTask = await taskServices.addTask(newTask);
-
-		const result = await taskModel.findByIdAndDelete(addedTask._id);
-
-		expect(result).not.toBe(null);
-	});
-
-	test("add task  -- will fail", async () => 
-	{
-
-		let test = "";
-		for(let i=0; i<100000; ++i)
-			test += String(i);
-
-		const result = await taskServices.addTask(test);
-
-		expect(result).toBe(undefined);
-	});
-
 	test("add task to user", async () => 
 	{
 		const newTask = 
@@ -227,12 +203,13 @@ describe("Connection", () =>
 		const addedTask = await taskServices.addTasktoUser(uid,newTask);
 		const result = await taskModel.findByIdAndDelete(addedTask._id);
 
+		console.log(addedTask._id);
 		const isInTasks_list = 
 			await userModel.updateOne( 
 				{ _id: uid },
-				{ $pull: {tasks_list: addedTask._id} }
+				{ $pull:  {tasks_list: String(addedTask._id)}}
 			);
-
+		console.log(isInTasks_list);
 		expect(result !== null && isInTasks_list!==null).toBeTruthy();
 	});
 

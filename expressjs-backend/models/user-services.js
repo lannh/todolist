@@ -11,7 +11,7 @@ async function findUserById(id)
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return undefined;
 	}
 }
@@ -22,39 +22,20 @@ async function addTasktoUser(uid, taskID)
 
 	try
 	{		
-		console.log("NUMBER 1 WITHIN USER SERVICES");
-
 		//checks if its a valid user
 		const us = await findUserById(uid);	//finds the user
 
-		if (us === undefined) 
-		{
-			console.log("Failed to retreive task for user with id " + uid + ".\n");
-			return us;
-		}
 		//USER IS FOUND
-		console.log("WITHIN USER SERVICES");
-		await userModel.updateOne(	//ERROR RIGHT HERE
+		return await userModel.updateOne(	//ERROR RIGHT HERE
 			{ _id: us._id },
-			{ $push: {tasks_list : taskID} },
-			function (error, success) 
-			{
-				if (error) 
-				{
-					console.log(error);
-				}
-				else 
-				{
-					console.log(success);
-				}
-			}
-		).clone();
-		return true;	
+			{ $push: {tasks_list : taskID} }
+		);
+	
 	}
 	catch (error) 
 	{
-		console.log(error);
-		return false;
+		//console.log(error);
+		return undefined;
 	}
 }
 
@@ -63,17 +44,11 @@ async function addUser(user)
 	try 
 	{
 		const userToAdd = new userModel(user);
-		const scheduleToAdd = new scheduleModel();
-		//const tasksListToAdd = [];
-		userToAdd["schedule"] = scheduleToAdd._id;
-		userToAdd["tasks_list"] = [];
-		const savedUser = await userToAdd.save();
-		await scheduleToAdd.save();
-		return savedUser;
+		return await userToAdd.save();
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return false;
 	}
 }
@@ -89,7 +64,7 @@ async function deleleUserByID(id)
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return undefined;
 	}
 }
@@ -106,7 +81,7 @@ async function deleleTaskByID(uid,id)
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return undefined;
 	}
 }

@@ -11,8 +11,8 @@ async function addTask(task)
 	}
 	catch(error)
 	{
-		console.log(error);
-		return false;
+		//console.log(error);
+		return undefined;
 	}
 }
 //adds task to a given user using the userid
@@ -90,7 +90,7 @@ async function updateTaskByID(id, newTask)
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return undefined;
 	}
 } 

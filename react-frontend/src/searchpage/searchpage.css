@@ -127,3 +127,8 @@
   #time_task{
     width: fit-content;
   }
+
+  #display_todo_item{
+    min-width: 550px;
+    max-width: 100%;
+  }

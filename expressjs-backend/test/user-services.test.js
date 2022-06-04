@@ -27,6 +27,7 @@ describe("Connection", () =>
 			{name: "testing-user", schedule: [], tasks_list: []};
 		const userToSave = new userModel(newUser);
 		testingUser = await userToSave.save();
+
 	});
 
 	function compareUsers(lhs, rhs)
@@ -51,16 +52,14 @@ describe("Connection", () =>
 	test("add user fail", async () => 
 	{
 		const result = userServices.addUser(null);
-		console.log("DSADASDA", result);
 		expect(is_empty(result)).not.toBeTruthy();
 	});
 
 
 	test("delete user by id", async () => 
 	{
-		const newUser = {name: "testing-user", schedule: [], tasks_list: []};
-		const userToDelete = new userModel(newUser);
-		userServices.addUser(userToDelete);
+		const newUser = {name: "testing-user", schedule: null, tasks_list: []};
+		const userToDelete = await userServices.addUser(newUser);
 
 		await userServices.deleleUserByID(userToDelete._id);
 
@@ -71,17 +70,48 @@ describe("Connection", () =>
 
 	test("delete user by id fail", async () => 
 	{
-		const newUser = {name: "testing-user", schedule: [], tasks_list: []};
-		const userToDelete = userServices.addUser(newUser);
+		let testID = "";
+		for(let i=0; i<100000; ++i)
+			testID += String(i);
 
-		await userServices.deleleUserByID(userToDelete._id+10);
+		const result = await userServices.deleleUserByID(testID, null);
 
-		const result = await userModel.findById(userToDelete._id);
-
-		await userServices.deleleUserByID(userToDelete._id);
-
-		expect(result).toBe(userToDelete);
+		expect(result).toBe(undefined);
 	});
+
+	test("delete task inside tasks_list by id fail", async () => 
+	{
+		let testID = "";
+		for(let i=0; i<100000; ++i)
+			testID += String(i);
+
+		const result = await userServices.deleleTaskByID(testID, testID);
+
+		expect(result).toBe(undefined);
+	});
+
+	test("add task to user tasks_list", async () => 
+	{
+		let testID = "629ab50fc46a4811b56ad887";
+
+		await userServices.addTasktoUser(testingUser._id, testID);
+
+		const userAfterAddTask = await userModel.findById(testingUser._id);
+
+		expect(userAfterAddTask.tasks_list.find(x=>x===testID)).not.toBe(null);
+	});
+
+	test("add task to user tasks_list fail", async () => 
+	{
+		let testID = "";
+		for(let i=0; i<100000; ++i)
+			testID += String(i);
+
+		const result = await userServices.addTasktoUser(testID, testID);
+
+		expect(result).toBe(undefined);
+	});
+
 
 	afterAll(async () => 
 	{

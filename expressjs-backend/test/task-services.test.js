@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const taskServices = require("../models/task-services");
+const userModel = require("../models/user");
 const taskModel = require("../models/task");
 /*const userServices = require("./user-services");*/
 
@@ -73,6 +74,9 @@ describe("Connection", () =>
 
 	function compareTasksList(lhs, rhs)
 	{
+		if(rhs===undefined || rhs===null)
+			return false;
+
 		let res = true;
 		if(lhs.length !== rhs.length)
 			res = false;
@@ -93,12 +97,10 @@ describe("Connection", () =>
 	{
 		const testUserId = "62997f873db1beea8cd74d15";
 		const expectedTasksList = [
-			"629978af1612f4476fe554c9",
-			"6299786b27c503e398ae778a",
-			"629977c10df9585e1799b280",
-			"62997639c19ecce01a612ad5",
-			"629974f9b7e8b8e88d6f8b2b",
-			"6299738339b014f0491e3186"          
+			"629ab4cfc46a4811b56ad884",
+			"629ab4f4c46a4811b56ad885",
+			"629ab503c46a4811b56ad886",
+			"629ab50fc46a4811b56ad887"         
 		];
 
 		const result = await taskServices.findTasksByUserId(testUserId);
@@ -164,6 +166,84 @@ describe("Connection", () =>
 			testID += String(i);*/
 
 		const result = await taskServices.updateTaskByID(testingTask._id,null);
+
+		expect(result).toBe(undefined);
+	});
+
+
+	test("add task", async () => 
+	{
+		const newTask = 
+			{taskName: "testing-test", due_date: new Date("12-31-2029"), priority_level: "normal", length: 10001};
+
+		const addedTask = await taskServices.addTask(newTask);
+
+		const result = await taskModel.findByIdAndDelete(addedTask._id);
+
+		expect(result).not.toBe(null);
+	});
+
+	test("add task  -- will fail", async () => 
+	{
+
+		let test = "";
+		for(let i=0; i<100000; ++i)
+			test += String(i);
+
+		const result = await taskServices.addTask(test);
+
+		expect(result).toBe(undefined);
+	});
+
+	test("add task", async () => 
+	{
+		const newTask = 
+			{taskName: "testing-test", due_date: new Date("12-31-2029"), priority_level: "normal", length: 10001};
+
+		const addedTask = await taskServices.addTask(newTask);
+
+		const result = await taskModel.findByIdAndDelete(addedTask._id);
+
+		expect(result).not.toBe(null);
+	});
+
+	test("add task  -- will fail", async () => 
+	{
+
+		let test = "";
+		for(let i=0; i<100000; ++i)
+			test += String(i);
+
+		const result = await taskServices.addTask(test);
+
+		expect(result).toBe(undefined);
+	});
+
+	test("add task to user", async () => 
+	{
+		const newTask = 
+			{taskName: "testing-test", due_date: new Date("12-31-2029"), priority_level: "normal", length: 10001};
+		const uid = "62997f873db1beea8cd74d15";
+		const addedTask = await taskServices.addTasktoUser(uid,newTask);
+		const result = await taskModel.findByIdAndDelete(addedTask._id);
+
+		const isInTasks_list = 
+			await userModel.updateOne( 
+				{ _id: uid },
+				{ $pull: {tasks_list: addedTask._id} }
+			);
+
+		expect(result !== null && isInTasks_list!==null).toBeTruthy();
+	});
+
+	test("add task to user -- will fail", async () => 
+	{
+
+		let test = "";
+		for(let i=0; i<100000; ++i)
+			test += String(i);
+
+		const result = await taskServices.addTasktoUser(test, null);
 
 		expect(result).toBe(undefined);
 	});

@@ -32,8 +32,8 @@ function TasksDisplayBody(props)
 	{
 		return (
 			<div className="d-flex flex-sm-row justify-content-around" 
-				key={index} id="display_todo_item">
-				<div className="p-2 w-100">
+				key={index}>
+				<div className="p-2 w-100"  id="display_todo_item">
 					<div className="card" id="todo_item1">
 						<div className="card-body">
 							<div className="row row-2" id="task_info">

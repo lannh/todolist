@@ -101,4 +101,9 @@ describe("Connection", () =>
 		
 		expect(compareBlocks(newBlock, result)).toBeFalsy();
 	});
+
+	afterAll(async () => 
+	{
+		mongoose.disconnect();
+	});
 });

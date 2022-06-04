@@ -13,115 +13,49 @@ async function getSchedule(id)
 		const schedule = {Mon: [], Tue: [], Wed: [], Thu: [], Fri: [], Sat: [], Sun: []};
 
 		let m = scheduleRef.Mon.length;
-		if (m !== 0) 
-		{
-			try 
-			{
-				for (let j = 0; j < m; j++) 
-					schedule.Mon.push(await blockModel.findById(scheduleRef.Mon[j]));
-			}
-			catch (err)
-			{
-				console.log(err);
-				return undefined;
-			}
-		}
+		for (let j = 0; j < m; j++) 
+			schedule.Mon.push(await blockModel.findById(scheduleRef.Mon[j]));
+
+		
 
 		m = scheduleRef.Tue.length;
-		if (m !== 0) 
-		{
-			try 
-			{
-				for (let j = 0; j < m; j++) 
-					schedule.Tue.push(await blockModel.findById(scheduleRef.Tue[j]));
-			}
-			catch (err)
-			{
-				console.log(err);
-				return undefined;
-			}
-		}
+		for (let j = 0; j < m; j++) 
+			schedule.Tue.push(await blockModel.findById(scheduleRef.Tue[j]));
+
+		
         
 		m = scheduleRef.Wed.length;
-		if (m !== 0) 
-		{
-			try 
-			{
-				for (let j = 0; j < m; j++) 
-					schedule.Wed.push(await blockModel.findById(scheduleRef.Wed[j]));
-			}
-			catch (err)
-			{
-				console.log(err);
-				return undefined;
-			}
-		}
+		for (let j = 0; j < m; j++) 
+			schedule.Wed.push(await blockModel.findById(scheduleRef.Wed[j]));
+
+		
         
 		m = scheduleRef.Thu.length;
-		if (m !== 0) 
-		{
-			try 
-			{
-				for (let j = 0; j < m; j++) 
-					schedule.Thu.push(await blockModel.findById(scheduleRef.Thu[j]));
-			}
-			catch (err)
-			{
-				console.log(err);
-				return undefined;
-			}
-		}
+		for (let j = 0; j < m; j++) 
+			schedule.Thu.push(await blockModel.findById(scheduleRef.Thu[j]));
+
+		
         
 		m = scheduleRef.Fri.length;
-		if (m !== 0) 
-		{
-			try 
-			{
-				for (let j = 0; j < m; j++) 
-					schedule.Fri.push(await blockModel.findById(scheduleRef.Fri[j]));
-			}
-			catch (err)
-			{
-				console.log(err);
-				return undefined;
-			}
-		}
+		for (let j = 0; j < m; j++) 
+			schedule.Fri.push(await blockModel.findById(scheduleRef.Fri[j]));
+
+		
 
 		m = scheduleRef.Sat.length;
-		if (m !== 0) 
-		{
-			try 
-			{
-				for (let j = 0; j < m; j++) 
-					schedule.Sat.push(await blockModel.findById(scheduleRef.Sat[j]));
-			}
-			catch (err)
-			{
-				console.log(err);
-				return undefined;
-			}
-		}
+		for (let j = 0; j < m; j++) 
+			schedule.Sat.push(await blockModel.findById(scheduleRef.Sat[j]));
+		
         
 		m = scheduleRef.Sun.length;
-		if (m !== 0) 
-		{
-			try 
-			{
-				for (let j = 0; j < m; j++) 
-					schedule.Sun.push(await blockModel.findById(scheduleRef.Sun[j]));
-			}
-			catch (err)
-			{
-				console.log(err);
-				return undefined;
-			}
-		}
-		//console.log(schedule);
+		for (let j = 0; j < m; j++) 
+			schedule.Sun.push(await blockModel.findById(scheduleRef.Sun[j]));
+
 		return schedule;
 	}
 	catch (err) 
 	{
-		//console.log(err);
+		console.log(err);
 		return undefined;
 	}
 }
@@ -133,11 +67,15 @@ async function addBlockOnDay(uid, day, slotID) //USED IN BACKEND.JS
 {
 	try 
 	{
+		if (slotID === undefined || slotID === null) 
+		{
+			return false;
+		}
 		const us = await userServices.findUserById(uid);
-		if (us === undefined) 
+		if (us === undefined || us===null) 
 		{
 			console.log("Failed to retreive schedule for user with id " + uid + ".\n");
-			return false;
+			throw(Error);
 		}
 		const scheduleID = us.schedule;
 		var query = {};
@@ -153,7 +91,7 @@ async function addBlockOnDay(uid, day, slotID) //USED IN BACKEND.JS
 	}
 	catch (error) 
 	{
-		//console.log(error);
+		console.log(error);
 		return false;
 	}
 }
@@ -162,22 +100,22 @@ async function deleteBlockById(uid, day, slotID)
 {
 	try 
 	{
-		if (slotID === undefined) 
+		if (slotID === undefined || slotID === null) 
 		{
 			return false;
 		}
 		const us = await userServices.findUserById(uid);
-		if (us === undefined) 
+		if (us === undefined || us === null) 
 		{
 			console.log("Failed to retreive schedule for user with id " + uid + ".\n");
-			return false;
+			throw(Error);
 		}
 		const scheduleID = us.schedule;
 		var query = {};
 		query[days[parseInt(day)]] = slotID;
 		const result = await scheduleModel.updateOne( 
 			{ _id: scheduleID },
-			{ $pull: String(query) }
+			{ $pull: query }
 		);
 		if (result.modifiedCount > 0)
 			return true;

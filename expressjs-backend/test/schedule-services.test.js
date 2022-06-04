@@ -66,19 +66,21 @@ describe("Connection", () =>
 		let uid = "";
 		for (let i = 0; i < 10; i++)
 			uid += String(i);
-		const schedule =
-		{
-			"Mon":["629a17f3a8fb07f32728b1fa"],
-			"Tue":["629a17fea8fb07f32728b1fe"],
-			"Wed":["629a1815a8fb07f32728b206","629a1820a8fb07f32728b20a"],
-			"Thu":["629a182da8fb07f32728b20e","629b065fba982fa237421347"],
-			"Fri":["629a1831a8fb07f32728b212"],
-			"Sat":["629a183ca8fb07f32728b216"],
-			"Sun":["629a1854a8fb07f32728b220"]
-		};
+
 		const result = await scheduleServices.getSchedule(uid);
 
-		expect(compareSchedules(schedule, result)).toBeFalsy();
+		expect(result).toBe(undefined);
+	});
+
+	test("get schedule by user id (long user id) -- will fail", async () =>
+	{
+		let uid = "";
+		for (let i = 0; i < 10000; i++)
+			uid += String(i);
+
+		const result = await scheduleServices.getSchedule(uid);
+
+		expect(result).toBe(undefined);
 	});
 	
 	test("add block", async () =>
@@ -141,13 +143,27 @@ describe("Connection", () =>
 		const newBlock = {start_time: 420, end_time: 480, start_time_flexibility: 3, end_time_flexibility: 5};
 		const block = new blockModel(newBlock);
 		const savedBlock = await block.save();
-		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
-
-		const us = await userServices.findUserById(uid);
+		const result = await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
 
 		await blockModel.findByIdAndDelete(savedBlock._id);
 
-		expect(us).toEqual(undefined);
+		expect(result).toBeFalsy();
+	});
+
+	test("add block (long user id) -- will fail", async () => 
+	{
+		let uid = "";
+		for (let i = 0; i < 100000; i++)
+			uid += String(i);
+		const day = "3";
+		const newBlock = {start_time: 420, end_time: 480, start_time_flexibility: 3, end_time_flexibility: 5};
+		const block = new blockModel(newBlock);
+		const savedBlock = await block.save();
+		const result = await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
+
+		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(result).toBeFalsy();
 	});
 
 	test("delete block by id", async () => 
@@ -159,22 +175,10 @@ describe("Connection", () =>
 		const savedBlock = await block.save();
 		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
 		const result = await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
-		expect(result).toBeTruthy();
-
-		const us = await userServices.findUserById(uid);
-		const scheduleID = us.schedule;
-		const schedule = await scheduleModel.findOne({ _id: scheduleID });
-		let n = schedule[days[parseInt(day)]].length;
-		let storedBlock = false;
-		for (let i = 0; i < n; i++)
-		{
-			if (schedule[days[parseInt(day)]][i] === savedBlock._id.valueOf())
-				storedBlock = true;
-		}
 
 		await blockModel.findByIdAndDelete(savedBlock._id);
 
-		expect(storedBlock).toBeFalsy();
+		expect(result).toBeTruthy();
 	});
 	
 	test("delete block by id (nonexistent user) -- will fail", async () => 
@@ -220,23 +224,13 @@ describe("Connection", () =>
 		const block = new blockModel(newBlock);
 		const savedBlock = await block.save();
 		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
-		await scheduleServices.deleteBlockById(uid, day, id);
-		
-		const us = await userServices.findUserById(uid);
-		const scheduleID = us.schedule;
-		const schedule = await scheduleModel.findOne({ _id: scheduleID });
-		let n = schedule[days[parseInt(day)]].length;
-		let storedBlock = false;
-		for (let i = 0; i < n; i++)
-		{
-			if (schedule[days[parseInt(day)]][i] === savedBlock._id.valueOf())
-				storedBlock = true;
-		}
+		const result = await scheduleServices.deleteBlockById(uid, day, id);
+	
 		
 		await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
 		await blockModel.findByIdAndDelete(savedBlock._id);
 
-		expect(storedBlock).toBeTruthy();
+		expect(result).toBeFalsy();
 	});
 
 	test("delete block by id (undefined block id) -- will fail", async () => 
@@ -247,22 +241,50 @@ describe("Connection", () =>
 		const block = new blockModel(newBlock);
 		const savedBlock = await block.save();
 		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
-		await scheduleServices.deleteBlockById(uid, day, undefined);
-		
-		const us = await userServices.findUserById(uid);
-		const scheduleID = us.schedule;
-		const schedule = await scheduleModel.findOne({ _id: scheduleID });
-		let n = schedule[days[parseInt(day)]].length;
-		let storedBlock = false;
-		for (let i = 0; i < n; i++)
-		{
-			if (schedule[days[parseInt(day)]][i] === savedBlock._id.valueOf())
-				storedBlock = true;
-		}
+		const result = await scheduleServices.deleteBlockById(uid, day, undefined);
 		
 		await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
 		await blockModel.findByIdAndDelete(savedBlock._id);
 
-		expect(storedBlock).toBeTruthy();
+		expect(result).toBeFalsy();
+	});
+
+	test("delete block by id (nonexistent user) -- will fail", async () => 
+	{
+		let uid = "";
+		for (let i = 0; i < 10; i++)
+			uid += String(i);
+		const day = "3";
+		const newBlock = {start_time: 420, end_time: 480, start_time_flexibility: 3, end_time_flexibility: 5};
+		const block = new blockModel(newBlock);
+		const savedBlock = await block.save();
+		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
+		const result = await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
+		
+		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(result).toBeFalsy();
+	});
+
+	test("delete block by id (long userid) -- will fail", async () => 
+	{
+		let uid = "";
+		for (let i = 0; i < 100000; i++)
+			uid += String(i);
+		const day = "3";
+		const newBlock = {start_time: 420, end_time: 480, start_time_flexibility: 3, end_time_flexibility: 5};
+		const block = new blockModel(newBlock);
+		const savedBlock = await block.save();
+		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
+		const result = await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
+		
+		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(result).toBeFalsy();
+	});
+
+	afterAll(async () => 
+	{
+		mongoose.disconnect();
 	});
 });

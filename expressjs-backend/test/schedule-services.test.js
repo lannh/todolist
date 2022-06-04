@@ -33,9 +33,7 @@ describe("Connection", () =>
 
 		for (let i = 0; i < 7; i++)
 		{
-			let n = rhs[days[i]].length;
-			console.log("***n = " + n + "***");
-			console.log(rhs[days[i]]);
+			let n = lhs[days[i]].length;
 			for (let j = 0; j < n; j++)
 			{
 				if (lhs[days[i]][j] !== rhs[days[i]][j]["_id"].valueOf())
@@ -51,9 +49,9 @@ describe("Connection", () =>
 		const schedule =
 		{
 			"Mon":["629a17f3a8fb07f32728b1fa"],
-			"Tue":["629a17fea8fb07f32728b1fe","629a180ca8fb07f32728b202"],
+			"Tue":["629a17fea8fb07f32728b1fe"],
 			"Wed":["629a1815a8fb07f32728b206","629a1820a8fb07f32728b20a"],
-			"Thu":["629a182da8fb07f32728b20e"],
+			"Thu":["629a182da8fb07f32728b20e","629b065fba982fa237421347"],
 			"Fri":["629a1831a8fb07f32728b212"],
 			"Sat":["629a183ca8fb07f32728b216"],
 			"Sun":["629a1854a8fb07f32728b220"]
@@ -71,9 +69,9 @@ describe("Connection", () =>
 		const schedule =
 		{
 			"Mon":["629a17f3a8fb07f32728b1fa"],
-			"Tue":["629a17fea8fb07f32728b1fe","629a180ca8fb07f32728b202"],
+			"Tue":["629a17fea8fb07f32728b1fe"],
 			"Wed":["629a1815a8fb07f32728b206","629a1820a8fb07f32728b20a"],
-			"Thu":["629a182da8fb07f32728b20e"],
+			"Thu":["629a182da8fb07f32728b20e","629b065fba982fa237421347"],
 			"Fri":["629a1831a8fb07f32728b212"],
 			"Sat":["629a183ca8fb07f32728b216"],
 			"Sun":["629a1854a8fb07f32728b220"]

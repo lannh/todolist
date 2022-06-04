@@ -8,8 +8,8 @@ function WeeklyAvailability (props)
 	const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 	async function removeTimeSlot (dayIndex, index) 
 	{
-		const updated = JSON.parse(JSON.stringify(slots));
-		const id = updated[days[dayIndex]][index]._id;
+		let updated = JSON.parse(JSON.stringify(slots));
+		let id = updated[days[dayIndex]][index]._id;
 		updated[days[dayIndex]] = updated[days[dayIndex]].filter((slot, i) => 
 		{
 			return i !== index;
@@ -17,7 +17,7 @@ function WeeklyAvailability (props)
 		setTimeSlots(updated);
 		try 
 		{
-			const response = await axios.delete("http://localhost:5001/user/"
+			let response = await axios.delete("http://localhost:5001/user/"
 				+ props.id + "/schedule/" + dayIndex + "/" + id);
 			if (!(response && response.status === 204))
 				console.log(

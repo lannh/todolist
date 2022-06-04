@@ -134,15 +134,22 @@ async function addBlockOnDay(uid, day, slotID) //USED IN BACKEND.JS
 	try 
 	{
 		const us = await userServices.findUserById(uid);
-
+		if (us === undefined) 
+		{
+			console.log("Failed to retreive schedule for user with id " + uid + ".\n");
+			return false;
+		}
 		const scheduleID = us.schedule;
 		var query = {};
 		query[days[parseInt(day)]] = slotID;
-		await scheduleModel.updateOne(
+		const result = await scheduleModel.updateOne(
 			{ _id: scheduleID },
 			{ $push: query }
 		);
-		return true;
+		if (result.modifiedCount > 0)
+			return true;
+		else
+			return false;
 	}
 	catch (error) 
 	{
@@ -151,24 +158,36 @@ async function addBlockOnDay(uid, day, slotID) //USED IN BACKEND.JS
 	}
 }
 
-async function deleteBlockById(uid, day, id) 
+async function deleteBlockById(uid, day, slotID) 
 {
 	try 
 	{
+		if (slotID === undefined) 
+		{
+			return false;
+		}
 		const us = await userServices.findUserById(uid);
+		if (us === undefined) 
+		{
+			console.log("Failed to retreive schedule for user with id " + uid + ".\n");
+			return false;
+		}
 		const scheduleID = us.schedule;
 		var query = {};
-		query[days[parseInt(day)]] = id;
-		let result = await scheduleModel.updateOne( 
+		query[days[parseInt(day)]] = slotID;
+		const result = await scheduleModel.updateOne( 
 			{ _id: scheduleID },
 			{ $pull: String(query) }
 		);
-		return result;
+		if (result.modifiedCount > 0)
+			return true;
+		else
+			return false;
 	}
 	catch (error) 
 	{
-		//console.log(error);
-		return undefined;
+		console.log(error);
+		return false;
 	}
 }
 

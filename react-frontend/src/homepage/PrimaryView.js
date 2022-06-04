@@ -38,7 +38,10 @@ function PrimaryView ()
 		fetchTasks().then(result => 
 		{
 			if(result)
+			{
 				setTasks(result);
+				console.log(result);
+			}
 		});
 	},[]);
 

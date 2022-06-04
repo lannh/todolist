@@ -49,7 +49,7 @@ function TasksDisplayBody(props)
 
 								<div className="col col-sm-fill" id="task_name"
 									style={(row.done===true ? {color: "grey"} : {color: "black"})}>
-									<span>{row.task_name}</span>
+									<span>{row.taskName}</span>
 
 								</div>
 

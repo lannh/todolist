@@ -7,11 +7,7 @@ async function getSchedule(id)
 	try 
 	{
 		const us = await userServices.findUserById(id);
-		if (us === undefined) 
-		{
-			console.log("Failed to retreive schedule for user with id " + id + ".\n");
-			return us;
-		}
+
 		const scheduleID = us.schedule;
 		const scheduleRef = await scheduleModel.findById(scheduleID);
 		const schedule = {Mon: [], Tue: [], Wed: [], Thu: [], Fri: [], Sat: [], Sun: []};
@@ -120,12 +116,12 @@ async function getSchedule(id)
 				return undefined;
 			}
 		}
-
+		//console.log(schedule);
 		return schedule;
 	}
 	catch (err) 
 	{
-		console.log(err);
+		//console.log(err);
 		return undefined;
 	}
 }
@@ -137,39 +133,20 @@ async function addBlockOnDay(uid, day, slotID) //USED IN BACKEND.JS
 {
 	try 
 	{
-		if (slotID === undefined) 
-		{
-			return false;
-		}
 		const us = await userServices.findUserById(uid);
-		if (us === undefined) 
-		{
-			console.log("Failed to retreive schedule for user with id " + uid + ".\n");
-			return us;
-		}
+
 		const scheduleID = us.schedule;
 		var query = {};
 		query[days[parseInt(day)]] = slotID;
 		await scheduleModel.updateOne(
 			{ _id: scheduleID },
-			{ $push: query },
-			function (error, success) 
-			{
-				if (error) 
-				{
-					console.log(error);
-				}
-				else 
-				{
-					console.log(success);
-				}
-			}
+			{ $push: query }
 		);
 		return true;
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return false;
 	}
 }
@@ -179,23 +156,18 @@ async function deleteBlockById(uid, day, id)
 	try 
 	{
 		const us = await userServices.findUserById(uid);
-		if (us === undefined) 
-		{
-			console.log("Failed to retreive schedule for user with id " + uid + ".\n");
-			return us;
-		}
 		const scheduleID = us.schedule;
 		var query = {};
 		query[days[parseInt(day)]] = id;
 		let result = await scheduleModel.updateOne( 
 			{ _id: scheduleID },
-			{ $pull: query }
+			{ $pull: String(query) }
 		);
 		return result;
 	}
 	catch (error) 
 	{
-		console.log(error);
+		//console.log(error);
 		return undefined;
 	}
 }

@@ -15,6 +15,8 @@ function Form (props)
 		}
 	);
 
+	const [date, setDate] = React.useState(Date.now());
+
 	function handleChange(event)
 	{
 		const{name, value} = event.target;
@@ -23,9 +25,12 @@ function Form (props)
 				{ taskName:value,length:task["length"], due_date: task["due_date"], location:task["location"]}
 			);
 		else if(name === "due_date")
+		{
+			setDate(new Date(value));
 			settask(
-				{taskName:task["taskName"],length:task["length"],due_date: value, location:task["location"]}
+				{taskName:task["taskName"],length:task["length"],due_date: new Date(value), location:task["location"]}
 			);
+		}
 		else if(name === "priority_level")
 			settask(
 				{taskName:task["taskName"] , length:task["length"] ,
@@ -40,8 +45,16 @@ function Form (props)
 
 	function submitForm()
 	{
-		props.handleSubmit(task);
-		settask({taskName: "",length:0 , due_date:new Date(Date.now), priority_level:"normal"});
+		let newTask = {...task,};
+		var parseDate = Date.parse(task.due_date);
+
+		if (isNaN(parseDate) === true)
+		{
+			newTask.due_date = date;
+		}
+
+		props.handleSubmit(newTask);
+		settask({taskName: "",length:0 , due_date:new Date(Date.now), priority_level:""});
 	}
 
 	return (props.trigger) ? (

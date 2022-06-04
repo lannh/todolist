@@ -209,9 +209,11 @@ function EditTaskPage()
 														setShow(false);
 													}}
 													id="priorityEdit" aria-label="Default select example">
-													<option value="normal">Normal</option>
-													<option value="medium">Medium</option>
-													<option value="high">High</option>
+													<option value="1">Low</option>
+													<option value="2">Normal</option>
+													<option value="3">Medium</option>
+													<option value="4">High</option>
+													<option value="5">Highest</option>
 												</Form.Select>
 											</div>
 

@@ -132,3 +132,32 @@
     min-width: 550px;
     max-width: 100%;
   }
+
+  #Low_priority{
+    color:rgb(128, 238, 255) ;
+    filter: drop-shadow(1px 1px 1px #222222);
+    font-size: 3vh;
+  }
+
+  #Normal_priority{
+    color:rgb(147, 255, 128) ;
+    filter: drop-shadow(1px 1px 1px #222222);
+    font-size: 3vh;
+  }
+  
+  #Medium_priority{
+    color:rgb(249, 253, 16) ;
+    filter: drop-shadow(1px 1px 1px #222222);
+    font-size: 3vh;
+  }
+  
+  #High_priority{
+    color:rgb(238, 155, 0) ;
+    filter: drop-shadow(1px 1px 1px #222222);
+    font-size: 3vh;
+  }
+  #Highest_priority{
+    color:rgb(226, 78, 78) ;
+    filter: drop-shadow(1px 1px 1px #222222);
+    font-size: 3vh;
+  }

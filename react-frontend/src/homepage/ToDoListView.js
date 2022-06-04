@@ -126,6 +126,22 @@ function lerp_hex_colors(a, b, amount) //yoink
 	return "#" + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
 }
 
+function priorityToString(priorityNum)
+{
+	switch(parseInt(priorityNum))
+	{
+	case 1:
+		return "Low";
+	case 2:
+		return "Normal";
+	case 3:
+		return "Medium";
+	case 4:
+		return "High";
+	}
+	return "Highest";
+}
+
 function ToDoListView() 
 {
 	const [tasks, setTasks] = useState([]);
@@ -329,7 +345,7 @@ function ToDoListView()
 										id="high_priority" 
 										data-toggle="tooltip"
 										data-placement="auto"
-										title="Priority: High" />
+										title={"Priority: " + priorityToString(task_data.priority_level)} />
 									</div>
 
 									<div className="col-sm-auto" 

@@ -328,24 +328,6 @@ img {
   white-space: pre
 }
 
-#normal_priority{
-  color:rgb(147, 255, 128) ;
-  filter: drop-shadow(1px 1px 1px #222222);
-  font-size: 3vh;
-}
-
-#medium_priority{
-  color:rgb(238, 155, 0) ;
-  filter: drop-shadow(1px 1px 1px #222222);
-  font-size: 3vh;
-}
-
-#high_priority{
-  color:rgb(226, 78, 78) ;
-  filter: drop-shadow(1px 1px 1px #222222);
-  font-size: 3vh;
-}
-
 #task_name{
   margin-top: auto;
   margin-bottom: auto;

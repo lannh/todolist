@@ -5,6 +5,22 @@ import {Link} from "react-router-dom";
 
 function TasksDisplayBody(props) 
 {
+	function translatePriority(priorityNum)
+	{
+		switch(parseInt(priorityNum))
+		{
+		case 1:
+			return "Low";
+		case 2:
+			return "Normal";
+		case 3:
+			return "Medium";
+		case 4:
+			return "High";
+		}
+		return "Highest";
+	}
+
 	const tasks_list = (props.tasksData.map(row => 
 	{
 		const dueDate = new Date(row.due_date);
@@ -18,6 +34,8 @@ function TasksDisplayBody(props)
 			hrs: ("0" + String(parseInt(curDuration/60))).slice(-2), 
 			mins: ("0" + String(curDuration%60)).slice(-2)
 		};
+
+		row.priority_translated = translatePriority(row.priority_level);
 
 		return row;
 	}));
@@ -56,11 +74,11 @@ function TasksDisplayBody(props)
 								<div className="col-sm-auto" 
 									id="priority_level">
 									<i  className="bi bi-star-fill"
-										id={row.priority_level+"_priority"}
+										id={row.priority_translated+"_priority"}
 										data-toggle="tooltip" 
 										data-placement="auto"
 										title={"Priority: " + 
-											row.priority_level}
+											row.priority_translated}
 									/>
 								</div>
 

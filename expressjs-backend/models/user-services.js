@@ -22,7 +22,6 @@ async function addTasktoUser(uid, taskID)
 
 	try
 	{		
-		console.log("NUMBER 1 WITHIN USER SERVICES");
 
 		//checks if its a valid user
 		const us = await findUserById(uid);	//finds the user
@@ -33,7 +32,6 @@ async function addTasktoUser(uid, taskID)
 			return us;
 		}
 		//USER IS FOUND
-		console.log("WITHIN USER SERVICES");
 		await userModel.updateOne(	//ERROR RIGHT HERE
 			{ _id: us._id },
 			{ $push: {tasks_list : taskID} },
@@ -48,7 +46,7 @@ async function addTasktoUser(uid, taskID)
 					console.log(success);
 				}
 			}
-		).clone();
+		)
 		return true;	
 	}
 	catch (error) 

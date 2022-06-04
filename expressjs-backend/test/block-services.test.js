@@ -74,7 +74,7 @@ describe("Connection", () =>
 		const uid = "629a16ba86dd526af5def396";
 		const day = "3";
 		const addedBlock = await blockServices.addBlockOnDay(uid, day, newBlock);
-		const result = await blockServices.deleteBlockById(uid, day, addedBlock._id);
+		const result = await blockServices.deleteBlockById(uid, day, addedBlock._id.valueOf());
 
 		expect(compareBlocks(addedBlock, result)).toBeTruthy();
 	});

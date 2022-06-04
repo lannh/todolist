@@ -33,10 +33,11 @@ describe("Connection", () =>
 
 		for (let i = 0; i < 7; i++)
 		{
-			let n = lhs[days[i]].length;
+			let n = rhs[days[i]].length;
+			console.log("***n = " + n + "***");
 			for (let j = 0; j < n; j++)
 			{
-				//console.log(rhs[days[i]][j]);
+				console.log(rhs[days[i]][j]);
 				if (lhs[days[i]][j] !== rhs[days[i]][j]["_id"].valueOf())
 					return false;
 			}

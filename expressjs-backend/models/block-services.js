@@ -7,7 +7,13 @@ async function addBlockOnDay(uid, day, slot)
 	{
 		const block = new blockModel(slot);
 		const savedBlock = await block.save();
-		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
+		console.log(savedBlock);
+		const result = await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
+		if (result === false)
+		{
+			console.log("Block could not be added to schedule of user with id '" + uid + "'");
+			return undefined;
+		}
 		return savedBlock;
 	}
 	catch (err) 
@@ -21,8 +27,12 @@ async function deleteBlockById(uid, day, id)
 {
 	try 
 	{
-		await scheduleServices.deleteBlockById(uid, day, id);
-		return await blockModel.findByIdAndDelete(id);
+		const result = await scheduleServices.deleteBlockById(uid, day, id);
+		const blockRes = await blockModel.findByIdAndDelete(id);
+		if (result === false)
+			return undefined;
+		else
+			return blockRes;
 	}
 	catch (err) 
 	{

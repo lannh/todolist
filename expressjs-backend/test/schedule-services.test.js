@@ -101,10 +101,10 @@ describe("Connection", () =>
 				storedBlock = true;
 		}
 
-		expect(storedBlock).toBeTruthy();
-
 		await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
 		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(storedBlock).toBeTruthy();
 	});
 
 	test("add block (undefined block id) -- will fail", async () => 
@@ -127,9 +127,9 @@ describe("Connection", () =>
 				storedBlock = true;
 		}
 
-		expect(storedBlock).toBeFalsy();
-
 		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(storedBlock).toBeFalsy();
 	});
 
 	test("add block (nonexistent user) -- will fail", async () => 
@@ -145,9 +145,9 @@ describe("Connection", () =>
 
 		const us = await userServices.findUserById(uid);
 
-		expect(us).toEqual(undefined);
-
 		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(us).toEqual(undefined);
 	});
 
 	test("delete block by id", async () => 
@@ -172,9 +172,9 @@ describe("Connection", () =>
 				storedBlock = true;
 		}
 
-		expect(storedBlock).toBeFalsy();
-
 		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(storedBlock).toBeFalsy();
 	});
 	
 	test("delete block by id (nonexistent user) -- will fail", async () => 
@@ -189,9 +189,9 @@ describe("Connection", () =>
 		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
 		const result = await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
 		
-		expect(result).toBeFalsy();
-
 		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(result).toBeFalsy();
 	});
 
 	test("delete block by id (invalid day) -- will fail", async () => 
@@ -204,9 +204,9 @@ describe("Connection", () =>
 		await scheduleServices.addBlockOnDay(uid, day, savedBlock._id.valueOf());
 		const result = await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
 		
-		expect(result).toBeFalsy();
-		
 		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(result).toBeFalsy();
 	});
 
 	test("delete block by id (invalid block id) -- will fail", async () => 
@@ -233,10 +233,10 @@ describe("Connection", () =>
 				storedBlock = true;
 		}
 		
-		expect(storedBlock).toBeTruthy();
-		
 		await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
 		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(storedBlock).toBeTruthy();
 	});
 
 	test("delete block by id (undefined block id) -- will fail", async () => 
@@ -260,9 +260,9 @@ describe("Connection", () =>
 				storedBlock = true;
 		}
 		
-		expect(storedBlock).toBeTruthy();
-		
 		await scheduleServices.deleteBlockById(uid, day, savedBlock._id.valueOf());
 		await blockModel.findByIdAndDelete(savedBlock._id);
+
+		expect(storedBlock).toBeTruthy();
 	});
 });

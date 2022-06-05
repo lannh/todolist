@@ -1,3 +1,6 @@
+![example workflow](https://github.com/lannh/todolist/actions/workflows/node.js.yml/badge.svg)
+
+
 Styling Standards
 
 Naming: snake case
